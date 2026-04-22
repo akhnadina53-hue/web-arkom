@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fren-Edu — Prototype Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">🎓 Fren-Edu</h1>
+    <p class="subtitle">Belajar lebih smart dengan AI</p>
+
+    <div class="orb"></div>
+
+    <button id="rekamBtn">🎤 Mulai Rekam</button>
+
+    <div id="result" class="card">
+      Hasil rekaman akan muncul di sini...
+    </div>
+  </div>
+
+  <div class="controls card">
+    <button id="ringkasBtn">🧠 Ringkas</button>
+    <button id="generateQaBtn">❓ Buat Pertanyaan</button>
+    <button id="speakSummaryBtn">🔊 Dengarkan Ringkasan</button>
+
+    <div class="voice-settings">
+      <label for="voiceSelect">Pilih Suara:</label>
+      <select id="voiceSelect"></select>
+      <label for="rateRange">Kecepatan:</label>
+      <input id="rateRange" type="range" min="0.5" max="1.8" step="0.1" value="1">
+      <span class="rate-label" id="rateLabel">1.0x</span>
+    </div>
+  </div>
+
+  <div class="card" id="transcriptCard">
+    <h3>📝 Transkrip</h3>
+    <div id="transcript">—</div>
+  </div>
+
+  <div class="card" id="summaryCard">
+    <h3>✨ Ringkasan</h3>
+    <div id="summary">—</div>
+    <h4>🎯 Poin Penting</h4>
+    <ul id="keyPoints"></ul>
+  </div>
+
+  <div class="card" id="qaCard">
+    <h3>❓ Tanya Jawab</h3>
+    <input id="question" placeholder="Tanya dari materi..." />
+    <button id="tanyaBtn">💬 Tanya</button>
+    <div id="answerArea"></div>
+    <div id="generatedQuestions"></div>
+  </div>
+
+  <footer class="footer">
+    <p>💡 <strong>Prototype</strong>: Menggunakan Browser APIs (no server needed)</p>
+    <p>🌐 Supports: Chrome/Edge/Firefox | Mobile friendly</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
