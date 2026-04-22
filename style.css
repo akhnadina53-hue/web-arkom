@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: white;
+  }
+  
+  /* layout */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 25px;
+  }
+  
+  /* title */
+  .title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+  
+  /* orb AI */
+  .orb {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #38bdf8, #2563eb);
+    box-shadow:
+      0 0 60px #38bdf8,
+      0 0 120px #2563eb;
+    animation: pulse 2s infinite;
+  }
+  
+  /* animasi */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  /* tombol */
+  #rekamBtn {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #rekamBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #22c55e;
+  }
+  
+  /* card hasil */
+  .card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  }
+  audio {
+    margin-top: 10px;
+    width: 100%;
+  }
