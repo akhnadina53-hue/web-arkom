@@ -44,7 +44,7 @@ function initSpeechRecognition() {
     finalTranscript += final;
     transcriptDiv.textContent = (finalTranscript + interimTranscript).trim() || '—';
   };
-  r.onerror = (e) => console.warn('SpeechRecognition error', e);
+  r.onerror = (e) => console.warn('SpeechRecognition ierror', e);
   return r;
 }
 
@@ -153,7 +153,7 @@ generateQaBtn.onclick = () => {
   generatedQuestionsDiv.innerHTML = qs;
 };
 
-// --- TTS (client) ---
+// --- klien (user) ---
 function populateVoices() {
   const voices = speechSynthesis.getVoices();
   voiceSelect.innerHTML = voices.map(v => `<option value="${v.name}">${v.name} — ${v.lang}</option>`).join('');
