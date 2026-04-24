@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Transition } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Mic, Zap, Brain, Sparkles, ArrowRight, Play } from "lucide-react";
 
@@ -9,7 +9,11 @@ export default function HomePage() {
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  };
+
+  const defaultTransition: Transition = { 
+    duration: 0.6, 
+    ease: [0.16, 1, 0.3, 1] 
   };
 
   return (
@@ -36,7 +40,9 @@ export default function HomePage() {
           </motion.div>
 
           <motion.h1 
-            {...fadeInUp}
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={defaultTransition}
             className="text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[1.05]"
           >
             Voice to <br />
@@ -44,8 +50,9 @@ export default function HomePage() {
           </motion.h1>
 
           <motion.p 
-            {...fadeInUp}
-            transition={{ delay: 0.2 }}
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...defaultTransition, delay: 0.2 }}
             className="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-12 leading-relaxed"
           >
             Transform your lectures, meetings, and ideas into structured notes, 
@@ -53,8 +60,9 @@ export default function HomePage() {
           </motion.p>
 
           <motion.div 
-            {...fadeInUp}
-            transition={{ delay: 0.3 }}
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...defaultTransition, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link 
