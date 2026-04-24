@@ -12,7 +12,9 @@ class QAGenerateRequest(BaseModel):
 
 class QuestionItem(BaseModel):
     question: str
+    options: list[str] | None = None
     correct_answer: str
+    explanation: str | None = None
     hint: str | None = None
 
 class QAGenerateResponse(BaseModel):
@@ -33,7 +35,9 @@ async def generate(req: QAGenerateRequest):
         for q in response_json.get("questions", []):
              questions.append(QuestionItem(
                  question=q.get("question", ""),
+                 options=q.get("options", []),
                  correct_answer=q.get("correct_answer", ""),
+                 explanation=q.get("explanation", ""),
                  hint=q.get("hint", "")
              ))
 

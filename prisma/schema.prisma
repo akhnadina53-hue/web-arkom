@@ -8,15 +8,45 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  name      String?
-  image     String?
-  sessions  Session[]
-  createdAt DateTime  @default(now())
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[] // NextAuth sessions
+  recordings    RecordingSession[]
+  createdAt     DateTime  @default(now())
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model RecordingSession {
   id            String          @id @default(cuid())
   userId        String
   user          User            @relation(fields: [userId], references: [id])
@@ -47,7 +77,7 @@ enum SessionStatus {
 model QAItem {
   id            String   @id @default(cuid())
   sessionId     String
-  session       Session  @relation(fields: [sessionId], references: [id])
+  session       RecordingSession  @relation(fields: [sessionId], references: [id])
   question      String
   correctAnswer String
   userAnswer    String?
@@ -59,7 +89,7 @@ model QAItem {
 model GeneratedAudio {
   id          String   @id @default(cuid())
   sessionId   String
-  session     Session  @relation(fields: [sessionId], references: [id])
+  session     RecordingSession  @relation(fields: [sessionId], references: [id])
   voiceStyle  String   // "female_formal", "child_friendly", dll
   language    String
   audioUrl    String
