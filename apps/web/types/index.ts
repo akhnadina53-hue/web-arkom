@@ -7,7 +7,7 @@ export interface User {
   createdAt: Date;
 }
 
-export interface Session {
+export interface RecordingSession {
   id: string;
   userId: string;
   title: string;

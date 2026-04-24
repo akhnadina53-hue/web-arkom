@@ -1,13 +1,13 @@
 import { create } from 'zustand';
-import type { Session } from '@/types';
+import type { RecordingSession } from '@/types';
 
 interface SessionStore {
-  sessions: Session[];
-  currentSession: Session | null;
-  setSessions: (sessions: Session[]) => void;
-  setCurrentSession: (session: Session | null) => void;
-  addSession: (session: Session) => void;
-  updateSession: (id: string, session: Partial<Session>) => void;
+  sessions: RecordingSession[];
+  currentSession: RecordingSession | null;
+  setSessions: (sessions: RecordingSession[]) => void;
+  setCurrentSession: (session: RecordingSession | null) => void;
+  addSession: (session: RecordingSession) => void;
+  updateSession: (id: string, session: Partial<RecordingSession>) => void;
   removeSession: (id: string) => void;
 }
 

@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
-import { FileText, Brain, MessageSquare, AudioLines, ChevronLeft, Download, Share2 } from "lucide-react";
+import { FileText, Brain, MessageSquare, AudioLines, ChevronLeft, Download, Share2, Clock } from "lucide-react";
 import Link from "next/link";
 
 export default function SessionPage({ params }: { params: { id: string } }) {
