@@ -4,3 +4,8 @@ pydantic>=2.0
 python-multipart
 requests
 aiohttp
+groq
+openai
+edge-tts
+python-dotenv
+supabase

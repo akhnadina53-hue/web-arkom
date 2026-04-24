@@ -17,18 +17,51 @@ model User {
 }
 
 model Session {
-  id            String      @id @default(cuid())
+  id            String          @id @default(cuid())
   userId        String
-  user          User        @relation(fields: [userId], references: [id])
-  title         String      @default("Untitled Recording")
-  status        String      @default("RECORDING")
-  duration      Int?
-  language      String      @default("id")
-  audioUrl      String?
-  transcript    String?
-  summary       Json?
-  keyPoints     String[]
-  mindMap       Json?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  user          User            @relation(fields: [userId], references: [id])
+  title         String          @default("Untitled Recording")
+  status        SessionStatus   @default(RECORDING)
+  duration      Int?            // dalam detik
+  language      String          @default("id") // deteksi otomatis
+  audioUrl      String?         // Supabase storage URL
+  transcript    String?         // full transcript text
+  summary       Json?           // structured summary dari backend
+  keyPoints     String[]        // array poin penting
+  mindMap       Json?           // data mind map
+  qaHistory     QAItem[]
+  generatedAudios GeneratedAudio[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+enum SessionStatus {
+  RECORDING
+  PROCESSING
+  TRANSCRIBING
+  SUMMARIZING
+  DONE
+  ERROR
+}
+
+model QAItem {
+  id            String   @id @default(cuid())
+  sessionId     String
+  session       Session  @relation(fields: [sessionId], references: [id])
+  question      String
+  correctAnswer String
+  userAnswer    String?
+  score         Int?     // 0-100
+  feedback      String?
+  createdAt     DateTime @default(now())
+}
+
+model GeneratedAudio {
+  id          String   @id @default(cuid())
+  sessionId   String
+  session     Session  @relation(fields: [sessionId], references: [id])
+  voiceStyle  String   // "female_formal", "child_friendly", dll
+  language    String
+  audioUrl    String
+  createdAt   DateTime @default(now())
 }

@@ -8,24 +8,16 @@ API_HOST = os.getenv("API_HOST", "0.0.0.0")
 API_PORT = int(os.getenv("API_PORT", "8000"))
 API_ENV = os.getenv("API_ENV", "development")
 
-# AI Providers
-WHISPER_PROVIDER = os.getenv("WHISPER_PROVIDER", "openai")
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")
+# Groq Configuration (Fast Whisper STT)
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "anthropic")
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
-
-TTS_PROVIDER = os.getenv("TTS_PROVIDER", "coqui")
+# OpenRouter Configuration (Free LLM Router)
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
+OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-pro") # Contoh: google/gemini-pro atau meta-llama/llama-3-8b-instruct
 
 # Supabase Configuration
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
-
-# Model Paths (for local models)
-WHISPER_MODEL_PATH = os.getenv("WHISPER_MODEL_PATH", "./models/whisper")
-COQUI_TTS_MODEL_PATH = os.getenv("COQUI_TTS_MODEL_PATH", "./models/coqui")
 
 # Feature Flags
 ENABLE_CACHING = os.getenv("ENABLE_CACHING", "true").lower() == "true"
