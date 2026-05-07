@@ -1,4 +1,3 @@
-// User & Auth Types
 export interface User {
   id: string;
   email: string;
@@ -77,7 +76,6 @@ export interface GeneratedAudio {
   createdAt: Date;
 }
 
-// API Request/Response Types
 export interface TranscribeRequest {
   audioBlob: Blob;
   language?: string;
@@ -120,7 +118,6 @@ export interface TTSResponse {
   duration: number;
 }
 
-// Recording State
 export interface RecordingState {
   isRecording: boolean;
   duration: number;
