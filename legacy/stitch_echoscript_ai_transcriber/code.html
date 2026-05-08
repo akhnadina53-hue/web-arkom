@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fren-Edu Transcription</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191c1e",
+                        "on-primary-container": "#005446",
+                        "inverse-surface": "#2d3133",
+                        "tertiary-container": "#25d0bb",
+                        "on-secondary-fixed": "#121f00",
+                        "inverse-primary": "#2cdebf",
+                        "background": "#f7f9fb",
+                        "outline": "#6b7a75",
+                        "secondary": "#446900",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "outline-variant": "#bacac4",
+                        "primary-fixed-dim": "#2cdebf",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed-variant": "#334f00",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#006b5f",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary-fixed-dim": "#98da27",
+                        "on-surface-variant": "#3b4a45",
+                        "surface-dim": "#d8dadc",
+                        "on-primary-fixed-variant": "#005143",
+                        "primary": "#006b5a",
+                        "secondary-fixed": "#b2f746",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#00201a",
+                        "on-secondary-container": "#496f00",
+                        "surface-container": "#eceef0",
+                        "secondary-container": "#b2f746",
+                        "primary-container": "#00d1b2",
+                        "surface-tint": "#006b5a",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#62fae3",
+                        "surface-bright": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed": "#00201c",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "tertiary-fixed-dim": "#3cddc7",
+                        "on-tertiary-container": "#00544b",
+                        "primary-fixed": "#58fbda",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Plus Jakarta Sans"],
+                        "h2": ["Plus Jakarta Sans"],
+                        "human-touch": ["Plus Jakarta Sans"],
+                        "ai-monospaced": ["Space Grotesk"],
+                        "body-main": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "h2": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "human-touch": ["18px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "ai-monospaced": ["14px", { "lineHeight": "1.5", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 209, 178, 0.1);
+        }
+        .hero-pattern {
+            background-color: #f7f9fb;
+            background-image: radial-gradient(#00d1b2 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.8;
+        }
+        
+        /* Particle cursor styles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            background: #00d1b2;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: float-away 1s ease-out forwards;
+        }
+
+        @keyframes float-away {
+            0% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        /* Full width equalizer styles */
+        .full-width-eq {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            overflow: hidden;
+            background: linear-gradient(90deg, rgba(0,107,90,0.05) 0%, rgba(0,209,178,0.1) 50%, rgba(0,107,90,0.05) 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 5;
+        }
+
+        .full-width-eq-bar {
+            width: 4px;
+            background-color: #00d1b2;
+            border-radius: 2px;
+            animation: full-eq-animate 1.5s ease-in-out infinite alternate;
+            opacity: 0.6;
+        }
+
+        @keyframes full-eq-animate {
+            0% { height: 10px; }
+            100% { height: 50px; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main text-body-main antialiased selection:bg-primary-container selection:text-on-primary-container relative">
+<!-- Custom Cursor Particles Script -->
+<script>
+    document.addEventListener('mousemove', function(e) {
+        if (Math.random() > 0.8) { // Don't spawn a particle on every pixel
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Randomize size
+            const size = Math.random() * 6 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Position at cursor
+            particle.style.left = `${e.clientX}px`;
+            particle.style.top = `${e.clientY}px`;
+            
+            // Random direction for animation
+            const tx = (Math.random() - 0.5) * 100;
+            const ty = (Math.random() - 0.5) * 100 + 50; // Tend to fall downwards
+            particle.style.setProperty('--tx', `calc(-50% + ${tx}px)`);
+            particle.style.setProperty('--ty', `calc(-50% + ${ty}px)`);
+            
+            // Random color variation
+            const colors = ['#00d1b2', '#006b5a', '#58fbda'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.appendChild(particle);
+            
+            // Remove after animation
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+    });
+</script>
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300">
+<div class="flex justify-between items-center px-md py-sm max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<img alt="Fren-Edu Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmM5IBICcxMwMN-xnseBfdLD_6H4zx5SXJmdMLxzjL9ZVb8pjoKOakahQ6PQx9ryxRFBOmRvELuzienSC-i94wK-u7Gphe9pdKuGs2p9efhdiJMgIMsdRubxW2BQdGhbJcPVCwnYtRWQIjrcBPN8_PB6_fWxPlYosGw7DeBbS36PPgXFW1ySF7yNjOMLDo-ZMr5nQu-qoG5JZ0YQSmpEkBwhHN5xVMcfxUjJuYOJ2SMrwwnYYQ83fPEAtClaEhQ0sWx98JkgtPrHCP"/>
+<span class="font-h2 text-h2 font-black text-primary">Fren-Edu</span>
+</div>
+<div class="hidden md:flex items-center gap-md">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 transition-colors" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#about">About</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#subscription">Subscription</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#contact">Contact Dev</a>
+</div>
+<button class="hidden md:flex items-center justify-center px-md py-sm bg-primary text-on-primary rounded-full hover:bg-surface-tint transition-all duration-300 active:scale-95 font-body-main text-body-main font-bold">
+                Sign in with Google
+            </button>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-xl pb-xl">
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center justify-center px-md py-xl overflow-hidden hero-pattern">
+<div class="absolute inset-0 z-0 bg-gradient-to-b from-transparent to-background/90 pointer-events-none"></div>
+<!-- Full Width Equalizer -->
+<div class="full-width-eq">
+<script>
+        for(let i=0; i<150; i++) {
+            document.write(`<div class="full-width-eq-bar" style="animation-delay: ${Math.random() * 1.5}s; height: ${Math.random() * 40 + 10}px"></div>`);
+        }
+    </script>
+</div>
+<div class="max-w-container-max mx-auto relative z-10 grid md:grid-cols-2 gap-lg items-center">
+<div class="space-y-md">
+<div class="inline-flex items-center gap-xs px-sm py-xs bg-primary-container/20 text-primary rounded-full font-ai-monospaced text-ai-monospaced">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        AI Powered Transcription
+                    </div>
+<h1 class="font-h1 text-h1 text-on-background">
+                        Never miss a word.<br/>
+<span class="text-primary">Capture everything.</span>
+</h1>
+<p class="font-human-touch text-human-touch text-on-surface-variant max-w-lg italic">
+                        "Transcribe your lectures in seconds!"
+                    </p>
+<div class="flex flex-col sm:flex-row gap-sm pt-sm">
+<button class="flex items-center justify-center gap-sm px-lg py-sm bg-primary text-on-primary rounded-full hover:bg-surface-tint shadow-[0_8px_24px_rgba(0,107,90,0.2)] transition-all duration-300 active:scale-95 font-body-main text-body-main font-bold text-lg">
+                            Get Started Now
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="flex items-center justify-center gap-sm px-lg py-sm glass-panel text-primary rounded-full hover:bg-surface-container-highest transition-all duration-300 active:scale-95 font-body-main text-body-main font-bold text-lg">
+                            Watch Demo
+                            <span class="material-symbols-outlined">play_circle</span>
+</button>
+</div>
+</div>
+<!-- Hero Image/Visual -->
+<div class="relative w-full h-[500px] hidden md:block rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,209,178,0.15)] group">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A modern, high-tech workspace featuring a minimalist setup with glowing teal and green equalizer patterns subtly integrated into the environment. The scene is brightly lit with natural sunlight streaming across a sleek desk, emphasizing a clean, light-mode aesthetic. A stylish digital interface hovers dynamically in the foreground, projecting academic transcription data with a sophisticated, glassmorphic design language. The mood is highly productive, cutting-edge, and effortlessly intelligent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0MKzP2tjkqA1pWFkJoGR3RccjqNugILLCJyQYRbze_uiftfl7a5C6SsmcAiNiquBZ60a0CpIohIE24Dl-hq72vciAcyA_pypnP4xO2BmHCttAuYbircjKBSO0CIs1_8pXdVFNO4h7_a-U7nIhz9SVSioUG5R5RhvjUzbyx0WnCQxK7qrmi1S09l6tH_Yvu7XqwrNsuS3GsFwxdkzxHAtvc8ZxA1FX4CZ6pfLUekRXi4nP46EsJAYUhf8SKZ1tlg1u3x-S5zIGWQP6"/>
+<!-- Floating UI Element -->
+<div class="absolute bottom-md left-md right-md glass-panel p-md rounded-xl shadow-lg border border-white/40">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-primary">mic</span>
+<span class="font-ai-monospaced text-ai-monospaced text-outline">Processing Audio...</span>
+<div class="flex gap-[2px] ml-auto h-4 items-end">
+<div class="w-1 bg-primary h-full"></div>
+<div class="w-1 bg-secondary-container h-2/3"></div>
+<div class="w-1 bg-primary h-1/2"></div>
+<div class="w-1 bg-secondary-container h-full"></div>
+<div class="w-1 bg-primary h-3/4"></div>
+</div>
+</div>
+<p class="font-body-main text-body-main text-on-surface">
+                            "...so the fundamental difference between these two theories lies in their approach to..."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="px-md py-xl bg-surface-container-lowest" id="about">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-xl max-w-2xl mx-auto">
+<h2 class="font-h2 text-h2 text-on-background mb-sm">Built for the fast-paced classroom.</h2>
+<p class="font-body-main text-body-main text-on-surface-variant">Stop struggling to keep up with fast-talking lecturers. Our AI listens, transcribes, and organizes so you can focus on understanding.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-md">
+<!-- Feature 1 -->
+<div class="glass-panel p-lg rounded-xl flex flex-col gap-sm hover:shadow-[0_12px_32px_rgba(0,209,178,0.1)] transition-all duration-300 transform hover:-translate-y-1">
+<div class="w-12 h-12 bg-primary-container/20 rounded-full flex items-center justify-center text-primary mb-sm">
+<span class="material-symbols-outlined text-2xl">speed</span>
+</div>
+<h3 class="font-body-main text-body-main font-bold text-on-background text-xl">Real-time Speed</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Instantaneous transcription as the lecture happens. Never miss a crucial point or assignment detail again.</p>
+</div>
+<!-- Feature 2 -->
+<div class="glass-panel p-lg rounded-xl flex flex-col gap-sm hover:shadow-[0_12px_32px_rgba(0,209,178,0.1)] transition-all duration-300 transform hover:-translate-y-1">
+<div class="w-12 h-12 bg-primary-container/20 rounded-full flex items-center justify-center text-primary mb-sm">
+<span class="material-symbols-outlined text-2xl">edit_note</span>
+</div>
+<h3 class="font-body-main text-body-main font-bold text-on-background text-xl">Smart Formatting</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Automatically detects paragraphs, bullet points, and key terms, structuring your notes for easy review.</p>
+<div class="mt-auto pt-sm border-t border-outline-variant/30">
+<span class="font-ai-monospaced text-ai-monospaced text-outline block text-xs">Confidence Score: 98.4%</span>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="glass-panel p-lg rounded-xl flex flex-col gap-sm hover:shadow-[0_12px_32px_rgba(0,209,178,0.1)] transition-all duration-300 transform hover:-translate-y-1">
+<div class="w-12 h-12 bg-primary-container/20 rounded-full flex items-center justify-center text-primary mb-sm">
+<span class="material-symbols-outlined text-2xl">sync</span>
+</div>
+<h3 class="font-body-main text-body-main font-bold text-on-background text-xl">Cloud Sync</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Access your transcriptions across all devices instantly. Start on your laptop, review on your phone.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="px-md py-xl bg-background" id="subscription">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-xl max-w-2xl mx-auto">
+<h2 class="font-h2 text-h2 text-on-background mb-sm">Simple, transparent pricing.</h2>
+<p class="font-body-main text-body-main text-on-surface-variant">Choose the plan that fits your study habits.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-lg max-w-5xl mx-auto">
+
+<div class="glass-panel p-lg rounded-2xl flex flex-col border border-outline-variant/30">
+<h3 class="font-body-main text-body-main font-bold text-on-surface-variant text-xl mb-xs">Free</h3>
+<div class="flex items-baseline gap-xs mb-md">
+<span class="font-h2 text-h2 text-on-background">$0</span>
+<span class="font-body-main text-body-main text-outline">/month</span>
+</div>
+<ul class="space-y-sm mb-lg flex-1">
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                2 hours of transcription
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Standard accuracy
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                7-day history
+                            </li>
+</ul>
+<button class="w-full py-sm rounded-full border-2 border-primary text-primary font-bold hover:bg-primary-container/10 transition-colors">
+                            Current Plan
+                        </button>
+</div>
+
+<div class="bg-surface-container-lowest p-lg rounded-2xl flex flex-col shadow-[0_24px_48px_rgba(0,209,178,0.15)] border border-primary relative transform md:-translate-y-4">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-on-primary px-sm py-xs rounded-full text-xs font-bold uppercase tracking-wider">
+                            Most Popular
+                        </div>
+<h3 class="font-body-main text-body-main font-bold text-primary text-xl mb-xs">Pro</h3>
+<div class="flex items-baseline gap-xs mb-md">
+<span class="font-h2 text-h2 text-on-background">$15</span>
+<span class="font-body-main text-body-main text-outline">/month</span>
+</div>
+<ul class="space-y-sm mb-lg flex-1">
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Unlimited transcription
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                High accuracy &amp; vocabulary
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Unlimited history
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Export to PDF/Word
+                            </li>
+</ul>
+<button class="w-full py-sm rounded-full bg-primary text-on-primary font-bold hover:bg-surface-tint shadow-lg transition-colors">
+                            Upgrade to Pro
+                        </button>
+</div>
+
+<div class="glass-panel p-lg rounded-2xl flex flex-col border border-outline-variant/30">
+<h3 class="font-body-main text-body-main font-bold text-on-surface-variant text-xl mb-xs">Academic</h3>
+<div class="flex items-baseline gap-xs mb-md">
+<span class="font-h2 text-h2 text-on-background">$8</span>
+<span class="font-body-main text-body-main text-outline">/month</span>
+</div>
+<ul class="space-y-sm mb-lg flex-1">
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Requires .edu email
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                All Pro features included
+                            </li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                Study group sharing
+                            </li>
+</ul>
+<button class="w-full py-sm rounded-full border-2 border-primary text-primary font-bold hover:bg-primary-container/10 transition-colors">
+                            Verify Student ID
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-xl bg-surface-container-lowest border-t border-outline-variant/20 pt-lg pb-md">
+<div class="flex flex-col md:flex-row justify-between items-center px-md py-lg max-w-container-max mx-auto gap-md">
+<div class="flex items-center gap-sm">
+<span class="font-h2 text-h2 text-primary font-black">Fren-Edu</span>
+</div>
+<div class="text-tertiary font-body-main text-body-main text-center md:text-left text-sm">
+                © 2024 Fren-Edu Transcription. Academic Rigor meets Creative Energy.
+            </div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-on-surface-variant hover:text-tertiary hover:underline decoration-tertiary transition-colors opacity-100 hover:opacity-80 font-body-main text-body-main text-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-tertiary hover:underline decoration-tertiary transition-colors opacity-100 hover:opacity-80 font-body-main text-body-main text-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-tertiary hover:underline decoration-tertiary transition-colors opacity-100 hover:opacity-80 font-body-main text-body-main text-sm" href="#">API Documentation</a>
+<a class="text-on-surface-variant hover:text-tertiary hover:underline decoration-tertiary transition-colors opacity-100 hover:opacity-80 font-body-main text-body-main text-sm" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>
