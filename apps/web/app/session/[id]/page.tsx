@@ -1,10 +1,12 @@
 "use client";
+import { use } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { FileText, Brain, MessageSquare, AudioLines, ChevronLeft, Download, Share2, Clock } from "lucide-react";
 import Link from "next/link";
 
-export default function SessionPage({ params }: { params: { id: string } }) {
+export default function SessionPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <Navbar />
@@ -89,14 +91,14 @@ export default function SessionPage({ params }: { params: { id: string } }) {
               title="Q&A Session"
               desc="Test your knowledge with AI questions."
               icon={<MessageSquare className="w-5 h-5" />}
-              href={`/session/${params.id}/qa`}
+              href={`/session/${id}/qa`}
               color="teal"
             />
             <SectionButton 
               title="Regenerate Voice"
               desc="Listen to a clean AI voiceover."
               icon={<AudioLines className="w-5 h-5" />}
-              href={`/session/${params.id}/audio`}
+              href={`/session/${id}/audio`}
               color="emerald"
             />
             

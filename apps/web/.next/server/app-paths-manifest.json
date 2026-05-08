@@ -1,4 +1,19 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/summarize/route": "app/api/summarize/route.js",
+  "/api/tts/route": "app/api/tts/route.js",
+  "/api/ai/transcribe/route": "app/api/ai/transcribe/route.js",
+  "/api/qa/route": "app/api/qa/route.js",
+  "/api/transcribe/route": "app/api/transcribe/route.js",
+  "/api/upload/chunk/route": "app/api/upload/chunk/route.js",
+  "/api/upload/audio/route": "app/api/upload/audio/route.js",
+  "/session/[id]/audio/page": "app/session/[id]/audio/page.js",
+  "/record/page": "app/record/page.js",
+  "/session/[id]/page": "app/session/[id]/page.js",
+  "/session/[id]/qa/page": "app/session/[id]/qa/page.js",
   "/page": "app/page.js",
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
   "/(auth)/login/page": "app/(auth)/login/page.js"
 }

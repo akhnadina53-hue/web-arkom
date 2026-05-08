@@ -1,8 +1,9 @@
-export default function QAPage({ params }: { params: { id: string } }) {
+export default async function QAPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   return (
     <div className="min-h-screen bg-slate-900 p-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-6">❓ Q&A Session: {params.id}</h1>
+        <h1 className="text-3xl font-bold text-white mb-6">❓ Q&A Session: {id}</h1>
 
         <div className="space-y-4">
           <div className="p-6 rounded-lg border border-slate-700 bg-slate-800/50">
