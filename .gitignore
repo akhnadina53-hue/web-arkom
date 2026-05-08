@@ -6,3 +6,6 @@ dist/
 .DS_Store
 /.next
 /*.log
+
+*.db
+*.db-journal
