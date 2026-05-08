@@ -5,11 +5,6 @@
   "scripts": {
     "dev:web": "cd apps/web && npm run dev",
     "dev:ai": "cd ai-service && uvicorn main:app --reload --port 8000",
-    "dev:all": "docker-compose up --build",
-    "start:proxy": "node server/proxy.js"
-  },
-  "devDependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^3.4.1"
+    "dev:all": "docker-compose up --build"
   }
 }

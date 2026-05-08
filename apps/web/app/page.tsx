@@ -24,7 +24,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 px-6 overflow-hidden">
+      <section id="hero" className="relative pt-40 pb-20 px-6 overflow-hidden">
         {/* Background Gradients */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none opacity-40">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[60%] bg-teal-500/20 blur-[120px] rounded-full rotate-12" />
@@ -196,6 +196,38 @@ export default function HomePage() {
               description="AI extracts key insights, generates summaries, and creates interactive Q&A for testing."
               delay={0.3}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-24 px-6 bg-gradient-to-b from-transparent to-teal-500/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">How it works</h2>
+            <p className="text-slate-600 max-w-xl mx-auto">
+              From recording to structured knowledge in under a minute.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            {[
+              { step: "01", title: "Record or Upload", desc: "Use your microphone directly in the browser, or upload an existing audio file from your phone." },
+              { step: "02", title: "AI Transcribes", desc: "Groq Whisper converts your speech to text in seconds with high accuracy — even in Indonesian." },
+              { step: "03", title: "Learn & Export", desc: "Get a clean summary, interactive Q&A, and export your notes to PDF or share with friends." },
+            ].map(({ step, title, desc }, i) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="glass p-8 rounded-3xl relative"
+              >
+                <span className="text-5xl font-black text-teal-500/20 absolute top-6 right-6 select-none">{step}</span>
+                <h3 className="text-lg font-bold mb-3 text-slate-800">{title}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">{desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
