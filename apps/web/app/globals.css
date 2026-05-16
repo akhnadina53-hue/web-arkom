@@ -1,12 +1,29 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500&family=Be+Vietnam+Pro:wght@400&display=swap');
+@import "tailwindcss";
+
+
+:root {
+  --sf-primary:    #A7D7C5;
+  --sf-secondary:  #74B49B;
+  --sf-bg:         #F6FBF9;
+  --sf-accent:     #F4A261;
+  --sf-glow:       rgba(167, 215, 197, 0.35);
+  --sf-glow-soft:  rgba(167, 215, 197, 0.18);
+  --sf-border:     rgba(167, 215, 197, 0.40);
+  --sf-glass:      rgba(246, 251, 249, 0.72);
+}
 
 @theme {
   --color-slate-50: #f8fafc;
   --color-slate-900: #0f172a;
   --color-teal-400: #2dd4bf;
   --color-teal-500: #14b8a6;
-  
+
+  --color-sf-primary:   #A7D7C5;
+  --color-sf-secondary: #74B49B;
+  --color-sf-bg:        #F6FBF9;
+  --color-sf-accent:    #F4A261;
+
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -23,10 +40,8 @@
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
 
-
   --font-sans: var(--font-sans, "Plus Jakarta Sans", sans-serif);
   --font-mono: var(--font-mono, "Space Grotesk", monospace);
-  
   --font-sora: var(--font-sans);
   --font-inter: var(--font-sans);
 
@@ -83,9 +98,7 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
   * {
     border-color: var(--color-border);
     outline-color: color-mix(in srgb, var(--color-ring) 50%, transparent);
@@ -102,37 +115,96 @@
   }
 }
 
+/* ── Glass (landing page) ────────────────────────────────────── */
 .glass {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--sf-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 209, 178, 0.2);
-  box-shadow: 0 12px 32px rgba(0, 107, 90, 0.08);
+  border: 1px solid var(--sf-border);
+  box-shadow: 0 12px 32px var(--sf-glow-soft);
 }
 
+/* ── Smurf Forest card ───────────────────────────────────────── */
+.sf-card {
+  background: rgba(246, 251, 249, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(167, 215, 197, 0.35);
+  box-shadow: 0 4px 24px rgba(167, 215, 197, 0.10);
+}
+
+/* ── Moving gradient save button ─────────────────────────────── */
+@keyframes gradient-shift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+.btn-save {
+  background: linear-gradient(135deg, #A7D7C5, #74B49B, #A7D7C5);
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+  color: #1a3a30;
+  font-weight: 700;
+}
+.btn-save:hover {
+  animation-duration: 1.2s;
+  box-shadow: 0 6px 20px rgba(116, 180, 155, 0.45);
+}
+
+/* ── Text gradient ───────────────────────────────────────────── */
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-lime-500;
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #74B49B, #A7D7C5);
 }
 
+/* ── Equalizer bars ──────────────────────────────────────────── */
 @keyframes full-eq-animate {
-  0% { height: 10px; }
+  0%   { height: 10px; }
   100% { height: 50px; }
 }
-
 .full-width-eq-bar {
   width: 4px;
-  background-color: #00d1b2;
+  background-color: #A7D7C5;
   border-radius: 2px;
   animation: full-eq-animate 1.5s ease-in-out infinite alternate;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
+/* ── Orb pulse ───────────────────────────────────────────────── */
 @keyframes pulse-orb {
-  0% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.1); filter: brightness(1.2); }
-  100% { transform: scale(1); filter: brightness(1); }
+  0%   { transform: scale(1);   filter: brightness(1); }
+  50%  { transform: scale(1.1); filter: brightness(1.2); }
+  100% { transform: scale(1);   filter: brightness(1); }
+}
+.orb-animate { animation: pulse-orb 4s ease-in-out infinite; }
+
+/* ── Logo float ──────────────────────────────────────────────── */
+@keyframes logo-float {
+  0%   { transform: translateY(0px)  rotate(0deg); }
+  40%  { transform: translateY(-6px) rotate(1.5deg); }
+  60%  { transform: translateY(-4px) rotate(-1deg); }
+  100% { transform: translateY(0px)  rotate(0deg); }
+}
+.logo-float { animation: logo-float 4s ease-in-out infinite; }
+
+/* ── Particle burst ──────────────────────────────────────────── */
+@keyframes particle-burst {
+  0%   { transform: translate(0, 0)                        scale(1); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty))        scale(0); opacity: 0; }
+}
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #74B49B;
+  pointer-events: none;
+  animation: particle-burst 0.55s ease-out forwards;
 }
 
-.orb-animate {
-  animation: pulse-orb 4s ease-in-out infinite;
+/* ── Staggered fade-in-up ────────────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+.stagger-child { animation: fade-in-up 0.45s ease-out both; }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Plus, Clock, FileText, ChevronRight, Search, Filter } from "lucide-react";
+import { StatCard } from "@/components/ui/stat-card";
 
 export default function DashboardPage() {
   const container = {
@@ -23,8 +24,8 @@ export default function DashboardPage() {
       {/* Dashboard Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
-          <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Your Library</h1>
-          <p className="text-slate-400">Manage and review your AI-powered study sessions</p>
+          <h1 className="text-4xl font-extrabold text-slate-900 mb-2 tracking-tight">Your Library</h1>
+          <p className="text-slate-500">Manage and review your AI-powered study sessions</p>
         </div>
         
         <Link 
@@ -36,7 +37,7 @@ export default function DashboardPage() {
         </Link>
       </div>
 
-      {/* Stats/Quick Actions */}
+      {/* Stats / Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
         <StatCard label="Total Sessions" value="0" icon={<Clock className="w-4 h-4" />} />
         <StatCard label="Study Hours" value="0h" icon={<FileText className="w-4 h-4" />} />
@@ -45,7 +46,7 @@ export default function DashboardPage() {
           <input 
             type="text" 
             placeholder="Search your transcriptions..."
-            className="w-full h-full bg-slate-900/40 border border-slate-800 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500/40 transition-all placeholder:text-slate-600"
+            className="w-full h-full bg-white border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500/50 transition-all placeholder:text-slate-400 shadow-sm"
           />
         </div>
       </div>
@@ -58,17 +59,17 @@ export default function DashboardPage() {
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
         <motion.div variants={item} className="md:col-span-3">
-          <div className="glass rounded-[32px] p-12 text-center border-dashed border-2 border-slate-800 bg-transparent flex flex-col items-center">
-            <div className="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center mb-6">
-              <Plus className="w-8 h-8 text-slate-700" />
+          <div className="bg-white border border-slate-200 border-dashed border-2 hover:border-teal-400/60 hover:bg-teal-50/30 rounded-[32px] p-12 text-center flex flex-col items-center transition-all duration-300 shadow-sm">
+            <div className="w-20 h-20 bg-slate-100 rounded-3xl flex items-center justify-center mb-6 border border-slate-200">
+              <Plus className="w-8 h-8 text-slate-400" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">No recordings found</h3>
-            <p className="text-slate-400 mb-8 max-w-sm">
+            <h3 className="text-2xl font-bold text-slate-900 mb-2">No recordings found</h3>
+            <p className="text-slate-500 mb-8 max-w-sm">
               Your library is empty. Start recording your first session to unlock AI-powered insights.
             </p>
             <Link 
               href="/record" 
-              className="px-8 py-3.5 glass hover:bg-white/5 text-white font-bold rounded-2xl transition-all"
+              className="px-8 py-3.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-2xl transition-all shadow-lg shadow-teal-500/20"
             >
               Start Recording Now
             </Link>
@@ -77,18 +78,4 @@ export default function DashboardPage() {
       </motion.div>
     </div>
   );
-}
-
-function StatCard({ label, value, icon }: { label: string, value: string, icon: any }) {
-  return (
-    <div className="glass p-5 rounded-2xl flex items-center justify-between group hover:border-teal-500/20 transition-all">
-      <div>
-        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{label}</p>
-        <p className="text-2xl font-bold text-white">{value}</p>
-      </div>
-      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-teal-400 group-hover:bg-teal-500/10 transition-colors">
-        {icon}
-      </div>
-    </div>
-  );
-}
+};

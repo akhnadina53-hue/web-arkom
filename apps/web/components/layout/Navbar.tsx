@@ -37,35 +37,34 @@ export function Navbar() {
         <div className="glass px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-8 shadow-xl w-full max-w-2xl">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
-            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+            <motion.div
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, #A7D7C5, #74B49B)" }}
+              whileHover={{ rotate: 12, scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <Mic className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-bold text-slate-900 tracking-tight text-sm md:text-base">Fren-Edu</span>
+            </motion.div>
+            <span className="font-extrabold tracking-tight text-sm md:text-base" style={{ background: "linear-gradient(135deg,#74B49B,#A7D7C5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Fren-Edu</span>
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 flex-1">
-            <a
-              href="#features"
-              onClick={(e) => handleAnchorClick(e, "features")}
-              className="hover:text-teal-600 transition-colors cursor-pointer"
-            >
-              Features
-            </a>
-            <a
-              href="#how-it-works"
-              onClick={(e) => handleAnchorClick(e, "how-it-works")}
-              className="hover:text-teal-600 transition-colors cursor-pointer"
-            >
-              How it works
-            </a>
-            <a
-              href="#pricing"
-              onClick={(e) => handleAnchorClick(e, "pricing")}
-              className="hover:text-teal-600 transition-colors cursor-pointer"
-            >
-              Pricing
-            </a>
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500 flex-1">
+            <a href="#features" onClick={(e) => handleAnchorClick(e, "features")}
+              className="transition-colors cursor-pointer hover:font-semibold" style={{color:"inherit"}}
+              onMouseEnter={e => (e.currentTarget.style.color="#74B49B")}
+              onMouseLeave={e => (e.currentTarget.style.color="")}
+            >Features</a>
+            <a href="#how-it-works" onClick={(e) => handleAnchorClick(e, "how-it-works")}
+              className="transition-colors cursor-pointer"
+              onMouseEnter={e => (e.currentTarget.style.color="#74B49B")}
+              onMouseLeave={e => (e.currentTarget.style.color="")}
+            >How it works</a>
+            <a href="#pricing" onClick={(e) => handleAnchorClick(e, "pricing")}
+              className="transition-colors cursor-pointer"
+              onMouseEnter={e => (e.currentTarget.style.color="#74B49B")}
+              onMouseLeave={e => (e.currentTarget.style.color="")}
+            >Pricing</a>
           </div>
 
           <div className="hidden md:block h-4 w-[1px] bg-slate-200 shrink-0" />
@@ -78,7 +77,8 @@ export function Navbar() {
               <div className="flex items-center gap-4">
                 <Link
                   href="/dashboard"
-                  className="text-sm font-bold text-teal-700 flex items-center gap-1.5 hover:text-teal-500 transition-colors"
+                  className="text-sm font-bold flex items-center gap-1.5 transition-colors"
+                  style={{color:"#74B49B"}}
                 >
                   <User className="w-4 h-4" />
                   Dashboard
@@ -92,13 +92,15 @@ export function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="text-sm font-bold text-slate-900 flex items-center gap-1 hover:text-teal-600 transition-colors"
-              >
-                Sign In
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+                <Link
+                  href="/login"
+                  className="text-sm font-bold text-slate-800 flex items-center gap-1 transition-colors"
+                  onMouseEnter={e => (e.currentTarget.style.color="#4895EF")}
+                  onMouseLeave={e => (e.currentTarget.style.color="")}
+                >
+                  Sign In
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
             )}
           </div>
 
@@ -155,7 +157,8 @@ export function Navbar() {
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-3 bg-teal-500/10 text-teal-700 font-bold rounded-2xl hover:bg-teal-500/20 transition-colors"
+                  className="flex items-center gap-2 px-4 py-3 font-bold rounded-2xl transition-colors"
+                  style={{background:"rgba(167,215,197,0.18)",color:"#1a3a30"}}
                 >
                   <User className="w-4 h-4" />
                   Go to Dashboard
@@ -173,7 +176,8 @@ export function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 text-white font-bold rounded-2xl hover:bg-teal-500 transition-colors shadow-lg shadow-teal-500/20"
+                  className="flex items-center justify-center gap-2 px-4 py-3 text-white font-bold rounded-2xl transition-colors shadow-lg"
+                  style={{background:"linear-gradient(135deg,#74B49B,#A7D7C5)",boxShadow:"0 6px 20px rgba(116,180,155,0.30)"}}
                 >
                   Sign In
                   <ChevronRight className="w-4 h-4" />
