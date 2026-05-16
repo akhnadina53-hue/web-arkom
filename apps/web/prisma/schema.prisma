@@ -16,6 +16,8 @@ model User {
   accounts      Account[]
   sessions      Session[] // NextAuth sessions
   recordings    RecordingSession[]
+  profile       UserProfile?
+  settings      UserSettings?
   createdAt     DateTime  @default(now())
 }
 
@@ -51,14 +53,14 @@ model RecordingSession {
   userId        String
   user          User            @relation(fields: [userId], references: [id])
   title         String          @default("Untitled Recording")
-  status        String          @default("RECORDING") // SQLite doesn't support Enums natively, using String
-  duration      Int?            // dalam detik
-  language      String          @default("id") // deteksi otomatis
-  audioUrl      String?         // Supabase storage URL
-  transcript    String?         // full transcript text
-  summary       String?         // Stored as JSON string for SQLite compatibility
-  keyPoints     String?         // Stored as JSON string for SQLite compatibility
-  mindMap       String?         // Stored as JSON string for SQLite compatibility
+  status        String          @default("RECORDING")
+  duration      Int?            
+  language      String          @default("id") 
+  audioUrl      String?         
+  transcript    String?         
+  summary       String?         
+  keyPoints     String?         
+  mindMap       String?         
   qaHistory     QAItem[]
   generatedAudios GeneratedAudio[]
   createdAt     DateTime        @default(now())
@@ -72,7 +74,7 @@ model QAItem {
   question      String
   correctAnswer String
   userAnswer    String?
-  score         Int?     // 0-100
+  score         Int?     
   feedback      String?
   createdAt     DateTime @default(now())
 }
@@ -81,8 +83,82 @@ model GeneratedAudio {
   id          String   @id @default(cuid())
   sessionId   String
   session     RecordingSession  @relation(fields: [sessionId], references: [id])
-  voiceStyle  String   // "female_formal", "child_friendly", dll
+  voiceStyle  String   
   language    String
   audioUrl    String
   createdAt   DateTime @default(now())
+}
+
+model UserProfile {
+  id                  String    @id @default(cuid())
+  user_id             String    @unique
+  user                User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  username            String    @unique               
+  display_name        String                      
+  bio                 String?   
+  avatar_url          String?                         
+  banner_url          String?                         
+
+  institution_name    String?   // e.g. "Universitas Negeri Semarang"
+  institution_code    String?   // e.g. "UNNES"
+  faculty             String?   // e.g. "Fakultas Teknik"
+  major               String?   // e.g. "Teknik Informatika"
+  degree_level        String?   // D3, S1, S2, S3, Profesi
+  enrollment_year     Int?      // e.g. 2022 (used for display only)
+  current_status      String    @default("STUDENT") // STUDENT, ALUMNI, LECTURER, RESEARCHER, OTHER
+
+  interests           String?   
+  social_link         String?  
+
+  student_verified    Boolean   @default(false)
+  student_email       String?   
+  student_verified_at DateTime?
+  badges              Badge[]
+
+  profile_public      Boolean   @default(true)       
+  joined_at           DateTime  @default(now())      
+  updated_at          DateTime  @updatedAt
+}
+
+model Badge {
+  id            String        @id @default(cuid())
+  profile_id    String
+  profile       UserProfile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  type          String        // STUDENT_VERIFIED, EARLY_ADOPTER, ACCESSIBILITY
+  awarded_at    DateTime      @default(now())
+  expires_at    DateTime?     
+  metadata      String?       
+
+  @@unique([profile_id, type])
+}
+
+model UserSettings {
+  id                    String    @id @default(cuid())
+  user_id               String    @unique
+  user                  User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  transcription_language  String    @default("auto")     
+  whisper_quality         String    @default("BALANCED") 
+  audio_quality           String    @default("HIGH")     
+  auto_summarize          Boolean   @default(true)       
+  summary_length          String    @default("MEDIUM")   
+  summary_format          String    @default("BULLET")   
+  chunk_interval_seconds  Int       @default(30)         
+  noise_cancellation      Boolean   @default(true)
+
+  theme                   String    @default("SYSTEM")   
+  accent_color            String    @default("#00d4aa")  
+  font_size               String    @default("MEDIUM")  
+  sidebar_collapsed       Boolean   @default(false)
+  interface_language      String    @default("id")       
+  reduced_motion          Boolean   @default(false)     
+
+  profile_public          Boolean   @default(true)
+  show_institution        Boolean   @default(true)
+  show_interests          Boolean   @default(true)
+  audio_retention_days    Int       @default(1)          
+  ai_data_consent         Boolean   @default(false)  
+
+  updated_at              DateTime  @updatedAt
 }
