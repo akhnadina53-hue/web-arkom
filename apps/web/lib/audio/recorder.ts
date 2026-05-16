@@ -1,4 +1,3 @@
-// Minimal recorder helper (placeholder)
 export async function requestMic() {
   return await navigator.mediaDevices.getUserMedia({ audio: true });
 }

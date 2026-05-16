@@ -1,15 +1,9 @@
-/**
- * Format seconds to MM:SS
- */
 export function formatTime(seconds: number): string {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
-/**
- * Format date to readable string
- */
 export function formatDate(date: Date | string): string {
   const d = typeof date === 'string' ? new Date(date) : date;
   return d.toLocaleDateString('id-ID', {
@@ -19,9 +13,6 @@ export function formatDate(date: Date | string): string {
   });
 }
 
-/**
- * Truncate text with ellipsis
- */
 export function truncate(text: string, length: number): string {
   if (text.length > length) {
     return text.substring(0, length) + '...';
@@ -29,9 +20,6 @@ export function truncate(text: string, length: number): string {
   return text;
 }
 
-/**
- * Convert bytes to human-readable format
- */
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
   const k = 1024;
