@@ -33,7 +33,7 @@ export default function DashboardLayout({
   const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
 
   return (
-    <div className="flex min-h-screen bg-[#f7f9fb] text-slate-900 font-sans">
+    <div className="flex min-h-screen bg-[#F6FBF9] text-slate-900 font-sans">
       
       {/* DESKTOP SIDEBAR (Hidden on Mobile)*/}
       <motion.aside
@@ -41,14 +41,25 @@ export default function DashboardLayout({
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="hidden md:flex fixed top-0 left-0 h-full z-40 flex-col bg-white border-r border-slate-200 overflow-hidden shadow-sm"
       >
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-4 py-5 border-b border-slate-100 shrink-0">
-          <div className="w-9 h-9 bg-teal-500 rounded-xl flex items-center justify-center shrink-0">
+        {/* Floating Logo */}
+        <div className="flex items-center gap-3 px-4 py-5 border-b border-[rgba(167,215,197,0.25)] shrink-0">
+          <motion.div
+            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 cursor-pointer"
+            style={{
+              background: "linear-gradient(135deg, #A7D7C5, #74B49B)",
+              boxShadow: "0 4px 14px rgba(167,215,197,0.40)",
+            }}
+            animate={{ y: [0, -5, -3, 0], rotate: [0, 1.5, -1, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ scale: 1.15, rotate: 8 }}
+            whileTap={{ scale: 0.92 }}
+          >
             <Mic className="w-5 h-5 text-white" />
-          </div>
+          </motion.div>
           <motion.span
             animate={{ opacity: sidebarCollapsed ? 0 : 1, width: sidebarCollapsed ? 0 : "auto" }}
-            className="font-bold text-slate-900 tracking-tight whitespace-nowrap overflow-hidden"
+            className="font-extrabold text-slate-800 tracking-tight whitespace-nowrap overflow-hidden"
+            style={{ background: "linear-gradient(135deg,#74B49B,#A7D7C5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
           >
             Fren-Edu
           </motion.span>
@@ -69,9 +80,13 @@ export default function DashboardLayout({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group",
                   isActive
-                    ? "bg-teal-500/10 text-teal-600"
-                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+                    ? "text-[#1a3a30]"
+                    : "text-slate-500 hover:text-slate-800 hover:bg-[rgba(167,215,197,0.15)] border border-transparent"
                 )}
+                style={isActive ? {
+                  background: "rgba(167,215,197,0.18)",
+                  border: "1px solid rgba(167,215,197,0.40)",
+                } : {}}
               >
                 <Icon
                   className={cn(

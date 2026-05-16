@@ -7,6 +7,7 @@ import { SettingsRow } from "@/components/ui/settings-row";
 import { Toggle } from "@/components/ui/toggle";
 import { cn } from "@/lib/utils";
 import { UI_LOCALES } from "@/lib/i18n/dictionaries";
+import { SaveBar } from "@/components/ui/save-bar";
 
 const THEMES = [
   { value: "DARK", label: "Dark", icon: Moon, description: "Dark mode always on" },
@@ -47,8 +48,8 @@ export default function SettingsAppearancePage() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="mb-8">
-        <h2 className="text-2xl font-extrabold text-white tracking-tight">Appearance</h2>
-        <p className="text-slate-400 text-sm mt-1">Personalize the look and feel of your Fren-Edu workspace.</p>
+        <h2 className="text-2xl font-extrabold tracking-tight" style={{background:"linear-gradient(135deg,#74B49B,#A7D7C5)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Appearance</h2>
+        <p className="text-slate-500 text-sm mt-1">Personalize the look and feel of your Fren-Edu workspace.</p>
       </div>
 
       {/* Tema */}
@@ -59,21 +60,23 @@ export default function SettingsAppearancePage() {
               <button
                 key={value}
                 onClick={() => { setTheme(value); mark(); }}
-                className={cn(
-                  "relative flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all",
-                  theme === value
-                    ? "border-teal-500/60 bg-teal-500/10"
-                    : "border-slate-700 bg-slate-800/40 hover:border-slate-600"
-                )}
+                className="relative flex flex-col items-center gap-2 p-4 rounded-2xl transition-all"
+                style={theme === value ? {
+                  background: "rgba(167,215,197,0.18)",
+                  border: "2px solid rgba(116,180,155,0.60)",
+                } : {
+                  background: "white",
+                  border: "2px solid rgba(167,215,197,0.25)",
+                }}
               >
                 {theme === value && (
-                  <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-teal-500 flex items-center justify-center">
+                  <div className="absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center" style={{background:"linear-gradient(135deg,#74B49B,#A7D7C5)"}}>
                     <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                   </div>
                 )}
-                <Icon className={cn("w-6 h-6", theme === value ? "text-teal-400" : "text-slate-400")} />
-                <span className={cn("text-sm font-bold", theme === value ? "text-teal-400" : "text-white")}>{label}</span>
-                <span className="text-[10px] text-slate-500 text-center">{description}</span>
+                <Icon className="w-6 h-6" style={{color: theme === value ? "#74B49B" : "#94a3b8"}} />
+                <span className="text-sm font-bold" style={{color: theme === value ? "#1a3a30" : "#475569"}}>{label}</span>
+                <span className="text-[10px] text-slate-400 text-center">{description}</span>
               </button>
             ))}
           </div>
@@ -90,10 +93,10 @@ export default function SettingsAppearancePage() {
                 onClick={() => { setAccentColor(value); mark(); }}
                 title={label}
                 className={cn(
-                  "w-9 h-9 rounded-xl transition-all ring-offset-2 ring-offset-slate-900",
+                  "w-9 h-9 rounded-xl transition-all",
                   cls,
                   accentColor === value
-                    ? "ring-2 ring-white scale-110"
+                    ? "ring-2 ring-offset-2 ring-[#74B49B] scale-110"
                     : "hover:scale-110 opacity-70 hover:opacity-100"
                 )}
               >
@@ -115,23 +118,25 @@ export default function SettingsAppearancePage() {
               <button
                 key={opt.value}
                 onClick={() => { setFontSize(opt.value); mark(); }}
-                className={cn(
-                  "p-3 rounded-xl border-2 text-center transition-all",
-                  fontSize === opt.value
-                    ? "border-teal-500/60 bg-teal-500/10"
-                    : "border-slate-700 bg-slate-800/40 hover:border-slate-600"
-                )}
+                className="p-3 rounded-xl text-center transition-all"
+                style={fontSize === opt.value ? {
+                  background: "rgba(167,215,197,0.18)",
+                  border: "2px solid rgba(116,180,155,0.60)",
+                } : {
+                  background: "white",
+                  border: "2px solid rgba(167,215,197,0.22)",
+                }}
               >
-                <span className={cn("font-bold block", opt.size, fontSize === opt.value ? "text-teal-400" : "text-white")}>Aa</span>
-                <span className="text-xs text-slate-400 mt-1 block">{opt.label}</span>
-                <span className="text-[10px] text-slate-600">{opt.description}</span>
+                <span className={cn("font-bold block", opt.size)} style={{color: fontSize === opt.value ? "#1a3a30" : "#475569"}}>Aa</span>
+                <span className="text-xs text-slate-500 mt-1 block">{opt.label}</span>
+                <span className="text-[10px] text-slate-400">{opt.description}</span>
               </button>
             ))}
           </div>
           {/* Live Preview */}
-          <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-4 mt-2">
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Preview</p>
-            <p className={cn("text-white font-medium leading-relaxed", currentFontSize?.size)}>
+          <div className="rounded-xl p-4 mt-2" style={{background:"rgba(167,215,197,0.08)",border:"1px solid rgba(167,215,197,0.25)"}}>
+            <p className="text-[10px] uppercase tracking-widest mb-2 font-bold" style={{color:"#74B49B"}}>Preview</p>
+            <p className={cn("text-slate-700 font-medium leading-relaxed", currentFontSize?.size)}>
               Ini contoh teks transkrip dengan ukuran ini. AI akan menghasilkan ringkasan yang mudah dibaca.
             </p>
           </div>
@@ -145,7 +150,7 @@ export default function SettingsAppearancePage() {
             id="iface_lang"
             value={interfaceLang}
             onChange={(e) => { setInterfaceLang(e.target.value); mark(); }}
-            className="bg-slate-800/60 border border-slate-700 hover:border-slate-600 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-xl px-3 py-2 text-sm text-white focus:outline-none transition-all appearance-none"
+            className="bg-white border border-[rgba(167,215,197,0.40)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none transition-all appearance-none"
           >
             {UI_LOCALES.map((l) => (
               <option key={l.value} value={l.value}>{l.flag} {l.label}</option>
@@ -160,14 +165,11 @@ export default function SettingsAppearancePage() {
         </SettingsRow>
       </SettingsGroup>
 
-      {/* Save Bar */}
-      {isDirty && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-slate-900 border border-slate-700 rounded-2xl px-5 py-3 shadow-2xl shadow-black/40 animate-in slide-in-from-bottom-4 duration-300">
-          <p className="text-sm text-slate-300 font-medium">Perubahan belum disimpan</p>
-          <button onClick={() => setIsDirty(false)} className="text-sm text-slate-500 hover:text-white font-semibold transition-colors">Batalkan</button>
-          <button onClick={() => setIsDirty(false)} className="bg-teal-500 hover:bg-teal-400 text-slate-950 text-sm font-bold px-4 py-1.5 rounded-xl transition-all">Simpan</button>
-        </div>
-      )}
+      <SaveBar
+        visible={isDirty}
+        onSave={() => setIsDirty(false)}
+        onDiscard={() => setIsDirty(false)}
+      />
     </div>
   );
 }
