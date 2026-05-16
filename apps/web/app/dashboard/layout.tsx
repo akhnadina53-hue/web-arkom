@@ -20,7 +20,7 @@ import { useUIStore } from "@/lib/store/uiStore";
 const navItems = [
   { href: "/dashboard", label: "Library", icon: LayoutDashboard },
   { href: "/record", label: "New Session", icon: CirclePlus },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export default function DashboardLayout({
@@ -33,22 +33,22 @@ export default function DashboardLayout({
   const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
 
   return (
-    <div className="flex min-h-screen bg-slate-950 text-white font-sans">
+    <div className="flex min-h-screen bg-[#f7f9fb] text-slate-900 font-sans">
       
       {/* DESKTOP SIDEBAR (Hidden on Mobile)*/}
       <motion.aside
         animate={{ width: sidebarCollapsed ? 72 : 240 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden md:flex fixed top-0 left-0 h-full z-40 flex-col bg-slate-950 border-r border-slate-800/60 overflow-hidden"
+        className="hidden md:flex fixed top-0 left-0 h-full z-40 flex-col bg-white border-r border-slate-200 overflow-hidden shadow-sm"
       >
         {/* Logo */}
-        <div className="flex items-center gap-3 px-4 py-5 border-b border-slate-800/60 shrink-0">
+        <div className="flex items-center gap-3 px-4 py-5 border-b border-slate-100 shrink-0">
           <div className="w-9 h-9 bg-teal-500 rounded-xl flex items-center justify-center shrink-0">
             <Mic className="w-5 h-5 text-white" />
           </div>
           <motion.span
             animate={{ opacity: sidebarCollapsed ? 0 : 1, width: sidebarCollapsed ? 0 : "auto" }}
-            className="font-bold text-white tracking-tight whitespace-nowrap overflow-hidden"
+            className="font-bold text-slate-900 tracking-tight whitespace-nowrap overflow-hidden"
           >
             Fren-Edu
           </motion.span>
@@ -69,14 +69,14 @@ export default function DashboardLayout({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group",
                   isActive
-                    ? "bg-teal-500/15 text-teal-400"
-                    : "text-slate-500 hover:text-white hover:bg-white/5"
+                    ? "bg-teal-500/10 text-teal-600"
+                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
                 )}
               >
                 <Icon
                   className={cn(
                     "w-5 h-5 shrink-0 transition-colors",
-                    isActive ? "text-teal-400" : "group-hover:text-white"
+                    isActive ? "text-teal-500" : "group-hover:text-slate-900"
                   )}
                 />
                 <motion.span
@@ -130,10 +130,10 @@ export default function DashboardLayout({
               }}
               className="flex-1 overflow-hidden"
             >
-              <p className="text-xs font-bold text-white truncate">
+              <p className="text-xs font-bold text-slate-900 truncate">
                 {session?.user?.name ?? "User"}
               </p>
-              <p className="text-[10px] text-slate-500 truncate">
+              <p className="text-[10px] text-slate-400 truncate">
                 {session?.user?.email ?? ""}
               </p>
             </motion.div>
@@ -141,7 +141,7 @@ export default function DashboardLayout({
 
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:text-red-400 hover:bg-red-500/5 transition-all w-full group"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all w-full group"
           >
             <LogOut className="w-5 h-5 shrink-0 group-hover:text-red-400 transition-colors" />
             <motion.span
@@ -149,7 +149,7 @@ export default function DashboardLayout({
                 opacity: sidebarCollapsed ? 0 : 1,
                 width: sidebarCollapsed ? 0 : "auto",
               }}
-              className="text-sm font-semibold whitespace-nowrap overflow-hidden"
+              className="text-sm font-semibold whitespace-nowrap overflow-hidden text-slate-500 group-hover:text-red-500"
             >
               Sign Out
             </motion.span>
@@ -159,12 +159,12 @@ export default function DashboardLayout({
         {/* Collapse Toggle */}
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="absolute top-[72px] -right-3 w-6 h-6 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors z-50"
+          className="absolute top-[72px] -right-3 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:bg-slate-50 transition-colors z-50 shadow-sm"
         >
           {sidebarCollapsed ? (
-            <ChevronRight className="w-3 h-3 text-slate-400" />
+            <ChevronRight className="w-3 h-3 text-slate-500" />
           ) : (
-            <ChevronLeft className="w-3 h-3 text-slate-400" />
+            <ChevronLeft className="w-3 h-3 text-slate-500" />
           )}
         </button>
       </motion.aside>
@@ -172,7 +172,7 @@ export default function DashboardLayout({
 
       {/* MOBILE BOTTOM NAV (Hidden on Desktop) */}
       <div className="md:hidden fixed bottom-6 left-4 right-4 z-50 flex justify-center">
-        <nav className="glass bg-slate-900/80 backdrop-blur-xl border border-slate-800 px-4 py-3 rounded-full flex items-center justify-around gap-2 w-full max-w-sm shadow-2xl">
+        <nav className="bg-white backdrop-blur-xl border border-slate-200 shadow-lg shadow-slate-200/80 px-4 py-3 rounded-full flex items-center justify-around gap-2 w-full max-w-sm">
           {navItems.map(({ href, label, icon: Icon }) => {
             const isActive =
               href === "/dashboard"
@@ -185,13 +185,13 @@ export default function DashboardLayout({
                 href={href}
                 className={cn(
                   "relative flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all",
-                  isActive ? "text-teal-400" : "text-slate-500 hover:text-slate-300"
+                  isActive ? "text-teal-600" : "text-slate-400 hover:text-slate-700"
                 )}
               >
                 {isActive && (
                   <motion.div
                     layoutId="mobile-active-bg"
-                    className="absolute inset-0 bg-teal-500/15 rounded-2xl"
+                    className="absolute inset-0 bg-teal-500/10 rounded-2xl"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -201,12 +201,12 @@ export default function DashboardLayout({
             );
           })}
           
-          <div className="w-[1px] h-8 bg-slate-800 mx-1" />
+          <div className="w-[1px] h-8 bg-slate-200 mx-1" />
           
           {/* Mobile Profile / Sign Out menu trigger could go here, for now a simple sign out button */}
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="flex flex-col items-center justify-center w-14 h-12 rounded-2xl text-slate-500 hover:text-red-400 transition-all"
+            className="flex flex-col items-center justify-center w-14 h-12 rounded-2xl text-slate-400 hover:text-red-500 transition-all"
           >
             <LogOut className="w-5 h-5 mb-1" />
             <span className="text-[10px] font-semibold">Exit</span>
@@ -227,7 +227,7 @@ export default function DashboardLayout({
           <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shrink-0">
             <Mic className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-white tracking-tight">Fren-Edu</span>
+          <span className="font-bold text-slate-900 tracking-tight">Fren-Edu</span>
         </div>
 
         {children}
