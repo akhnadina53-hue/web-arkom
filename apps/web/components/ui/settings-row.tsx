@@ -8,6 +8,7 @@ interface SettingsRowProps {
   description?: string;
   children: React.ReactNode;
   className?: string;
+  htmlFor?: string;
 }
 
 export function SettingsRow({
@@ -15,6 +16,7 @@ export function SettingsRow({
   description,
   children,
   className,
+  htmlFor,
 }: SettingsRowProps) {
   const shouldReduceMotion = useAppReducedMotion();
 
@@ -31,12 +33,22 @@ export function SettingsRow({
       }
     >
       <div className="flex-1 min-w-0 mr-4">
-        <p
-          className="text-[14px] font-medium"
-          style={{ color: "var(--text-primary)" }}
-        >
-          {label}
-        </p>
+        {htmlFor ? (
+          <label
+            htmlFor={htmlFor}
+            className="text-[14px] font-medium block cursor-pointer"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {label}
+          </label>
+        ) : (
+          <p
+            className="text-[14px] font-medium"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {label}
+          </p>
+        )}
         {description && (
           <p
             className="text-[13px] mt-0.5"
