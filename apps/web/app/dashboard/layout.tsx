@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/lib/store/uiStore";
+import { FrenEduLogo } from "@/components/ui/FrenEduLogo";
 
 const navItems = [
   { href: "/dashboard", label: "Library", icon: LayoutDashboard },
@@ -33,36 +34,18 @@ export default function DashboardLayout({
   const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
 
   return (
-    <div className="flex min-h-screen bg-[#F6FBF9] text-slate-900 font-sans">
+    <div className="flex min-h-screen font-sans" style={{ background: "var(--bg-page)", color: "var(--text-primary)" }}>
       
       {/* DESKTOP SIDEBAR (Hidden on Mobile)*/}
       <motion.aside
         animate={{ width: sidebarCollapsed ? 72 : 240 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden md:flex fixed top-0 left-0 h-full z-40 flex-col bg-white border-r border-slate-200 overflow-hidden shadow-sm"
+        className="hidden md:flex fixed top-0 left-0 h-full z-40 flex-col border-r overflow-hidden shadow-sm"
+        style={{ background: "var(--bg-card)", borderColor: "var(--border-default)" }}
       >
         {/* Floating Logo */}
-        <div className="flex items-center gap-3 px-4 py-5 border-b border-[rgba(167,215,197,0.25)] shrink-0">
-          <motion.div
-            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 cursor-pointer"
-            style={{
-              background: "linear-gradient(135deg, #A7D7C5, #74B49B)",
-              boxShadow: "0 4px 14px rgba(167,215,197,0.40)",
-            }}
-            animate={{ y: [0, -5, -3, 0], rotate: [0, 1.5, -1, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            whileHover={{ scale: 1.15, rotate: 8 }}
-            whileTap={{ scale: 0.92 }}
-          >
-            <Mic className="w-5 h-5 text-white" />
-          </motion.div>
-          <motion.span
-            animate={{ opacity: sidebarCollapsed ? 0 : 1, width: sidebarCollapsed ? 0 : "auto" }}
-            className="font-extrabold text-slate-800 tracking-tight whitespace-nowrap overflow-hidden"
-            style={{ background: "linear-gradient(135deg,#74B49B,#A7D7C5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-          >
-            Fren-Edu
-          </motion.span>
+        <div className="flex items-center gap-3 px-4 py-5 border-b shrink-0" style={{ borderColor: "var(--border-default)" }}>
+          <FrenEduLogo size={36} showText={!sidebarCollapsed} />
         </div>
 
         {/* Nav Items */}
@@ -80,19 +63,23 @@ export default function DashboardLayout({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group",
                   isActive
-                    ? "text-[#1a3a30]"
-                    : "text-slate-500 hover:text-slate-800 hover:bg-[rgba(167,215,197,0.15)] border border-transparent"
+                    ? "font-semibold"
+                    : "hover:bg-[var(--color-smurf-100)] border border-transparent"
                 )}
                 style={isActive ? {
-                  background: "rgba(167,215,197,0.18)",
-                  border: "1px solid rgba(167,215,197,0.40)",
-                } : {}}
+                  background: "var(--color-smurf-100)",
+                  border: "1px solid var(--border-brand)",
+                  color: "var(--color-smurf-700)",
+                } : {
+                  color: "var(--text-secondary)",
+                }}
               >
                 <Icon
                   className={cn(
                     "w-5 h-5 shrink-0 transition-colors",
-                    isActive ? "text-teal-500" : "group-hover:text-slate-900"
+                    isActive ? "" : "group-hover:text-[var(--text-primary)]"
                   )}
+                  style={isActive ? { color: "var(--color-smurf-600)" } : {}}
                 />
                 <motion.span
                   animate={{
@@ -107,7 +94,8 @@ export default function DashboardLayout({
                 {isActive && (
                   <motion.div
                     layoutId="desktop-active-dot"
-                    className="ml-auto w-1.5 h-1.5 rounded-full bg-teal-400 shrink-0"
+                    className="ml-auto w-1.5 h-1.5 rounded-full shrink-0"
+                    style={{ background: "var(--color-smurf-400)" }}
                   />
                 )}
               </Link>
@@ -116,7 +104,7 @@ export default function DashboardLayout({
         </nav>
 
         {/* User Profile & Logout */}
-        <div className="px-2 pb-4 border-t border-slate-800/60 pt-4 space-y-1">
+        <div className="px-2 pb-4 border-t pt-4 space-y-1" style={{ borderColor: "var(--border-default)" }}>
           <div
             className={cn(
               "flex items-center gap-3 px-3 py-2.5 rounded-xl",
@@ -124,7 +112,7 @@ export default function DashboardLayout({
             )}
           >
             {/* Avatar */}
-            <div className="w-8 h-8 rounded-full bg-teal-500/20 border border-teal-500/30 flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-8 h-8 rounded-full border flex items-center justify-center shrink-0 overflow-hidden" style={{ background: "var(--color-smurf-100)", borderColor: "var(--border-brand)" }}>
               {session?.user?.image ? (
                 <img
                   src={session.user.image}
@@ -132,7 +120,7 @@ export default function DashboardLayout({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="text-xs font-bold text-teal-400">
+                <span className="text-xs font-bold" style={{ color: "var(--color-smurf-600)" }}>
                   {session?.user?.name?.[0]?.toUpperCase() ?? "U"}
                 </span>
               )}
@@ -145,10 +133,10 @@ export default function DashboardLayout({
               }}
               className="flex-1 overflow-hidden"
             >
-              <p className="text-xs font-bold text-slate-900 truncate">
+              <p className="text-xs font-bold truncate" style={{ color: "var(--text-primary)" }}>
                 {session?.user?.name ?? "User"}
               </p>
-              <p className="text-[10px] text-slate-400 truncate">
+              <p className="text-[10px] truncate" style={{ color: "var(--text-secondary)" }}>
                 {session?.user?.email ?? ""}
               </p>
             </motion.div>
@@ -156,15 +144,16 @@ export default function DashboardLayout({
 
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all w-full group"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-red-500/10 transition-all w-full group"
+            style={{ color: "var(--text-secondary)" }}
           >
-            <LogOut className="w-5 h-5 shrink-0 group-hover:text-red-400 transition-colors" />
+            <LogOut className="w-5 h-5 shrink-0 group-hover:text-red-500 transition-colors" />
             <motion.span
               animate={{
                 opacity: sidebarCollapsed ? 0 : 1,
                 width: sidebarCollapsed ? 0 : "auto",
               }}
-              className="text-sm font-semibold whitespace-nowrap overflow-hidden text-slate-500 group-hover:text-red-500"
+              className="text-sm font-semibold whitespace-nowrap overflow-hidden group-hover:text-red-500"
             >
               Sign Out
             </motion.span>
@@ -174,20 +163,21 @@ export default function DashboardLayout({
         {/* Collapse Toggle */}
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="absolute top-[72px] -right-3 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:bg-slate-50 transition-colors z-50 shadow-sm"
+          className="absolute top-[72px] -right-3 w-6 h-6 border rounded-full flex items-center justify-center transition-colors z-50 shadow-sm"
+          style={{ background: "var(--bg-elevated)", borderColor: "var(--border-default)", color: "var(--text-secondary)" }}
         >
           {sidebarCollapsed ? (
-            <ChevronRight className="w-3 h-3 text-slate-500" />
+            <ChevronRight className="w-3 h-3" />
           ) : (
-            <ChevronLeft className="w-3 h-3 text-slate-500" />
+            <ChevronLeft className="w-3 h-3" />
           )}
         </button>
       </motion.aside>
 
 
-      {/* MOBILE BOTTOM NAV (Hidden on Desktop) */}
+      {/* MOBILE BOTTOM NAV */}
       <div className="md:hidden fixed bottom-6 left-4 right-4 z-50 flex justify-center">
-        <nav className="bg-white backdrop-blur-xl border border-slate-200 shadow-lg shadow-slate-200/80 px-4 py-3 rounded-full flex items-center justify-around gap-2 w-full max-w-sm">
+        <nav className="border px-4 py-3 rounded-full flex items-center justify-around gap-2 w-full max-w-sm" style={{ background: "var(--bg-card-glass)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderColor: "var(--border-default)", boxShadow: "var(--shadow-lg)" }}>
           {navItems.map(({ href, label, icon: Icon }) => {
             const isActive =
               href === "/dashboard"
@@ -198,15 +188,14 @@ export default function DashboardLayout({
               <Link
                 key={href}
                 href={href}
-                className={cn(
-                  "relative flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all",
-                  isActive ? "text-teal-600" : "text-slate-400 hover:text-slate-700"
-                )}
+                className="relative flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all"
+                style={{ color: isActive ? "var(--color-smurf-600)" : "var(--text-secondary)" }}
               >
                 {isActive && (
                   <motion.div
                     layoutId="mobile-active-bg"
-                    className="absolute inset-0 bg-teal-500/10 rounded-2xl"
+                    className="absolute inset-0 rounded-2xl"
+                    style={{ background: "var(--color-smurf-100)" }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -216,12 +205,13 @@ export default function DashboardLayout({
             );
           })}
           
-          <div className="w-[1px] h-8 bg-slate-200 mx-1" />
+          <div className="w-[1px] h-8 mx-1" style={{ background: "var(--border-default)" }} />
           
-          {/* Mobile Profile / Sign Out menu trigger could go here, for now a simple sign out button */}
+          {/* Mobile Profile Sign Out */}
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="flex flex-col items-center justify-center w-14 h-12 rounded-2xl text-slate-400 hover:text-red-500 transition-all"
+            className="flex flex-col items-center justify-center w-14 h-12 rounded-2xl hover:text-red-500 transition-all"
+            style={{ color: "var(--text-secondary)" }}
           >
             <LogOut className="w-5 h-5 mb-1" />
             <span className="text-[10px] font-semibold">Exit</span>
@@ -237,12 +227,9 @@ export default function DashboardLayout({
           sidebarCollapsed ? "md:ml-[72px]" : "md:ml-[240px]"
         )}
       >
-        {/* Mobile Header (Shows Logo on small screens since sidebar is hidden) */}
+        {/* Mobile Header */}
         <div className="md:hidden flex items-center gap-3 mb-8">
-          <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shrink-0">
-            <Mic className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-slate-900 tracking-tight">Fren-Edu</span>
+          <FrenEduLogo size={32} showText={true} />
         </div>
 
         {children}

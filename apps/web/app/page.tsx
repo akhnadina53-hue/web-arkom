@@ -10,10 +10,10 @@ import {
 import { useSession } from "next-auth/react";
 
 const SF = {
-  primary: "#A7D7C5",
-  secondary: "#74B49B",
-  bg: "#F6FBF9",
-  accent: "#F4A261",
+  primary: "var(--color-smurf-300)",
+  secondary: "var(--color-smurf-400)",
+  bg: "var(--bg-page)",
+  accent: "var(--color-snitch-400)",
 };
 
 function GradientOrb({ className, color }: { className: string; color: string }) {
@@ -35,39 +35,115 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.13 } },
 };
 
-const FEATURES = [
-  { icon: Mic, title: "Crystal Recording", desc: "High-fidelity browser recording optimized for long lectures, meetings, and seminars.", color: SF.secondary },
-  { icon: Zap, title: "Instant Transcription", desc: "Groq Whisper converts speech to text in seconds with multi-lingual detection support.", color: SF.accent },
-  { icon: Brain, title: "Semantic Summaries", desc: "AI extracts key insights, generates bullet summaries, and creates structured notes.", color: SF.primary },
-  { icon: Layers, title: "Mind Map Generator", desc: "Auto-generate visual mind maps from your transcripts for better conceptual understanding.", color: "#b8a7d7" },
-  { icon: FileText, title: "Interactive Q&A", desc: "Quiz yourself with AI-generated questions directly from your lecture content.", color: "#d7c5a7" },
-  { icon: ShieldCheck, title: "Privacy First", desc: "Your audio is processed securely and auto-deleted per your configured retention policy.", color: "#a7c5d7" },
+const FEATURES = [{
+    icon: Mic,
+    title: "Crystal Recording",
+    desc: "High-fidelity browser recording optimized for long lectures, meetings, and seminars.",
+    color: SF.secondary
+  },
+  {
+    icon: Zap,
+    title: "Instant Transcription",
+    desc: "Groq Whisper converts speech to text in seconds with multi-lingual detection support.",
+    color: SF.accent
+  },
+  {
+    icon: Brain,
+    title: "Semantic Summaries",
+    desc: "AI extracts key insights, generates bullet summaries, and creates structured notes.",
+    color: SF.primary
+  },
+  {
+    icon: Layers,
+    title: "Mind Map Generator",
+    desc: "Auto-generate visual mind maps from your transcripts for better conceptual understanding.",
+    color: "#b8a7d7"
+  },
+  {
+    icon: FileText,
+    title: "Interactive Q&A",
+    desc: "Quiz yourself with AI-generated questions directly from your lecture content.",
+    color: "#d7c5a7"
+  },
+  {
+    icon: ShieldCheck,
+    title: "Privacy First",
+    desc: "Your audio is processed securely and auto-deleted per your configured retention policy.",
+    color: "#a7c5d7"
+  },
 ];
 
-const STATS = [
-  { value: "50K+", label: "Active Students" },
-  { value: "2M+", label: "Minutes Transcribed" },
-  { value: "98%", label: "Accuracy Rate" },
-  { value: "70+", label: "Languages Supported" },
+const STATS = [{
+    value: "50K+",
+    label: "Active Students"
+  },
+  {
+    value: "2M+",
+    label: "Minutes Transcribed"
+  },
+  {
+    value: "98%",
+    label: "Accuracy Rate"
+  },
+  {
+    value: "70+",
+    label: "Languages Supported"
+  },
 ];
 
-const STEPS = [
-  { step: "01", title: "Record or Upload", desc: "Use your microphone directly in the browser, or upload an existing audio file from your device." },
-  { step: "02", title: "AI Transcribes", desc: "Groq Whisper converts your speech to text in seconds — even for Indonesian and regional languages." },
-  { step: "03", title: "Learn & Export", desc: "Get a clean summary, interactive Q&A, mind map, and export your notes to PDF or share with friends." },
+const STEPS = [{
+    step: "01",
+    title: "Record or Upload",
+    desc: "Use your microphone directly in the browser, or upload an existing audio file from your device."
+  },
+  {
+    step: "02",
+    title: "AI Transcribes",
+    desc: "Groq Whisper converts your speech to text in seconds — even for Indonesian and regional languages."
+  },
+  {
+    step: "03",
+    title: "Learn & Export",
+    desc: "Get a clean summary, interactive Q&A, mind map, and export your notes to PDF or share with friends."
+  },
 ];
 
-const TESTIMONIALS = [
-  { name: "Alya Rahmawati", role: "Mahasiswi Teknik Informatika, UNNES", text: "Fren-Edu mengubah cara belajarku. Kuliah 2 jam bisa diringkas jadi 5 poin utama dalam hitungan menit!", rating: 5 },
-  { name: "Budi Santoso", role: "Dosen Ekonomi, UGM", text: "Saya gunakan ini untuk merekam diskusi kelas. Transkrip dan ringkasannya sangat akurat, bahkan untuk istilah akademis.", rating: 5 },
-  { name: "Citra Dewi", role: "Mahasiswi Kedokteran, UI", text: "Q&A otomatis dari kuliah anatomi membantu saya persiapan ujian. Fitur mind map-nya luar biasa!", rating: 5 },
+const TESTIMONIALS = [{
+    name: "Alya Rahmawati",
+    role: "Mahasiswi Teknik Informatika, UNNES",
+    text: "Fren-Edu mengubah cara belajarku. Kuliah 2 jam bisa diringkas jadi 5 poin utama dalam hitungan menit!",
+    rating: 5
+  },
+  {
+    name: "Budi Santoso",
+    role: "Dosen Ekonomi, UGM",
+    text: "Saya gunakan ini untuk merekam diskusi kelas. Transkrip dan ringkasannya sangat akurat, bahkan untuk istilah akademis.",
+    rating: 5
+  },
+  {
+    name: "Citra Dewi",
+    role: "Mahasiswi Kedokteran, UI",
+    text: "Q&A otomatis dari kuliah anatomi membantu saya persiapan ujian. Fitur mind map-nya luar biasa!",
+    rating: 5
+  },
 ];
 
-const TECH = [
-  { name: "Groq", desc: "Ultra-fast AI inference" },
-  { name: "Whisper", desc: "State-of-art transcription" },
-  { name: "Next.js 15", desc: "Production web framework" },
-  { name: "Prisma", desc: "Type-safe database ORM" },
+const TECH = [{
+    name: "Groq",
+    desc: "Ultra-fast AI inference"
+  },
+  {
+    name: "Whisper",
+    desc: "State-of-art transcription"
+  },
+  {
+    name: "Next.js 15",
+    desc: "Production web framework"
+  },
+  {
+    name: "Prisma",
+    desc: "Type-safe database ORM"
+  },
 ];
 
 export default function HomePage() {
@@ -348,7 +424,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TECH STACK ──────────────────────────────────────────── */}
+      {/* TECH STACK */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xs font-bold uppercase tracking-widest mb-8" style={{ color: SF.secondary }}>Powered By</p>
@@ -438,7 +514,7 @@ export default function HomePage() {
             ))}
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t" style={{ borderColor: "rgba(167,215,197,0.20)" }}>
-            <p className="text-xs text-slate-400">© 2026 Fren-Edu. Built with ❤️ for students everywhere.</p>
+            <p className="text-xs text-slate-400">© 2026 Fren-Edu. Built with ❤️ for everywhere.</p>
             <div className="flex items-center gap-2 text-xs text-slate-400">
               <Globe className="w-3.5 h-3.5" />
               <span>Available in 70+ languages</span>

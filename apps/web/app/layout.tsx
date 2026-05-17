@@ -1,17 +1,27 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
+import { Sora, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/components/providers/AuthProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
-const plusJakarta = Plus_Jakarta_Sans({ 
+const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-sans',
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-sora',
   display: 'swap',
 });
 
-const spaceGrotesk = Space_Grotesk({
+const plusJakarta = Plus_Jakarta_Sans({ 
   subsets: ['latin'],
-  variable: '--font-mono',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-jakarta',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
   display: 'swap',
 });
 
@@ -26,10 +36,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${plusJakarta.variable} ${spaceGrotesk.variable}`}>
-      <body className="bg-[#f7f9fb] min-h-screen font-sans selection:bg-teal-500/30">
+    <html lang="id" className={`${sora.variable} ${plusJakarta.variable} ${jetbrainsMono.variable}`}>
+      <body className="min-h-screen font-sans selection:bg-smurf-300/30">
         <AuthProvider>
-          <main className="min-h-screen">{children}</main>
+          <ThemeProvider>
+            <main className="min-h-screen">{children}</main>
+          </ThemeProvider>
         </AuthProvider>
       </body>
     </html>
