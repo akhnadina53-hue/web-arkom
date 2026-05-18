@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
@@ -31,7 +32,7 @@ const fadeUp: Variants = {
 };
 
 const stagger: Variants = {
-  hidden: {},
+  hidden: { transition: {} },
   show: { transition: { staggerChildren: 0.13 } },
 };
 
@@ -128,29 +129,80 @@ const TESTIMONIALS = [{
   },
 ];
 
-const TECH = [{
+const TECH = [
+  {
     name: "Groq",
-    desc: "Ultra-fast AI inference"
+    desc: "Ultra-fast AI inference",
+    logo: "https://cdn.simpleicons.org/groq/white"
   },
   {
-    name: "Whisper",
-    desc: "State-of-art transcription"
+    name: "OpenAI",
+    desc: "Whisper Transcription",
+    logo: "https://cdn.simpleicons.org/openai/white"
   },
   {
-    name: "Next.js 15",
-    desc: "Production web framework"
+    name: "Meta",
+    desc: "Llama 3 Models",
+    logo: "https://cdn.simpleicons.org/meta/white"
   },
   {
-    name: "Prisma",
-    desc: "Type-safe database ORM"
+    name: "Next.js",
+    desc: "React Framework",
+    logo: "https://cdn.simpleicons.org/nextdotjs/white"
   },
 ];
 
 export default function HomePage() {
   const { data: session, status } = useSession();
 
+  const words = ["Lectures", "Meetings", "Seminars"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    const activeWord = words[currentWordIndex];
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setCurrentText((prev) => prev.slice(0, -1));
+        setTypingSpeed(75);
+      }, typingSpeed);
+    } else {
+      timer = setTimeout(() => {
+        setCurrentText((prev) => activeWord.slice(0, prev.length + 1));
+        setTypingSpeed(150);
+      }, typingSpeed);
+    }
+
+    if (!isDeleting && currentText === activeWord) {
+      timer = setTimeout(() => {
+        setIsDeleting(true);
+      }, 1500);
+    } else if (isDeleting && currentText === "") {
+      setIsDeleting(false);
+      setCurrentWordIndex((prev) => (prev + 1) % words.length);
+    }
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentWordIndex, typingSpeed]);
+
+  const PRICING_PLANS = [
+    { name: "Basic", price: "$0", period: "/forever", features: ["3 sessions/month", "Basic summaries", "Standard Q&A", "Community support"], cta: session ? "Current Plan" : "Get Started", href: session ? "/dashboard" : "/login", highlight: false },
+    { name: "Pro", price: "$15", period: "/month", features: ["Unlimited sessions", "Advanced AI mind maps", "Custom voice styles", "Export PDF/Word", "Priority support"], cta: "Upgrade to Pro", href: session ? "#" : "/login", highlight: true },
+    { name: "Academic", price: "$8", period: "/month", features: ["Requires .edu email", "All Pro features", "Student badge", "Institutional analytics"], cta: "Apply Academic", href: session ? "#" : "/login", highlight: false },
+  ];
+
+  const FOOTER_LINKS = [
+    { title: "Product", links: ["Features", "Pricing", "Changelog"] },
+    { title: "Resources", links: ["Documentation", "Blog", "Support"] },
+    { title: "Legal", links: ["Privacy", "Terms", "Cookies"] },
+  ];
+
   return (
-    <div style={{ background: SF.bg }} className="min-h-screen text-slate-800 selection:bg-[#A7D7C5]/40 overflow-x-hidden font-sans">
+    <div style={{ background: SF.bg }} className="min-h-screen text-slate-800 dark:text-slate-100 selection:bg-[#A7D7C5]/40 overflow-x-hidden font-sans">
       <Navbar />
 
       {/* HERO */}
@@ -167,16 +219,19 @@ export default function HomePage() {
               Empowering Education with AI
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.05] text-slate-800 dark:text-white">
               Transform Your{" "}
-              <span className="relative inline-block">
-                <span style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Lectures</span>
+              <span className="relative inline-block min-w-[200px] text-left md:min-w-[290px]">
+                <span style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  {currentText || "\u00A0"}
+                </span>
+                <span className="inline-block w-[3px] h-[0.8em] bg-[var(--color-smurf-400)] ml-1 align-middle animate-pulse" />
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ background: `linear-gradient(90deg, ${SF.secondary}, ${SF.primary})`, opacity: 0.5 }} />
               </span>{" "}
               into Knowledge
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="max-w-2xl mx-auto text-lg text-slate-500 mb-12 leading-relaxed">
+            <motion.p variants={fadeUp} className="max-w-2xl mx-auto text-lg text-slate-500 dark:text-slate-400 mb-12 leading-relaxed">
               Record. Transcribe. Summarize. Fren-Edu uses AI to turn every lecture, meeting, and seminar
               into structured notes, interactive Q&A, and beautiful mind maps — in seconds.
             </motion.p>
@@ -207,14 +262,14 @@ export default function HomePage() {
           </motion.div>
 
           {/* Floating demo card */}
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="mt-20 max-w-2xl mx-auto rounded-3xl p-6 border" style={{ background: "rgba(246,251,249,0.80)", backdropFilter: "blur(16px)", borderColor: "rgba(167,215,197,0.40)", boxShadow: "0 20px 60px rgba(167,215,197,0.20)" }}>
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="mt-20 max-w-2xl mx-auto rounded-3xl p-6 border" style={{ background: "var(--bg-card-glass)", backdropFilter: "blur(16px)", borderColor: "var(--border-default)", boxShadow: "0 20px 60px rgba(167,215,197,0.15)" }}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${SF.primary}, ${SF.secondary})` }}>
                 <Mic className="w-4 h-4 text-white animate-pulse" />
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Live Transcription</p>
-                <p className="text-xs text-slate-400">Detecting: Bahasa Indonesia · Whisper Large v3</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Live Transcription</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">Detecting: Bahasa Indonesia · Whisper Large v3</p>
               </div>
               <div className="ml-auto flex gap-[3px] h-6 items-end">
                 {[100, 60, 80, 45, 90, 55, 70].map((h, i) => (
@@ -222,7 +277,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <p className="text-slate-700 text-sm italic leading-relaxed border-l-2 pl-4" style={{ borderColor: SF.primary }}>
+            <p className="text-slate-700 dark:text-slate-200 text-sm italic leading-relaxed border-l-2 pl-4" style={{ borderColor: SF.primary }}>
               "...sehingga perbedaan mendasar antara kedua teori ini terletak pada pendekatan mereka terhadap struktur data dan kompleksitas algoritmik..."
             </p>
             <div className="flex gap-2 mt-4 flex-wrap">
@@ -251,35 +306,35 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="rounded-[28px] overflow-hidden"
+            className="rounded-[28px] overflow-hidden bg-white"
             style={{ boxShadow: "0 24px 80px rgba(167,215,197,0.22), 0 4px 24px rgba(0,0,0,0.06)" }}
           >
             <motion.div
               whileHover={{ scale: 1.025 }}
               whileTap={{ scale: 0.985 }}
               transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="cursor-zoom-in"
+              className="cursor-zoom-in text-slate-800"
             >
               {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(246,251,249,0.97)", borderBottom: "1px solid rgba(167,215,197,0.30)" }}>
+              <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-400/70" />
                   <div className="w-3 h-3 rounded-full bg-yellow-400/70" />
                   <div className="w-3 h-3 rounded-full" style={{ background: SF.primary, opacity: 0.85 }} />
                 </div>
-                <div className="flex-1 mx-3 px-3 py-1 rounded-lg text-xs text-slate-400 text-center" style={{ background: "rgba(167,215,197,0.12)", border: "1px solid rgba(167,215,197,0.25)" }}>
+                <div className="flex-1 mx-3 px-3 py-1 rounded-lg text-xs text-slate-400 text-center animate-pulse bg-slate-100/50 border border-slate-200">
                   fren-edu.app/record
                 </div>
                 <div className="w-3 h-3 rounded-full" style={{ background: SF.accent, opacity: 0.6 }} />
               </div>
 
               {/* App mockup */}
-              <div className="relative p-6 md:p-8" style={{ background: "#F6FBF9", minHeight: 360 }}>
+              <div className="relative p-6 md:p-8 bg-slate-50 min-h-[360px]">
                 <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" style={{ background: SF.primary, filter: "blur(70px)", opacity: 0.18 }} />
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
 
                   {/* Recorder */}
-                  <div className="md:col-span-1 rounded-2xl p-5 flex flex-col items-center justify-center gap-4" style={{ background: "rgba(246,251,249,0.92)", border: "1px solid rgba(167,215,197,0.35)" }}>
+                  <div className="md:col-span-1 rounded-2xl p-5 flex flex-col items-center justify-center gap-4 bg-white border border-slate-200">
                     <div className="relative">
                       <div className="absolute inset-0 rounded-full animate-ping" style={{ background: `${SF.primary}44` }} />
                       <div className="w-16 h-16 rounded-full flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`, boxShadow: `0 8px 24px rgba(116,180,155,0.40)` }}>
@@ -287,7 +342,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <p className="text-xs font-bold text-slate-600">Recording…</p>
+                      <p className="text-xs font-bold text-slate-700">Recording…</p>
                       <p className="text-[10px] text-slate-400 mt-0.5">00:12:47</p>
                     </div>
                     <div className="flex gap-[3px] h-8 items-center">
@@ -295,15 +350,15 @@ export default function HomePage() {
                         <div key={i} className="w-1.5 rounded-full" style={{ height: `${h}%`, background: i % 2 ? SF.primary : SF.secondary, animation: `full-eq-animate ${0.6 + i * 0.12}s ease-in-out infinite alternate` }} />
                       ))}
                     </div>
-                    <span className="text-[10px] px-2 py-1 rounded-full font-bold" style={{ background: "rgba(167,215,197,0.20)", color: SF.secondary }}>Whisper Large v3</span>
+                    <span className="text-[10px] px-2 py-1 rounded-full font-bold bg-[#A7D7C5]/20 text-[#5a9a7c]">Whisper Large v3</span>
                   </div>
 
                   {/* Transcript + Summary */}
                   <div className="md:col-span-2 flex flex-col gap-4">
-                    <div className="rounded-2xl p-5 flex-1" style={{ background: "rgba(246,251,249,0.92)", border: "1px solid rgba(167,215,197,0.30)" }}>
+                    <div className="rounded-2xl p-5 flex-1 bg-white border border-slate-200">
                       <div className="flex items-center gap-2 mb-3">
                         <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: SF.secondary }} />
-                        <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: SF.secondary }}>Live Transcript</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-[#5a9a7c]">Live Transcript</p>
                       </div>
                       {[
                         "Baik, jadi yang pertama kita bahas adalah konsep polymorphism dalam OOP…",
@@ -316,15 +371,15 @@ export default function HomePage() {
                       ))}
                       <div className="flex items-center gap-1 mt-2">
                         <span className="inline-block w-1 h-4 rounded-full animate-pulse" style={{ background: SF.secondary }} />
-                        <span className="text-xs text-slate-300 italic">mengetik…</span>
+                        <span className="text-xs text-slate-400 italic">mengetik…</span>
                       </div>
                     </div>
-                    <div className="rounded-2xl p-4" style={{ background: "rgba(167,215,197,0.10)", border: "1px solid rgba(167,215,197,0.25)" }}>
-                      <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: SF.secondary }}>AI Summary — 3 Key Points</p>
+                    <div className="rounded-2xl p-4 bg-[#A7D7C5]/10 border border-slate-200">
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-3 text-[#5a9a7c]">AI Summary — 3 Key Points</p>
                       <div className="space-y-2">
                         {["Polymorphism = satu interface, banyak implementasi","Compile-time: method overloading","Runtime: method overriding via inheritance"].map((pt, i) => (
                           <div key={i} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: SF.secondary }} />
+                            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#5a9a7c]" />
                             <p className="text-xs text-slate-600">{pt}</p>
                           </div>
                         ))}
@@ -335,7 +390,6 @@ export default function HomePage() {
               </div>
             </motion.div>
           </motion.div>
-
           <p className="text-center text-xs text-slate-400 mt-4">
             Hover untuk zoom · Klik untuk mengecilkan · Diproses real-time di browser
           </p>
@@ -347,9 +401,9 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {STATS.map(({ value, label }) => (
-              <motion.div key={label} variants={fadeUp} className="text-center p-6 rounded-2xl border" style={{ background: "rgba(167,215,197,0.08)", borderColor: "rgba(167,215,197,0.30)" }}>
+              <motion.div key={label} variants={fadeUp} className="text-center p-6 rounded-2xl border" style={{ background: "rgba(167,215,197,0.08)", borderColor: "var(--border-default)" }}>
                 <p className="text-3xl font-extrabold mb-1" style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{value}</p>
-                <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">{label}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">{label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -362,12 +416,12 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: SF.secondary }}>Everything You Need</p>
-            <h2 className="text-4xl font-bold text-slate-800 mb-4">Built for serious learners</h2>
-            <p className="text-slate-500 max-w-xl mx-auto">Every feature is designed to reduce friction between learning and understanding.</p>
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">Built for serious learners</h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">Every feature is designed to reduce friction between learning and understanding.</p>
           </div>
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {FEATURES.map(({ icon: Icon, title, desc, color }) => (
-              <motion.div key={title} variants={fadeUp} whileHover={{ y: -6, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }} className="p-6 rounded-2xl border cursor-default" style={{ background: "rgba(246,251,249,0.80)", backdropFilter: "blur(12px)", borderColor: "rgba(167,215,197,0.30)", boxShadow: "0 4px 20px rgba(167,215,197,0.08)" }}>
+              <motion.div key={title} variants={fadeUp} whileHover={{ y: -6, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }} className="p-6 rounded-2xl border cursor-default bg-white shadow-sm hover:shadow-md transition-shadow" style={{ borderColor: "var(--border-default)" }}>
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: `${color}22` }}>
                   <Icon className="w-6 h-6" style={{ color }} />
                 </div>
@@ -385,11 +439,11 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: SF.secondary }}>Simple Process</p>
-            <h2 className="text-4xl font-bold text-slate-800 mb-4">From recording to insight in 3 steps</h2>
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">From recording to insight in 3 steps</h2>
           </div>
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {STEPS.map(({ step, title, desc }, i) => (
-              <motion.div key={step} variants={fadeUp} className="relative p-8 rounded-3xl border" style={{ background: "rgba(246,251,249,0.80)", backdropFilter: "blur(12px)", borderColor: "rgba(167,215,197,0.30)" }}>
+              <motion.div key={step} variants={fadeUp} className="relative p-8 rounded-3xl border bg-white shadow-sm hover:shadow-md transition-shadow" style={{ borderColor: "var(--border-default)" }}>
                 <span className="absolute top-6 right-6 text-5xl font-black select-none" style={{ color: "rgba(167,215,197,0.25)" }}>{step}</span>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm mb-5" style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})` }}>{i + 1}</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-3">{title}</h3>
@@ -406,18 +460,18 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: SF.secondary }}>Loved by Students</p>
-            <h2 className="text-4xl font-bold text-slate-800">What learners are saying</h2>
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-white">What learners are saying</h2>
           </div>
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.map(({ name, role, text, rating }) => (
-              <motion.div key={name} variants={fadeUp} whileHover={{ y: -4 }} className="p-6 rounded-2xl border relative" style={{ background: "rgba(246,251,249,0.85)", backdropFilter: "blur(12px)", borderColor: "rgba(167,215,197,0.35)" }}>
+              <motion.div key={name} variants={fadeUp} whileHover={{ y: -4 }} className="p-6 rounded-2xl border relative bg-white shadow-sm hover:shadow-md transition-shadow" style={{ borderColor: "var(--border-default)" }}>
                 <Quote className="w-8 h-8 mb-4" style={{ color: SF.primary, opacity: 0.6 }} />
                 <p className="text-slate-600 text-sm leading-relaxed mb-6 italic">"{text}"</p>
                 <div className="flex items-center gap-1 mb-3">
                   {Array(rating).fill(0).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" style={{ color: SF.accent }} />)}
                 </div>
                 <p className="font-bold text-slate-800 text-sm">{name}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{role}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{role}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -425,16 +479,21 @@ export default function HomePage() {
       </section>
 
       {/* TECH STACK */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-widest mb-8" style={{ color: SF.secondary }}>Powered By</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            {TECH.map(({ name, desc }) => (
-              <div key={name} className="px-5 py-3 rounded-2xl border text-center min-w-[140px]" style={{ background: "rgba(167,215,197,0.08)", borderColor: "rgba(167,215,197,0.30)" }}>
-                <p className="font-bold text-slate-700 text-sm">{name}</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">{desc}</p>
-              </div>
-            ))}
+      <section className="py-16 px-6 overflow-hidden">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-xs font-bold uppercase tracking-widest mb-10" style={{ color: SF.secondary }}>Powered By</p>
+          <div className="relative flex overflow-x-hidden" style={{ WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)", maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)" }}>
+            <motion.div
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 35 }}
+              className="flex whitespace-nowrap gap-28 pr-28 items-center"
+            >
+              {[...TECH, ...TECH, ...TECH, ...TECH, ...TECH, ...TECH, ...TECH, ...TECH].map(({ name, logo }, idx) => (
+                <div key={`${name}-${idx}`} title={name} className="flex items-center opacity-40 hover:opacity-100 hover:scale-110 transition-all duration-300 cursor-pointer">
+                  {logo && <img src={logo} alt={name} className="h-14 object-contain" />}
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -445,19 +504,15 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: SF.secondary }}>Simple Pricing</p>
-            <h2 className="text-4xl font-bold text-slate-800 mb-4">Start free, upgrade when ready</h2>
-            <p className="text-slate-500">No hidden fees. Cancel anytime.</p>
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">Start free, upgrade when ready</h2>
+            <p className="text-slate-500 dark:text-slate-400">No hidden fees. Cancel anytime.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            {[
-              { name: "Basic", price: "$0", period: "/forever", features: ["3 sessions/month", "Basic summaries", "Standard Q&A", "Community support"], cta: session ? "Current Plan" : "Get Started", href: session ? "/dashboard" : "/login", highlight: false },
-              { name: "Pro", price: "$15", period: "/month", features: ["Unlimited sessions", "Advanced AI mind maps", "Custom voice styles", "Export PDF/Word", "Priority support"], cta: "Upgrade to Pro", href: session ? "#" : "/login", highlight: true },
-              { name: "Academic", price: "$8", period: "/month", features: ["Requires .edu email", "All Pro features", "Student badge", "Institutional analytics"], cta: "Apply Academic", href: session ? "#" : "/login", highlight: false },
-            ].map(({ name, price, period, features, cta, href, highlight }) => (
-              <motion.div key={name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`p-8 rounded-3xl border flex flex-col ${highlight ? "md:-translate-y-4" : ""}`} style={{ background: highlight ? "rgba(167,215,197,0.18)" : "rgba(246,251,249,0.85)", backdropFilter: "blur(12px)", borderColor: highlight ? SF.primary : "rgba(167,215,197,0.30)", boxShadow: highlight ? `0 20px 60px rgba(167,215,197,0.25)` : "none" }}>
+            {PRICING_PLANS.map(({ name, price, period, features, cta, href, highlight }) => (
+              <motion.div key={name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`p-8 rounded-3xl border flex flex-col bg-white ${highlight ? "md:-translate-y-4 shadow-xl" : "shadow-sm"}`} style={{ borderColor: highlight ? SF.primary : "var(--border-default)" }}>
                 {highlight && <div className="text-center mb-4"><span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white" style={{ background: `linear-gradient(135deg,${SF.secondary},${SF.primary})` }}>Most Popular</span></div>}
                 <h3 className="text-xl font-bold text-slate-700 mb-1">{name}</h3>
-                <div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-extrabold text-slate-900">{price}</span><span className="text-slate-400 text-sm">{period}</span></div>
+                <div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-extrabold text-slate-900">{price}</span><span className="text-slate-500 text-sm">{period}</span></div>
                 <ul className="space-y-3 mb-8 flex-1">
                   {features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-sm text-slate-600">
@@ -478,8 +533,8 @@ export default function HomePage() {
           <GradientOrb className="w-[400px] h-[400px] -top-20 left-1/2 -translate-x-1/2" color={SF.primary} />
           <div className="relative z-10">
             <GraduationCap className="w-12 h-12 mx-auto mb-6" style={{ color: SF.secondary }} />
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">Learn smarter,<br />not harder.</h2>
-            <p className="text-slate-500 mb-10 max-w-lg mx-auto">Join thousands of students and professionals transforming how they learn with AI.</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-6 leading-tight">Learn smarter,<br />not harder.</h2>
+            <p className="text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto">Join thousands of students and professionals transforming how they learn with AI.</p>
             <Link href="/register" className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-extrabold text-white transition-all" style={{ background: `linear-gradient(135deg,${SF.secondary},#5a9a7c)`, boxShadow: `0 12px 36px rgba(116,180,155,0.40)` }}>
               Create Free Account <Sparkles className="w-5 h-5" />
             </Link>
@@ -488,7 +543,7 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 px-6 border-t" style={{ borderColor: "rgba(167,215,197,0.25)" }}>
+      <footer className="py-12 px-6 border-t" style={{ borderColor: "var(--border-default)" }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             <div>
@@ -496,26 +551,22 @@ export default function HomePage() {
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg,${SF.primary},${SF.secondary})` }}>
                   <Mic className="w-3.5 h-3.5 text-white" />
                 </div>
-                <span className="font-extrabold text-slate-800">Fren-Edu</span>
+                <span className="font-extrabold text-slate-800 dark:text-white">Fren-Edu</span>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">AI-powered learning companion for students and professionals.</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">AI-powered learning companion for students and professionals.</p>
             </div>
-            {[
-              { title: "Product", links: ["Features", "Pricing", "Changelog"] },
-              { title: "Resources", links: ["Documentation", "Blog", "Support"] },
-              { title: "Legal", links: ["Privacy", "Terms", "Cookies"] },
-            ].map(({ title, links }) => (
+            {FOOTER_LINKS.map(({ title, links }) => (
               <div key={title}>
                 <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: SF.secondary }}>{title}</p>
                 <ul className="space-y-2">
-                  {links.map((l) => <li key={l}><Link href="#" className="text-sm text-slate-400 hover:text-slate-700 transition-colors">{l}</Link></li>)}
+                  {links.map((l) => <li key={l}><Link href="#" className="text-sm text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-200 transition-colors">{l}</Link></li>)}
                 </ul>
               </div>
             ))}
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t" style={{ borderColor: "rgba(167,215,197,0.20)" }}>
-            <p className="text-xs text-slate-400">© 2026 Fren-Edu. Built with ❤️ for everywhere.</p>
-            <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t" style={{ borderColor: "var(--border-default)" }}>
+            <p className="text-xs text-slate-400 dark:text-slate-500">© 2026 Fren-Edu. Built with ❤️ for everywhere.</p>
+            <div className="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
               <Globe className="w-3.5 h-3.5" />
               <span>Available in 70+ languages</span>
             </div>

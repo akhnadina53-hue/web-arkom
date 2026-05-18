@@ -24,8 +24,8 @@ export default function DashboardPage() {
       {/* Dashboard Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-2 tracking-tight">Your Library</h1>
-          <p className="text-slate-500">Manage and review your AI-powered study sessions</p>
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">Your Library</h1>
+          <p className="text-slate-500 dark:text-slate-400">Manage and review your AI-powered study sessions</p>
         </div>
         
         <Link 
@@ -42,11 +42,11 @@ export default function DashboardPage() {
         <StatCard label="Total Sessions" value="0" icon={<Clock className="w-4 h-4" />} />
         <StatCard label="Study Hours" value="0h" icon={<FileText className="w-4 h-4" />} />
         <div className="md:col-span-2 relative group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 transition-colors group-focus-within:text-teal-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400 transition-colors group-focus-within:text-teal-400" />
           <input 
             type="text" 
             placeholder="Search your transcriptions..."
-            className="w-full h-full bg-white border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500/50 transition-all placeholder:text-slate-400 shadow-sm"
+            className="w-full h-full bg-[var(--bg-card)] border border-[var(--border-default)] rounded-2xl py-4 pl-12 pr-4 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500/50 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm"
           />
         </div>
       </div>
@@ -59,12 +59,12 @@ export default function DashboardPage() {
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
         <motion.div variants={item} className="md:col-span-3">
-          <div className="bg-white border border-slate-200 border-dashed border-2 hover:border-teal-400/60 hover:bg-teal-50/30 rounded-[32px] p-12 text-center flex flex-col items-center transition-all duration-300 shadow-sm">
-            <div className="w-20 h-20 bg-slate-100 rounded-3xl flex items-center justify-center mb-6 border border-slate-200">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-default)] border-dashed border-2 hover:border-teal-400/60 hover:bg-teal-900/10 rounded-[32px] p-12 text-center flex flex-col items-center transition-all duration-300 shadow-sm">
+            <div className="w-20 h-20 bg-[var(--bg-elevated)] rounded-3xl flex items-center justify-center mb-6 border border-[var(--border-default)]">
               <Plus className="w-8 h-8 text-slate-400" />
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-2">No recordings found</h3>
-            <p className="text-slate-500 mb-8 max-w-sm">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">No recordings found</h3>
+            <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-sm">
               Your library is empty. Start recording your first session to unlock AI-powered insights.
             </p>
             <Link 
