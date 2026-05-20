@@ -37,96 +37,96 @@ const stagger: Variants = {
 };
 
 const FEATURES = [{
-    icon: Mic,
-    title: "Crystal Recording",
-    desc: "High-fidelity browser recording optimized for long lectures, meetings, and seminars.",
-    color: SF.secondary
-  },
-  {
-    icon: Zap,
-    title: "Instant Transcription",
-    desc: "Groq Whisper converts speech to text in seconds with multi-lingual detection support.",
-    color: SF.accent
-  },
-  {
-    icon: Brain,
-    title: "Semantic Summaries",
-    desc: "AI extracts key insights, generates bullet summaries, and creates structured notes.",
-    color: SF.primary
-  },
-  {
-    icon: Layers,
-    title: "Mind Map Generator",
-    desc: "Auto-generate visual mind maps from your transcripts for better conceptual understanding.",
-    color: "#b8a7d7"
-  },
-  {
-    icon: FileText,
-    title: "Interactive Q&A",
-    desc: "Quiz yourself with AI-generated questions directly from your lecture content.",
-    color: "#d7c5a7"
-  },
-  {
-    icon: ShieldCheck,
-    title: "Privacy First",
-    desc: "Your audio is processed securely and auto-deleted per your configured retention policy.",
-    color: "#a7c5d7"
-  },
+  icon: Mic,
+  title: "Crystal Recording",
+  desc: "High-fidelity browser recording optimized for long lectures, meetings, and seminars.",
+  color: SF.secondary
+},
+{
+  icon: Zap,
+  title: "Instant Transcription",
+  desc: "Groq Whisper converts speech to text in seconds with multi-lingual detection support.",
+  color: SF.accent
+},
+{
+  icon: Brain,
+  title: "Semantic Summaries",
+  desc: "AI extracts key insights, generates bullet summaries, and creates structured notes.",
+  color: SF.primary
+},
+{
+  icon: Layers,
+  title: "Mind Map Generator",
+  desc: "Auto-generate visual mind maps from your transcripts for better conceptual understanding.",
+  color: "#b8a7d7"
+},
+{
+  icon: FileText,
+  title: "Interactive Q&A",
+  desc: "Quiz yourself with AI-generated questions directly from your lecture content.",
+  color: "#d7c5a7"
+},
+{
+  icon: ShieldCheck,
+  title: "Privacy First",
+  desc: "Your audio is processed securely and auto-deleted per your configured retention policy.",
+  color: "#a7c5d7"
+},
 ];
 
 const STATS = [{
-    value: "50K+",
-    label: "Active Students"
-  },
-  {
-    value: "2M+",
-    label: "Minutes Transcribed"
-  },
-  {
-    value: "98%",
-    label: "Accuracy Rate"
-  },
-  {
-    value: "70+",
-    label: "Languages Supported"
-  },
+  value: "50K+",
+  label: "Active Students"
+},
+{
+  value: "2M+",
+  label: "Minutes Transcribed"
+},
+{
+  value: "98%",
+  label: "Accuracy Rate"
+},
+{
+  value: "70+",
+  label: "Languages Supported"
+},
 ];
 
 const STEPS = [{
-    step: "01",
-    title: "Record or Upload",
-    desc: "Use your microphone directly in the browser, or upload an existing audio file from your device."
-  },
-  {
-    step: "02",
-    title: "AI Transcribes",
-    desc: "Groq Whisper converts your speech to text in seconds — even for Indonesian and regional languages."
-  },
-  {
-    step: "03",
-    title: "Learn & Export",
-    desc: "Get a clean summary, interactive Q&A, mind map, and export your notes to PDF or share with friends."
-  },
+  step: "01",
+  title: "Record or Upload",
+  desc: "Use your microphone directly in the browser, or upload an existing audio file from your device."
+},
+{
+  step: "02",
+  title: "AI Transcribes",
+  desc: "Groq Whisper converts your speech to text in seconds — even for Indonesian and regional languages."
+},
+{
+  step: "03",
+  title: "Learn & Export",
+  desc: "Get a clean summary, interactive Q&A, mind map, and export your notes to PDF or share with friends."
+},
 ];
 
 const TESTIMONIALS = [{
-    name: "Alya Rahmawati",
-    role: "Mahasiswi Teknik Informatika, UNNES",
-    text: "Fren-Edu mengubah cara belajarku. Kuliah 2 jam bisa diringkas jadi 5 poin utama dalam hitungan menit!",
-    rating: 5
-  },
-  {
-    name: "Budi Santoso",
-    role: "Dosen Ekonomi, UGM",
-    text: "Saya gunakan ini untuk merekam diskusi kelas. Transkrip dan ringkasannya sangat akurat, bahkan untuk istilah akademis.",
-    rating: 5
-  },
-  {
-    name: "Citra Dewi",
-    role: "Mahasiswi Kedokteran, UI",
-    text: "Q&A otomatis dari kuliah anatomi membantu saya persiapan ujian. Fitur mind map-nya luar biasa!",
-    rating: 5
-  },
+  name: "Alya Rahmawati",
+  role: "Mahasiswi Teknik Informatika, UNNES",
+  text: "Fren-Edu mengubah cara belajarku. Kuliah 2 jam bisa diringkas jadi 5 poin utama dalam hitungan menit!",
+  rating: 5
+},
+{
+  name: "Budi Santoso",
+  role: "Dosen Ekonomi, UGM",
+  text: "Saya gunakan ini untuk merekam diskusi kelas. Transkrip dan ringkasannya sangat akurat, bahkan untuk istilah akademis.",
+  rating: 5
+},
+{
+  name: "Citra Dewi",
+  role: "Mahasiswi Kedokteran, UI",
+  text: "Q&A otomatis dari kuliah anatomi membantu saya persiapan ujian. Fitur mind map-nya luar biasa!",
+  rating: 5
+},
 ];
 
 const TECH = [
@@ -346,7 +346,7 @@ export default function HomePage() {
                       <p className="text-[10px] text-slate-400 mt-0.5">00:12:47</p>
                     </div>
                     <div className="flex gap-[3px] h-8 items-center">
-                      {[55,80,45,100,60,85,40,75,50,90,65].map((h, i) => (
+                      {[55, 80, 45, 100, 60, 85, 40, 75, 50, 90, 65].map((h, i) => (
                         <div key={i} className="w-1.5 rounded-full" style={{ height: `${h}%`, background: i % 2 ? SF.primary : SF.secondary, animation: `full-eq-animate ${0.6 + i * 0.12}s ease-in-out infinite alternate` }} />
                       ))}
                     </div>
@@ -377,7 +377,7 @@ export default function HomePage() {
                     <div className="rounded-2xl p-4 bg-[#A7D7C5]/10 border border-slate-200">
                       <p className="text-[10px] font-bold uppercase tracking-widest mb-3 text-[#5a9a7c]">AI Summary — 3 Key Points</p>
                       <div className="space-y-2">
-                        {["Polymorphism = satu interface, banyak implementasi","Compile-time: method overloading","Runtime: method overriding via inheritance"].map((pt, i) => (
+                        {["Polymorphism = satu interface, banyak implementasi", "Compile-time: method overloading", "Runtime: method overriding via inheritance"].map((pt, i) => (
                           <div key={i} className="flex items-start gap-2">
                             <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#5a9a7c]" />
                             <p className="text-xs text-slate-600">{pt}</p>
