@@ -5,6 +5,7 @@ import { Mail, Lock, Globe, GraduationCap, CheckCircle2, XCircle } from "lucide-
 import { SettingsGroup } from "@/components/ui/settings-group";
 import { SettingsRow } from "@/components/ui/settings-row";
 import { Toggle } from "@/components/ui/toggle";
+import { SaveBar } from "@/components/ui/save-bar";
 
 export default function SettingsAccountPage() {
   const [displayName, setDisplayName] = useState("Your Name");
@@ -20,7 +21,7 @@ export default function SettingsAccountPage() {
     <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="mb-8">
         <h2 className="text-2xl font-extrabold tracking-tight" style={{background:"linear-gradient(135deg,#74B49B,#A7D7C5)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Account & Security</h2>
-        <p className="text-slate-500 text-sm mt-1">Manage your login credentials and account security.</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Manage your login credentials and account security.</p>
       </div>
 
       {/* Informasi Akun */}
@@ -30,7 +31,7 @@ export default function SettingsAccountPage() {
           description="Your primary login email. Contact support to change."
           htmlFor="email"
         >
-          <div className="flex items-center gap-2 bg-[rgba(167,215,197,0.10)] border border-[rgba(167,215,197,0.30)] rounded-xl px-3 py-2 text-sm text-slate-500">
+          <div className="flex items-center gap-2 bg-[rgba(167,215,197,0.10)] border border-[var(--border-default)] rounded-xl px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
             <Mail className="w-4 h-4 text-[#74B49B]" />
             <span className="font-mono text-xs">user@example.com</span>
           </div>
@@ -46,7 +47,7 @@ export default function SettingsAccountPage() {
             type="text"
             value={displayName}
             onChange={(e) => { setDisplayName(e.target.value); markDirty(); }}
-            className="bg-white border border-[rgba(167,215,197,0.40)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition-all w-48"
+            className="bg-[var(--bg-elevated)] border border-[var(--border-default)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all w-48"
           />
         </SettingsRow>
       </SettingsGroup>
@@ -57,7 +58,7 @@ export default function SettingsAccountPage() {
           label="Password"
           description="Change your account password."
         >
-          <button className="bg-white hover:bg-[rgba(167,215,197,0.12)] border border-[rgba(167,215,197,0.40)] hover:border-[#A7D7C5] text-sm font-semibold text-slate-700 px-4 py-2 rounded-xl transition-all flex items-center gap-2 shadow-sm">
+          <button className="bg-[var(--bg-elevated)] hover:bg-[rgba(167,215,197,0.12)] border border-[var(--border-default)] hover:border-[#A7D7C5] text-sm font-semibold text-slate-700 dark:text-slate-200 px-4 py-2 rounded-xl transition-all flex items-center gap-2 shadow-sm">
             <Lock className="w-4 h-4 text-[#74B49B]" />
             Change Password
           </button>
@@ -103,7 +104,7 @@ export default function SettingsAccountPage() {
                 Terverifikasi
               </span>
             ) : (
-              <span className="flex items-center gap-1.5 text-slate-400 text-sm font-semibold">
+              <span className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 text-sm font-semibold">
                 <XCircle className="w-4 h-4" />
                 Belum Diverifikasi
               </span>
@@ -112,8 +113,8 @@ export default function SettingsAccountPage() {
               className="text-sm font-semibold px-4 py-2 rounded-xl transition-all"
               style={{
                 background: "rgba(167,215,197,0.15)",
-                border: "1px solid rgba(167,215,197,0.40)",
-                color: "#1a3a30",
+                border: "1px solid var(--border-default)",
+                color: "var(--text-brand)",
               }}
             >
               <GraduationCap className="w-4 h-4 inline mr-1.5" />
@@ -123,18 +124,11 @@ export default function SettingsAccountPage() {
         </SettingsRow>
       </SettingsGroup>
 
-      {/* Save Bar */}
-      {isDirty && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-white/90 backdrop-blur-md border border-[rgba(167,215,197,0.50)] rounded-2xl px-5 py-3 shadow-xl shadow-[rgba(167,215,197,0.20)] animate-in slide-in-from-bottom-4 duration-300">
-          <p className="text-sm text-slate-600 font-medium">Perubahan belum disimpan</p>
-          <button onClick={() => setIsDirty(false)} className="text-sm text-slate-400 hover:text-slate-700 font-semibold transition-colors">
-            Batal
-          </button>
-          <button onClick={() => setIsDirty(false)} className="btn-save text-sm px-5 py-1.5 rounded-xl transition-all">
-            Simpan
-          </button>
-        </div>
-      )}
+      <SaveBar
+        visible={isDirty}
+        onSave={() => setIsDirty(false)}
+        onDiscard={() => setIsDirty(false)}
+      />
     </div>
   );
 }

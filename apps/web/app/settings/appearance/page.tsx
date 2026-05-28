@@ -65,8 +65,8 @@ export default function SettingsAppearancePage() {
                   background: "rgba(167,215,197,0.18)",
                   border: "2px solid rgba(116,180,155,0.60)",
                 } : {
-                  background: "white",
-                  border: "2px solid rgba(167,215,197,0.25)",
+                  background: "var(--bg-elevated)",
+                  border: "2px solid var(--border-default)",
                 }}
               >
                 {theme === value && (
@@ -74,9 +74,9 @@ export default function SettingsAppearancePage() {
                     <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                   </div>
                 )}
-                <Icon className="w-6 h-6" style={{color: theme === value ? "#74B49B" : "#94a3b8"}} />
-                <span className="text-sm font-bold" style={{color: theme === value ? "#1a3a30" : "#475569"}}>{label}</span>
-                <span className="text-[10px] text-slate-400 text-center">{description}</span>
+                <Icon className="w-6 h-6" style={{color: theme === value ? "#74B49B" : "var(--text-secondary)"}} />
+                <span className="text-sm font-bold" style={{color: theme === value ? "var(--text-brand)" : "var(--text-primary)"}}>{label}</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 text-center">{description}</span>
               </button>
             ))}
           </div>
@@ -106,7 +106,7 @@ export default function SettingsAppearancePage() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-500 mt-3">Warna aksen mempengaruhi tombol, indikator aktif, dan elemen interaktif.</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">Warna aksen mempengaruhi tombol, indikator aktif, dan elemen interaktif.</p>
         </div>
       </SettingsGroup>
 
@@ -123,20 +123,20 @@ export default function SettingsAppearancePage() {
                   background: "rgba(167,215,197,0.18)",
                   border: "2px solid rgba(116,180,155,0.60)",
                 } : {
-                  background: "white",
-                  border: "2px solid rgba(167,215,197,0.22)",
+                  background: "var(--bg-elevated)",
+                  border: "2px solid var(--border-default)",
                 }}
               >
-                <span className={cn("font-bold block", opt.size)} style={{color: fontSize === opt.value ? "#1a3a30" : "#475569"}}>Aa</span>
-                <span className="text-xs text-slate-500 mt-1 block">{opt.label}</span>
-                <span className="text-[10px] text-slate-400">{opt.description}</span>
+                <span className={cn("font-bold block", opt.size)} style={{color: fontSize === opt.value ? "var(--text-brand)" : "var(--text-primary)"}}>Aa</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 mt-1 block">{opt.label}</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500">{opt.description}</span>
               </button>
             ))}
           </div>
           {/* Live Preview */}
-          <div className="rounded-xl p-4 mt-2" style={{background:"rgba(167,215,197,0.08)",border:"1px solid rgba(167,215,197,0.25)"}}>
+          <div className="rounded-xl p-4 mt-2" style={{background:"rgba(167,215,197,0.08)",border:"1px solid var(--border-default)"}}>
             <p className="text-[10px] uppercase tracking-widest mb-2 font-bold" style={{color:"#74B49B"}}>Preview</p>
-            <p className={cn("text-slate-700 font-medium leading-relaxed", currentFontSize?.size)}>
+            <p className={cn("text-slate-700 dark:text-slate-200 font-medium leading-relaxed", currentFontSize?.size)}>
               Ini contoh teks transkrip dengan ukuran ini. AI akan menghasilkan ringkasan yang mudah dibaca.
             </p>
           </div>
@@ -150,7 +150,7 @@ export default function SettingsAppearancePage() {
             id="iface_lang"
             value={interfaceLang}
             onChange={(e) => { setInterfaceLang(e.target.value); mark(); }}
-            className="bg-white border border-[rgba(167,215,197,0.40)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none transition-all appearance-none"
+            className="bg-[var(--bg-elevated)] border border-[var(--border-default)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 dark:text-slate-100 focus:outline-none transition-all appearance-none"
           >
             {UI_LOCALES.map((l) => (
               <option key={l.value} value={l.value}>{l.flag} {l.label}</option>

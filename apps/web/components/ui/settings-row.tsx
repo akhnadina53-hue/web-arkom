@@ -1,30 +1,64 @@
-import React from "react";
+"use client";
+
+import { motion } from "framer-motion";
+import { useAppReducedMotion } from "@/lib/hooks/useAppReducedMotion";
 
 interface SettingsRowProps {
   label: string;
   description?: string;
-  htmlFor?: string;
   children: React.ReactNode;
+  className?: string;
+  htmlFor?: string;
 }
 
-export function SettingsRow({ label, description, htmlFor, children }: SettingsRowProps) {
+export function SettingsRow({
+  label,
+  description,
+  children,
+  className,
+  htmlFor,
+}: SettingsRowProps) {
+  const shouldReduceMotion = useAppReducedMotion();
+
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4">
-      <div className="flex-1 min-w-0">
+    <motion.div
+      className={`flex items-center justify-between py-3 px-2 rounded-xl ${className ?? ""}`}
+      whileHover={
+        shouldReduceMotion
+          ? {}
+          : {
+              backgroundColor: "var(--color-smurf-100)",
+              transition: { duration: 0.15 },
+            }
+      }
+    >
+      <div className="flex-1 min-w-0 mr-4">
         {htmlFor ? (
-          <label htmlFor={htmlFor} className="block text-sm font-semibold text-slate-800 cursor-pointer">
+          <label
+            htmlFor={htmlFor}
+            className="text-[14px] font-medium block cursor-pointer"
+            style={{ color: "var(--text-primary)" }}
+          >
             {label}
           </label>
         ) : (
-          <p className="text-sm font-semibold text-slate-800">{label}</p>
+          <p
+            className="text-[14px] font-medium"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {label}
+          </p>
         )}
         {description && (
-          <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{description}</p>
+          <p
+            className="text-[13px] mt-0.5"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            {description}
+          </p>
         )}
       </div>
-      <div className="shrink-0">
-        {children}
-      </div>
-    </div>
+      <div className="shrink-0">{children}</div>
+    </motion.div>
   );
 }

@@ -54,13 +54,13 @@ export default function SettingsAIPage() {
 
   function mark() { setIsDirty(true); }
 
-  const selectClass = "bg-white border border-[rgba(167,215,197,0.40)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 focus:outline-none transition-all appearance-none cursor-pointer";
+  const selectClass = "bg-[var(--bg-elevated)] border border-[var(--border-default)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 dark:text-slate-100 focus:outline-none transition-all appearance-none cursor-pointer";
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="mb-8">
         <h2 className="text-2xl font-extrabold tracking-tight" style={{background:"linear-gradient(135deg,#74B49B,#A7D7C5)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>AI &amp; Recording</h2>
-        <p className="text-slate-500 text-sm mt-1">Customize how Fren-Edu records, transcribes, and summarizes your sessions.</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Customize how Fren-Edu records, transcribes, and summarizes your sessions.</p>
       </div>
 
       {/* Transkripsi */}
@@ -108,17 +108,17 @@ export default function SettingsAIPage() {
                   background: "rgba(167,215,197,0.18)",
                   border: "2px solid rgba(116,180,155,0.60)",
                 } : {
-                  background: "white",
-                  border: "2px solid rgba(167,215,197,0.25)",
+                  background: "var(--bg-elevated)",
+                  border: "2px solid var(--border-default)",
                 }}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-bold" style={whisperQuality === opt.value ? {color:"#1a3a30"} : {color:"#334155"}}>
+                  <span className="text-sm font-bold" style={whisperQuality === opt.value ? {color:"var(--text-brand)"} : {color:"var(--text-primary)"}}>
                     {opt.label}
                   </span>
                   <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md" style={{background:"rgba(167,215,197,0.15)",color:"#74B49B"}}>{opt.sublabel}</span>
                 </div>
-                <p className="text-xs text-slate-500 leading-relaxed">{opt.description}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{opt.description}</p>
               </button>
             ))}
           </div>

@@ -3,9 +3,10 @@ dist/
 .venv/
 .env
 .env.*
+!.env.example
 .DS_Store
-/.next
-/*.log
+.next/
+*.log
 
 *.db
 *.db-journal

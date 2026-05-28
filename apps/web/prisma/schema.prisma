@@ -14,7 +14,7 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[] // NextAuth sessions
+  sessions      Session[] 
   recordings    RecordingSession[]
   profile       UserProfile?
   settings      UserSettings?
