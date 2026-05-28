@@ -17,7 +17,7 @@ export default function LoginPage() {
           whileTap={{ scale: 0.94 }}
           transition={{ type: "spring", stiffness: 300 }}
           className="flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg cursor-pointer"
-          style={{ background: "linear-gradient(135deg, #A7D7C5, #74B49B)", boxShadow: "0 8px 24px rgba(116,180,155,0.35)" }}
+          style={{ background: "linear-gradient(135deg, #5EEAD4, #14B8A6)", boxShadow: "0 8px 24px rgba(20,184,166,0.35)" }}
         >
           <Mic className="w-7 h-7 text-white" />
         </motion.div>
@@ -25,7 +25,7 @@ export default function LoginPage() {
 
       <button
         onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-        className="w-full py-3.5 px-6 bg-white hover:bg-[rgba(167,215,197,0.06)] border border-[rgba(167,215,197,0.40)] rounded-xl flex items-center justify-center gap-3 text-slate-700 font-semibold hover:border-[#A7D7C5] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[rgba(167,215,197,0.40)]"
+        className="w-full py-3.5 px-6 bg-white hover:bg-[rgba(20,184,166,0.06)] border border-[rgba(20,184,166,0.40)] rounded-xl flex items-center justify-center gap-3 text-slate-700 font-semibold hover:border-[#5EEAD4] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[rgba(20,184,166,0.40)]"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.58c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -37,7 +37,7 @@ export default function LoginPage() {
       </button>
 
       <div className="mt-8 pt-6 border-t border-slate-800/50 flex items-center justify-center gap-2 text-xs text-slate-500 font-medium">
-        <Sparkles className="w-3.5 h-3.5" style={{color:"#74B49B"}} />
+        <Sparkles className="w-3.5 h-3.5" style={{color:"#14B8A6"}} />
         <span>Fren-Edu AI Engine — Powered by Groq &amp; Whisper</span>
       </div>
     </AuthCard>

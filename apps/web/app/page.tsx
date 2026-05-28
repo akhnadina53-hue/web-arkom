@@ -21,7 +21,7 @@ function GradientOrb({ className, color }: { className: string; color: string })
   return (
     <div
       className={`absolute rounded-full pointer-events-none ${className}`}
-      style={{ background: color, filter: "blur(90px)", opacity: 0.28 }}
+      style={{ background: color, filter: "blur(90px)", opacity: 0.08 }}
     />
   );
 }
@@ -152,6 +152,198 @@ const TECH = [
   },
 ];
 
+/* Interactive Demo */
+const DEMO_TRANSCRIPT = [
+  "Baik, jadi yang pertama kita bahas adalah konsep polymorphism dalam OOP…",
+  "Polymorphism memungkinkan satu interface untuk digunakan berbagai tipe data berbeda…",
+  "Ada dua jenis: compile-time polymorphism dan runtime polymorphism…",
+];
+const DEMO_SUMMARY = [
+  "Polymorphism = satu interface, banyak implementasi",
+  "Compile-time: method overloading",
+  "Runtime: method overriding via inheritance",
+];
+
+function InteractiveDemo() {
+  const [step, setStep] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const [showSummary, setShowSummary] = useState<number[]>([]);
+  const [isClicking, setIsClicking] = useState(false);
+  const [showRipple, setShowRipple] = useState(false);
+
+  // Cursor target positions (% of container)
+  const CURSOR_POS: Record<number, { x: string; y: string }> = {
+    0: { x: "80%", y: "12%" },
+    1: { x: "16%", y: "50%" },
+    2: { x: "16%", y: "50%" },
+    3: { x: "58%", y: "35%" },
+    4: { x: "58%", y: "48%" },
+    5: { x: "62%", y: "78%" },
+    6: { x: "62%", y: "78%" },
+    7: { x: "80%", y: "12%" },
+  };
+
+  const DURATIONS = [1200, 1400, 800, 1000, 3200, 900, 2600, 1600];
+
+  useEffect(() => {
+    const t = setTimeout(() => setStep((s) => (s + 1) % 8), DURATIONS[step]);
+    return () => clearTimeout(t);
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 2) {
+      setIsClicking(true);
+      setShowRipple(true);
+      const t1 = setTimeout(() => setIsClicking(false), 300);
+      const t2 = setTimeout(() => setShowRipple(false), 600);
+      return () => { clearTimeout(t1); clearTimeout(t2); };
+    }
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 4) {
+      const full = DEMO_TRANSCRIPT.join("\n");
+      let i = 0;
+      setTypedText("");
+      const iv = setInterval(() => {
+        if (i < full.length) { setTypedText(full.slice(0, i + 1)); i++; }
+        else clearInterval(iv);
+      }, 16);
+      return () => clearInterval(iv);
+    }
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 6) {
+      setShowSummary([]);
+      const timers = DEMO_SUMMARY.map((_, i) =>
+        setTimeout(() => setShowSummary((p) => [...p, i]), (i + 1) * 650)
+      );
+      return () => timers.forEach(clearTimeout);
+    }
+    if (step === 0) { setShowSummary([]); setTypedText(""); }
+  }, [step]);
+
+  const recording = step >= 2 && step <= 6;
+  const pos = CURSOR_POS[step] ?? CURSOR_POS[0];
+
+  return (
+    <div className="relative text-slate-800">
+      {/* Browser chrome */}
+      <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-red-400/60" />
+          <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+          <div className="w-3 h-3 rounded-full bg-green-400/60" />
+        </div>
+        <div className="flex-1 mx-3 px-3 py-1 rounded-lg text-xs text-slate-400 text-center bg-slate-100/60 border border-slate-200">
+          fren-edu.app/record
+        </div>
+      </div>
+
+      {/* App body */}
+      <div className="relative p-6 md:p-8 bg-[#FAFBFC] min-h-[360px] select-none overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" style={{ background: "#5EEAD4", filter: "blur(80px)", opacity: 0.06 }} />
+
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Recorder panel */}
+          <div className="md:col-span-1 rounded-2xl p-5 flex flex-col items-center justify-center gap-4 bg-white border border-slate-200 shadow-sm">
+            <div className="relative">
+              {recording && (
+                <div className="absolute inset-0 rounded-full animate-ping" style={{ background: "rgba(20,184,166,0.20)" }} />
+              )}
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center relative transition-all duration-500"
+                style={{
+                  background: recording
+                    ? "linear-gradient(135deg, #14B8A6, #0D9488)"
+                    : "linear-gradient(135deg, #E5E7EB, #D1D5DB)",
+                  boxShadow: recording ? "0 8px 24px rgba(13,148,136,0.30)" : "none",
+                }}
+              >
+                <Mic className="w-7 h-7 text-white" />
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="text-xs font-bold text-slate-700">{recording ? "Recording…" : "Ready"}</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">{recording ? "00:12:47" : "00:00:00"}</p>
+            </div>
+            {recording && (
+              <div className="flex gap-[3px] h-8 items-center">
+                {[55, 80, 45, 100, 60, 85, 40, 75, 50, 90, 65].map((h, i) => (
+                  <div key={i} className="w-1.5 rounded-full" style={{ height: `${h}%`, background: i % 2 ? "#5EEAD4" : "#14B8A6", animation: `full-eq-animate ${0.6 + i * 0.12}s ease-in-out infinite alternate` }} />
+                ))}
+              </div>
+            )}
+            <span className="text-[10px] px-2 py-1 rounded-full font-bold" style={{ background: "rgba(20,184,166,0.10)", color: "#0D9488" }}>Whisper Large v3</span>
+          </div>
+
+          {/* Transcript + Summary */}
+          <div className="md:col-span-2 flex flex-col gap-4">
+            <div className="rounded-2xl p-5 flex-1 bg-white border border-slate-200 shadow-sm min-h-[140px]">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 rounded-full" style={{ background: recording ? "#14B8A6" : "#D1D5DB", animation: recording ? "pulse-glow 1.2s ease-in-out infinite" : "none" }} />
+                <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#0D9488" }}>Live Transcript</p>
+              </div>
+              {step >= 4 && typedText ? (
+                <div>
+                  {typedText.split("\n").map((line, i) => (
+                    <p key={i} className="text-xs text-slate-600 leading-relaxed mb-1.5 pl-3 border-l-2 transition-all" style={{ borderColor: i === typedText.split("\n").length - 1 ? "#F59E0B" : "#5EEAD4" }}>
+                      {line}
+                    </p>
+                  ))}
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className="inline-block w-0.5 h-4 rounded-full" style={{ background: "#14B8A6", animation: "demo-typing-cursor 0.8s step-end infinite" }} />
+                    <span className="text-xs text-slate-400 italic">mengetik…</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <div className="h-3 bg-slate-100 rounded-full w-3/4" />
+                  <div className="h-3 bg-slate-100 rounded-full w-1/2" />
+                  <div className="h-3 bg-slate-50 rounded-full w-2/3" />
+                  <p className="text-xs text-slate-300 italic mt-2">Menunggu rekaman…</p>
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-2xl p-4 border border-slate-200 shadow-sm" style={{ background: "rgba(20,184,166,0.03)" }}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "#0D9488" }}>AI Summary — 3 Key Points</p>
+              <div className="space-y-2">
+                {DEMO_SUMMARY.map((pt, i) => (
+                  <div key={i} className="flex items-start gap-2 transition-all duration-500" style={{ opacity: showSummary.includes(i) ? 1 : 0.15, transform: showSummary.includes(i) ? "translateX(0)" : "translateX(-8px)" }}>
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: showSummary.includes(i) ? "#0D9488" : "#D1D5DB" }} />
+                    <p className="text-xs text-slate-600">{pt}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Animated cursor */}
+        <motion.div
+          className="absolute z-30 pointer-events-none"
+          animate={{ left: pos.x, top: pos.y }}
+          transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <motion.div
+            animate={isClicking ? { scale: [1, 0.75, 1] } : { scale: 1 }}
+            transition={{ duration: 0.25 }}
+          >
+            <svg width="24" height="28" viewBox="0 0 24 28" fill="none" style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.25))" }}>
+              <path d="M5 2L20 14L12 15.5L8.5 23L5 2Z" fill="#1F2937" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+            </svg>
+          </motion.div>
+          {showRipple && (
+            <div className="absolute top-3 left-3 w-8 h-8 rounded-full border-2" style={{ borderColor: "#14B8A6", animation: "ripple-ring 0.6s ease-out forwards", transform: "translate(-50%, -50%)" }} />
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const { data: session, status } = useSession();
 
@@ -202,7 +394,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div style={{ background: SF.bg }} className="min-h-screen text-slate-800 dark:text-slate-100 selection:bg-[#A7D7C5]/40 overflow-x-hidden font-sans">
+    <div style={{ background: SF.bg }} className="min-h-screen text-slate-800 dark:text-slate-100 selection:bg-[#14B8A6]/20 overflow-x-hidden font-sans">
       <Navbar />
 
       {/* HERO */}
@@ -214,7 +406,7 @@ export default function HomePage() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div initial="hidden" animate="show" variants={stagger} className="text-center">
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-xs font-bold tracking-widest uppercase border" style={{ background: "rgba(167,215,197,0.18)", borderColor: "rgba(167,215,197,0.50)", color: SF.secondary }}>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-xs font-bold tracking-widest uppercase border" style={{ background: "rgba(20,184,166,0.08)", borderColor: "rgba(20,184,166,0.25)", color: SF.secondary }}>
               <Sparkles className="w-3 h-3" />
               Empowering Education with AI
             </motion.div>
@@ -238,22 +430,22 @@ export default function HomePage() {
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
               {status === "loading" ? (
-                <div className="w-44 h-14 rounded-2xl animate-pulse" style={{ background: "rgba(167,215,197,0.25)" }} />
+                <div className="w-44 h-14 rounded-2xl animate-pulse" style={{ background: "rgba(20,184,166,0.15)" }} />
               ) : !session ? (
                 <>
-                  <Link href="/login" className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg" style={{ background: `linear-gradient(135deg, ${SF.secondary}, #5a9a7c)`, boxShadow: `0 8px 24px rgba(116,180,155,0.35)` }}>
+                  <Link href="/login" className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg" style={{ background: `linear-gradient(135deg, ${SF.secondary}, #0F766E)`, boxShadow: `0 8px 24px rgba(13,148,136,0.30)` }}>
                     Get Started Free <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
-                  <Link href="#features" className="px-8 py-4 rounded-2xl font-bold transition-all border" style={{ background: "rgba(167,215,197,0.12)", borderColor: "rgba(167,215,197,0.40)", color: SF.secondary }}>
+                  <Link href="#features" className="px-8 py-4 rounded-2xl font-bold transition-all border" style={{ background: "rgba(20,184,166,0.06)", borderColor: "rgba(20,184,166,0.25)", color: SF.secondary }}>
                     See How It Works
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link href="/dashboard" className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg" style={{ background: `linear-gradient(135deg, ${SF.secondary}, #5a9a7c)`, boxShadow: `0 8px 24px rgba(116,180,155,0.35)` }}>
+                  <Link href="/dashboard" className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg" style={{ background: `linear-gradient(135deg, ${SF.secondary}, #0F766E)`, boxShadow: `0 8px 24px rgba(13,148,136,0.30)` }}>
                     Go to Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
-                  <Link href="/record" className="px-8 py-4 rounded-2xl font-bold transition-all border flex items-center gap-2" style={{ background: "rgba(167,215,197,0.12)", borderColor: "rgba(167,215,197,0.40)", color: SF.secondary }}>
+                  <Link href="/record" className="px-8 py-4 rounded-2xl font-bold transition-all border flex items-center gap-2" style={{ background: "rgba(20,184,166,0.06)", borderColor: "rgba(20,184,166,0.25)", color: SF.secondary }}>
                     <Mic className="w-4 h-4" /> Start Recording
                   </Link>
                 </>
@@ -262,7 +454,7 @@ export default function HomePage() {
           </motion.div>
 
           {/* Floating demo card */}
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="mt-20 max-w-2xl mx-auto rounded-3xl p-6 border" style={{ background: "var(--bg-card-glass)", backdropFilter: "blur(16px)", borderColor: "var(--border-default)", boxShadow: "0 20px 60px rgba(167,215,197,0.15)" }}>
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="mt-20 max-w-2xl mx-auto rounded-3xl p-6 border" style={{ background: "var(--bg-card-glass)", backdropFilter: "blur(16px)", borderColor: "var(--border-default)", boxShadow: "0 20px 60px rgba(0,0,0,0.06)" }}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${SF.primary}, ${SF.secondary})` }}>
                 <Mic className="w-4 h-4 text-white animate-pulse" />
@@ -282,23 +474,30 @@ export default function HomePage() {
             </p>
             <div className="flex gap-2 mt-4 flex-wrap">
               {["Ringkasan ✓", "Mind Map ✓", "Q&A ✓", "Ekspor PDF ✓"].map((t) => (
-                <span key={t} className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(167,215,197,0.20)", color: SF.secondary }}>{t}</span>
+                <span key={t} className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(20,184,166,0.10)", color: SF.secondary }}>{t}</span>
               ))}
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* DEMO PREVIEW */}
+      {/* INTERACTIVE DEMO */}
       <section className="py-8 pb-24 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center text-xs font-bold uppercase tracking-widest mb-8"
+            className="text-center text-xs font-bold uppercase tracking-widest mb-3"
             style={{ color: SF.secondary }}
           >
             See It In Action
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-sm text-slate-400 mb-8 max-w-md mx-auto"
+          >
+            Lihat bagaimana Fren-Edu mengubah suaramu menjadi catatan terstruktur — secara otomatis.
           </motion.p>
 
           <motion.div
@@ -307,91 +506,12 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="rounded-[28px] overflow-hidden bg-white"
-            style={{ boxShadow: "0 24px 80px rgba(167,215,197,0.22), 0 4px 24px rgba(0,0,0,0.06)" }}
+            style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.06), 0 4px 24px rgba(0,0,0,0.04)" }}
           >
-            <motion.div
-              whileHover={{ scale: 1.025 }}
-              whileTap={{ scale: 0.985 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="cursor-zoom-in text-slate-800"
-            >
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400/70" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/70" />
-                  <div className="w-3 h-3 rounded-full" style={{ background: SF.primary, opacity: 0.85 }} />
-                </div>
-                <div className="flex-1 mx-3 px-3 py-1 rounded-lg text-xs text-slate-400 text-center animate-pulse bg-slate-100/50 border border-slate-200">
-                  fren-edu.app/record
-                </div>
-                <div className="w-3 h-3 rounded-full" style={{ background: SF.accent, opacity: 0.6 }} />
-              </div>
-
-              {/* App mockup */}
-              <div className="relative p-6 md:p-8 bg-slate-50 min-h-[360px]">
-                <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" style={{ background: SF.primary, filter: "blur(70px)", opacity: 0.18 }} />
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                  {/* Recorder */}
-                  <div className="md:col-span-1 rounded-2xl p-5 flex flex-col items-center justify-center gap-4 bg-white border border-slate-200">
-                    <div className="relative">
-                      <div className="absolute inset-0 rounded-full animate-ping" style={{ background: `${SF.primary}44` }} />
-                      <div className="w-16 h-16 rounded-full flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`, boxShadow: `0 8px 24px rgba(116,180,155,0.40)` }}>
-                        <Mic className="w-7 h-7 text-white" />
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-bold text-slate-700">Recording…</p>
-                      <p className="text-[10px] text-slate-400 mt-0.5">00:12:47</p>
-                    </div>
-                    <div className="flex gap-[3px] h-8 items-center">
-                      {[55, 80, 45, 100, 60, 85, 40, 75, 50, 90, 65].map((h, i) => (
-                        <div key={i} className="w-1.5 rounded-full" style={{ height: `${h}%`, background: i % 2 ? SF.primary : SF.secondary, animation: `full-eq-animate ${0.6 + i * 0.12}s ease-in-out infinite alternate` }} />
-                      ))}
-                    </div>
-                    <span className="text-[10px] px-2 py-1 rounded-full font-bold bg-[#A7D7C5]/20 text-[#5a9a7c]">Whisper Large v3</span>
-                  </div>
-
-                  {/* Transcript + Summary */}
-                  <div className="md:col-span-2 flex flex-col gap-4">
-                    <div className="rounded-2xl p-5 flex-1 bg-white border border-slate-200">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: SF.secondary }} />
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-[#5a9a7c]">Live Transcript</p>
-                      </div>
-                      {[
-                        "Baik, jadi yang pertama kita bahas adalah konsep polymorphism dalam OOP…",
-                        "Polymorphism memungkinkan satu interface untuk digunakan berbagai tipe data berbeda…",
-                        "Ada dua jenis: compile-time polymorphism dan runtime polymorphism…",
-                      ].map((line, i) => (
-                        <p key={i} className="text-xs text-slate-600 leading-relaxed mb-1.5 pl-3 border-l" style={{ borderColor: i === 2 ? SF.accent : SF.primary, opacity: i === 2 ? 1 : 0.65 }}>
-                          {line}
-                        </p>
-                      ))}
-                      <div className="flex items-center gap-1 mt-2">
-                        <span className="inline-block w-1 h-4 rounded-full animate-pulse" style={{ background: SF.secondary }} />
-                        <span className="text-xs text-slate-400 italic">mengetik…</span>
-                      </div>
-                    </div>
-                    <div className="rounded-2xl p-4 bg-[#A7D7C5]/10 border border-slate-200">
-                      <p className="text-[10px] font-bold uppercase tracking-widest mb-3 text-[#5a9a7c]">AI Summary — 3 Key Points</p>
-                      <div className="space-y-2">
-                        {["Polymorphism = satu interface, banyak implementasi", "Compile-time: method overloading", "Runtime: method overriding via inheritance"].map((pt, i) => (
-                          <div key={i} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#5a9a7c]" />
-                            <p className="text-xs text-slate-600">{pt}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <InteractiveDemo />
           </motion.div>
           <p className="text-center text-xs text-slate-400 mt-4">
-            Hover untuk zoom · Klik untuk mengecilkan · Diproses real-time di browser
+            ✨ Animasi otomatis · Menunjukkan alur penggunaan secara real-time
           </p>
         </div>
       </section>
@@ -401,7 +521,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {STATS.map(({ value, label }) => (
-              <motion.div key={label} variants={fadeUp} className="text-center p-6 rounded-2xl border" style={{ background: "rgba(167,215,197,0.08)", borderColor: "var(--border-default)" }}>
+              <motion.div key={label} variants={fadeUp} className="text-center p-6 rounded-2xl border" style={{ background: "rgba(20,184,166,0.04)", borderColor: "var(--border-default)" }}>
                 <p className="text-3xl font-extrabold mb-1" style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{value}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">{label}</p>
               </motion.div>
@@ -444,7 +564,7 @@ export default function HomePage() {
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {STEPS.map(({ step, title, desc }, i) => (
               <motion.div key={step} variants={fadeUp} className="relative p-8 rounded-3xl border bg-white shadow-sm hover:shadow-md transition-shadow" style={{ borderColor: "var(--border-default)" }}>
-                <span className="absolute top-6 right-6 text-5xl font-black select-none" style={{ color: "rgba(167,215,197,0.25)" }}>{step}</span>
+                <span className="absolute top-6 right-6 text-5xl font-black select-none" style={{ color: "rgba(20,184,166,0.15)" }}>{step}</span>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm mb-5" style={{ background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})` }}>{i + 1}</div>
                 <h3 className="text-lg font-bold text-slate-800 mb-3">{title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
@@ -520,7 +640,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <Link href={href} className="w-full py-3 rounded-2xl text-center font-bold transition-all text-sm" style={highlight ? { background: `linear-gradient(135deg,${SF.secondary},${SF.primary})`, color: "white", boxShadow: `0 8px 24px rgba(116,180,155,0.30)` } : { background: "white", color: SF.secondary, border: `1px solid rgba(167,215,197,0.50)` }}>{cta}</Link>
+                <Link href={href} className="w-full py-3 rounded-2xl text-center font-bold transition-all text-sm" style={highlight ? { background: `linear-gradient(135deg,${SF.secondary},${SF.primary})`, color: "white", boxShadow: `0 8px 24px rgba(13,148,136,0.25)` } : { background: "white", color: SF.secondary, border: `1px solid rgba(20,184,166,0.30)` }}>{cta}</Link>
               </motion.div>
             ))}
           </div>
@@ -529,13 +649,13 @@ export default function HomePage() {
 
       {/* CTA */}
       <section className="py-24 px-6">
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="max-w-4xl mx-auto rounded-[40px] p-16 text-center relative overflow-hidden" style={{ background: `linear-gradient(135deg, rgba(167,215,197,0.25), rgba(116,180,155,0.15))`, border: "1px solid rgba(167,215,197,0.40)", boxShadow: "0 20px 80px rgba(167,215,197,0.20)" }}>
+        <motion.div initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="max-w-4xl mx-auto rounded-[40px] p-16 text-center relative overflow-hidden" style={{ background: `linear-gradient(135deg, rgba(20,184,166,0.08), rgba(13,148,136,0.05))`, border: "1px solid rgba(20,184,166,0.20)", boxShadow: "0 20px 80px rgba(0,0,0,0.04)" }}>
           <GradientOrb className="w-[400px] h-[400px] -top-20 left-1/2 -translate-x-1/2" color={SF.primary} />
           <div className="relative z-10">
             <GraduationCap className="w-12 h-12 mx-auto mb-6" style={{ color: SF.secondary }} />
             <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-6 leading-tight">Learn smarter,<br />not harder.</h2>
             <p className="text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto">Join thousands of students and professionals transforming how they learn with AI.</p>
-            <Link href="/register" className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-extrabold text-white transition-all" style={{ background: `linear-gradient(135deg,${SF.secondary},#5a9a7c)`, boxShadow: `0 12px 36px rgba(116,180,155,0.40)` }}>
+            <Link href="/register" className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-extrabold text-white transition-all" style={{ background: `linear-gradient(135deg,${SF.secondary},#0F766E)`, boxShadow: `0 12px 36px rgba(13,148,136,0.30)` }}>
               Create Free Account <Sparkles className="w-5 h-5" />
             </Link>
           </div>
