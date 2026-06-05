@@ -10,3 +10,21 @@ dist/
 
 *.db
 *.db-journal
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+*.mp3
+*.wav
+*.m4a
+*.ogg
+temp/
+tmp/
+uploads/
+
+.vscode/
+.idea/
+
+.vercel/

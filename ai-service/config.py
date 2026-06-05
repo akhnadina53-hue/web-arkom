@@ -14,5 +14,7 @@ OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "anthropic/claude-3-5-sonnet")
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 
+INTERNAL_API_SECRET = os.getenv("INTERNAL_API_SECRET", "fren-edu-super-secret-key-2026")
+
 ENABLE_CACHING = os.getenv("ENABLE_CACHING", "true").lower() == "true"
 MAX_AUDIO_DURATION = int(os.getenv("MAX_AUDIO_DURATION", "3600"))

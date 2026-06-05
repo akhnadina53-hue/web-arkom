@@ -171,7 +171,7 @@ export default function RoadmapPage({
       try {
         const mockTranscript = "Ini adalah transkrip singkat tentang fisika relativitas khusus, bagaimana kecepatan cahaya konstan bagi semua pengamat, dan konsep dilasi waktu.";
 
-        const response = await fetch("http://localhost:8000/roadmap/generate", {
+        const response = await fetch("/api/roadmap/generate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

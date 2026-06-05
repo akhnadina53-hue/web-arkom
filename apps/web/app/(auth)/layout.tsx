@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { Mic } from "lucide-react";
 import Link from "next/link";
@@ -26,6 +27,25 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <div
+        className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-16"
+        style={{ background: "var(--bg-page)" }}
+      >
+        <div className="w-full flex items-center justify-center z-10 px-4">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-16"
