@@ -38,7 +38,11 @@ interface StatusIndicatorProps {
   className?: string;
 }
 
-export function StatusIndicator({ step, errorMessage, className }: StatusIndicatorProps) {
+export function StatusIndicator({
+  step,
+  errorMessage,
+  className,
+}: StatusIndicatorProps) {
   if (step === "IDLE") return null;
 
   const currentIndex = STEP_ORDER.indexOf(step);
@@ -53,7 +57,7 @@ export function StatusIndicator({ step, errorMessage, className }: StatusIndicat
             ? "bg-emerald-500/15 text-emerald-400"
             : step === "ERROR"
               ? "bg-red-500/15 text-red-400"
-              : "bg-teal-500/15 text-teal-400"
+              : "bg-teal-500/15 text-teal-400",
         )}
       >
         {step === "DONE" ? (
@@ -79,15 +83,17 @@ export function StatusIndicator({ step, errorMessage, className }: StatusIndicat
                 <div
                   className={cn(
                     "h-1 w-full rounded-full transition-all duration-500",
-                    isDone || isCurrent
-                      ? "bg-teal-500"
-                      : "bg-slate-800"
+                    isDone || isCurrent ? "bg-teal-500" : "bg-slate-800",
                   )}
                 />
                 <span
                   className={cn(
                     "text-[9px] font-semibold tracking-wider hidden sm:block",
-                    isCurrent ? "text-teal-400" : isDone ? "text-slate-500" : "text-slate-700"
+                    isCurrent
+                      ? "text-teal-400"
+                      : isDone
+                        ? "text-slate-500"
+                        : "text-slate-700",
                   )}
                 >
                   {STEP_LABELS[s].split(" ")[0].toUpperCase()}
@@ -100,7 +106,9 @@ export function StatusIndicator({ step, errorMessage, className }: StatusIndicat
 
       {/* Error message */}
       {step === "ERROR" && errorMessage && (
-        <p className="text-center text-xs text-red-400/80 mt-2">{errorMessage}</p>
+        <p className="text-center text-xs text-red-400/80 mt-2">
+          {errorMessage}
+        </p>
       )}
     </div>
   );

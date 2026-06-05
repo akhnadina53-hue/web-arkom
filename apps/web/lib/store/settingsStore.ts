@@ -11,22 +11,25 @@ export type ThemeMode = "light" | "dark" | "system";
 
 export interface UserSettings {
   theme: ThemeMode;
-  accent_color: string;       
-  font_size: number;        
+  accent_color: string;
+  font_size: number;
   reduced_motion: boolean;
-  language: string;         
+  language: string;
 }
 
 interface SettingsState {
   settings: UserSettings;
   isLoading: boolean;
-  isDirty: boolean;           
+  isDirty: boolean;
 
-  updateSetting: <K extends keyof UserSettings>(key: K, value: UserSettings[K]) => void;
+  updateSetting: <K extends keyof UserSettings>(
+    key: K,
+    value: UserSettings[K],
+  ) => void;
   resetSettings: () => void;
   markClean: () => void;
 
-  // API TEMPLATE 
+  // API TEMPLATE
   // TODO: Implement these when backend is ready
   // fetchSettings: () => Promise<void>;
   // saveSettings: () => Promise<void>;
@@ -34,7 +37,7 @@ interface SettingsState {
 
 const DEFAULT_SETTINGS: UserSettings = {
   theme: "system",
-  accent_color: "#A7D7C5",    
+  accent_color: "#A7D7C5",
   font_size: 100,
   reduced_motion: false,
   language: "id",
@@ -108,6 +111,6 @@ export const useSettingsStore = create<SettingsState>()(
     {
       name: "fren-edu-settings",
       partialize: (state) => ({ settings: state.settings }),
-    }
-  )
+    },
+  ),
 );

@@ -1,80 +1,80 @@
 ---
 colors:
-  surface: '#f7f9fb'
-  surface-dim: '#d8dadc'
-  surface-bright: '#f7f9fb'
-  surface-container-lowest: '#ffffff'
-  surface-container-low: '#f2f4f6'
-  surface-container: '#eceef0'
-  surface-container-high: '#e6e8ea'
-  surface-container-highest: '#e0e3e5'
-  on-surface: '#191c1e'
-  on-surface-variant: '#3b4a45'
-  inverse-surface: '#2d3133'
-  inverse-on-surface: '#eff1f3'
-  outline: '#6b7a75'
-  outline-variant: '#bacac4'
-  surface-tint: '#006b5a'
-  primary: '#006b5a'
-  on-primary: '#ffffff'
-  primary-container: '#00d1b2'
-  on-primary-container: '#005446'
-  inverse-primary: '#2cdebf'
-  secondary: '#446900'
-  on-secondary: '#ffffff'
-  secondary-container: '#b2f746'
-  on-secondary-container: '#496f00'
-  tertiary: '#006b5f'
-  on-tertiary: '#ffffff'
-  tertiary-container: '#25d0bb'
-  on-tertiary-container: '#00544b'
-  error: '#ba1a1a'
-  on-error: '#ffffff'
-  error-container: '#ffdad6'
-  on-error-container: '#93000a'
-  primary-fixed: '#58fbda'
-  primary-fixed-dim: '#2cdebf'
-  on-primary-fixed: '#00201a'
-  on-primary-fixed-variant: '#005143'
-  secondary-fixed: '#b2f746'
-  secondary-fixed-dim: '#98da27'
-  on-secondary-fixed: '#121f00'
-  on-secondary-fixed-variant: '#334f00'
-  tertiary-fixed: '#62fae3'
-  tertiary-fixed-dim: '#3cddc7'
-  on-tertiary-fixed: '#00201c'
-  on-tertiary-fixed-variant: '#005047'
-  background: '#f7f9fb'
-  on-background: '#191c1e'
-  surface-variant: '#e0e3e5'
+  surface: "#f7f9fb"
+  surface-dim: "#d8dadc"
+  surface-bright: "#f7f9fb"
+  surface-container-lowest: "#ffffff"
+  surface-container-low: "#f2f4f6"
+  surface-container: "#eceef0"
+  surface-container-high: "#e6e8ea"
+  surface-container-highest: "#e0e3e5"
+  on-surface: "#191c1e"
+  on-surface-variant: "#3b4a45"
+  inverse-surface: "#2d3133"
+  inverse-on-surface: "#eff1f3"
+  outline: "#6b7a75"
+  outline-variant: "#bacac4"
+  surface-tint: "#006b5a"
+  primary: "#006b5a"
+  on-primary: "#ffffff"
+  primary-container: "#00d1b2"
+  on-primary-container: "#005446"
+  inverse-primary: "#2cdebf"
+  secondary: "#446900"
+  on-secondary: "#ffffff"
+  secondary-container: "#b2f746"
+  on-secondary-container: "#496f00"
+  tertiary: "#006b5f"
+  on-tertiary: "#ffffff"
+  tertiary-container: "#25d0bb"
+  on-tertiary-container: "#00544b"
+  error: "#ba1a1a"
+  on-error: "#ffffff"
+  error-container: "#ffdad6"
+  on-error-container: "#93000a"
+  primary-fixed: "#58fbda"
+  primary-fixed-dim: "#2cdebf"
+  on-primary-fixed: "#00201a"
+  on-primary-fixed-variant: "#005143"
+  secondary-fixed: "#b2f746"
+  secondary-fixed-dim: "#98da27"
+  on-secondary-fixed: "#121f00"
+  on-secondary-fixed-variant: "#334f00"
+  tertiary-fixed: "#62fae3"
+  tertiary-fixed-dim: "#3cddc7"
+  on-tertiary-fixed: "#00201c"
+  on-tertiary-fixed-variant: "#005047"
+  background: "#f7f9fb"
+  on-background: "#191c1e"
+  surface-variant: "#e0e3e5"
 typography:
   h1:
     fontFamily: Plus Jakarta Sans
     fontSize: 48px
-    fontWeight: '800'
-    lineHeight: '1.2'
+    fontWeight: "800"
+    lineHeight: "1.2"
     letterSpacing: -0.02em
   h2:
     fontFamily: Plus Jakarta Sans
     fontSize: 32px
-    fontWeight: '700'
-    lineHeight: '1.3'
+    fontWeight: "700"
+    lineHeight: "1.3"
   body-main:
     fontFamily: Plus Jakarta Sans
     fontSize: 16px
-    fontWeight: '400'
-    lineHeight: '1.6'
+    fontWeight: "400"
+    lineHeight: "1.6"
   ai-monospaced:
     fontFamily: Space Grotesk
     fontSize: 14px
-    fontWeight: '500'
-    lineHeight: '1.5'
+    fontWeight: "500"
+    lineHeight: "1.5"
     letterSpacing: 0.05em
   human-touch:
     fontFamily: Be Vietnam Pro
     fontSize: 18px
-    fontWeight: '400'
-    lineHeight: '1.4'
+    fontWeight: "400"
+    lineHeight: "1.4"
 rounded:
   sm: 0.25rem
   DEFAULT: 0.5rem
@@ -116,14 +116,14 @@ This system employs a three-tier typographic strategy to distinguish between dif
 2.  **The Human Element (Be Vietnam Pro):** Used sparingly for tooltips, user-generated notes, or "personal tips" from the AI. This font should feel like a soft, handwritten annotation in the margin of a notebook.
 3.  **The Technical Core (Space Grotesk):** A modern, geometric mono-type used for timestamps, confidence scores, and raw metadata. It represents the "AI engine" at work.
 
-*Note: Bold weights should be used for headlines to contrast against the airy backgrounds.*
+_Note: Bold weights should be used for headlines to contrast against the airy backgrounds._
 
 ## Layout & Spacing
 
-The layout follows a **Fixed Grid** model for the central workspace to ensure focus, while using **Fluid Sidebars** for utility tools. 
+The layout follows a **Fixed Grid** model for the central workspace to ensure focus, while using **Fluid Sidebars** for utility tools.
 
-- **Grid:** Use a 12-column grid system for the main dashboard. 
-- **Rhythm:** An 8px linear scale governs all padding and margins. 
+- **Grid:** Use a 12-column grid system for the main dashboard.
+- **Rhythm:** An 8px linear scale governs all padding and margins.
 - **Whitespace:** Emphasize "Large" (lg) and "Extra Large" (xl) spacing between major sections to maintain the airy, tech-focused aesthetic. Avoid tight clusters of information; instead, use generous padding within cards to allow the background gradients to breathe through the glass layers.
 
 ## Elevation & Depth
@@ -137,7 +137,7 @@ Hierarchy is established through **Glassmorphism** and **Ambient Shadows** rathe
 
 ## Shapes
 
-The shape language is "Soft-Modern." Sharp corners are avoided to keep the student-friendly vibe. 
+The shape language is "Soft-Modern." Sharp corners are avoided to keep the student-friendly vibe.
 
 - **Standard Elements:** 0.5rem (8px) for buttons and input fields.
 - **Large Containers:** 1rem (16px) for cards and transcription blocks.

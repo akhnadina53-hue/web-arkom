@@ -36,13 +36,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.style.setProperty("--border-focus", hex);
 
     root.style.setProperty("--shadow-glow-sm", `0 0 12px ${hex}59`);
-    root.style.setProperty("--shadow-glow-md", `0 0 24px ${hex}73`); 
+    root.style.setProperty("--shadow-glow-md", `0 0 24px ${hex}73`);
   }, [settings.accent_color]);
 
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--font-size-scale",
-      `${settings.font_size}%`
+      `${settings.font_size}%`,
     );
   }, [settings.font_size]);
 

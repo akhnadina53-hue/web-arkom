@@ -34,17 +34,25 @@ export default function DashboardLayout({
   const { sidebarCollapsed, setSidebarCollapsed } = useUIStore();
 
   return (
-    <div className="flex min-h-screen font-sans" style={{ background: "var(--bg-page)", color: "var(--text-primary)" }}>
-      
+    <div
+      className="flex min-h-screen font-sans"
+      style={{ background: "var(--bg-page)", color: "var(--text-primary)" }}
+    >
       {/* DESKTOP SIDEBAR (Hidden on Mobile)*/}
       <motion.aside
         animate={{ width: sidebarCollapsed ? 72 : 240 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="hidden md:flex fixed top-0 left-0 h-full z-40 flex-col border-r overflow-hidden shadow-sm"
-        style={{ background: "var(--bg-card)", borderColor: "var(--border-default)" }}
+        style={{
+          background: "var(--bg-card)",
+          borderColor: "var(--border-default)",
+        }}
       >
         {/* Floating Logo */}
-        <div className="flex items-center gap-3 px-4 py-5 border-b shrink-0" style={{ borderColor: "var(--border-default)" }}>
+        <div
+          className="flex items-center gap-3 px-4 py-5 border-b shrink-0"
+          style={{ borderColor: "var(--border-default)" }}
+        >
           <FrenEduLogo size={36} showText={!sidebarCollapsed} />
         </div>
 
@@ -64,20 +72,24 @@ export default function DashboardLayout({
                   "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group",
                   isActive
                     ? "font-semibold"
-                    : "hover:bg-[var(--color-smurf-100)] border border-transparent"
+                    : "hover:bg-[var(--color-smurf-100)] border border-transparent",
                 )}
-                style={isActive ? {
-                  background: "var(--color-smurf-100)",
-                  border: "1px solid var(--border-brand)",
-                  color: "var(--color-smurf-700)",
-                } : {
-                  color: "var(--text-secondary)",
-                }}
+                style={
+                  isActive
+                    ? {
+                        background: "var(--color-smurf-100)",
+                        border: "1px solid var(--border-brand)",
+                        color: "var(--color-smurf-700)",
+                      }
+                    : {
+                        color: "var(--text-secondary)",
+                      }
+                }
               >
                 <Icon
                   className={cn(
                     "w-5 h-5 shrink-0 transition-colors",
-                    isActive ? "" : "group-hover:text-[var(--text-primary)]"
+                    isActive ? "" : "group-hover:text-[var(--text-primary)]",
                   )}
                   style={isActive ? { color: "var(--color-smurf-600)" } : {}}
                 />
@@ -104,15 +116,24 @@ export default function DashboardLayout({
         </nav>
 
         {/* User Profile & Logout */}
-        <div className="px-2 pb-4 border-t pt-4 space-y-1" style={{ borderColor: "var(--border-default)" }}>
+        <div
+          className="px-2 pb-4 border-t pt-4 space-y-1"
+          style={{ borderColor: "var(--border-default)" }}
+        >
           <div
             className={cn(
               "flex items-center gap-3 px-3 py-2.5 rounded-xl",
-              sidebarCollapsed ? "justify-center" : ""
+              sidebarCollapsed ? "justify-center" : "",
             )}
           >
             {/* Avatar */}
-            <div className="w-8 h-8 rounded-full border flex items-center justify-center shrink-0 overflow-hidden" style={{ background: "var(--color-smurf-100)", borderColor: "var(--border-brand)" }}>
+            <div
+              className="w-8 h-8 rounded-full border flex items-center justify-center shrink-0 overflow-hidden"
+              style={{
+                background: "var(--color-smurf-100)",
+                borderColor: "var(--border-brand)",
+              }}
+            >
               {session?.user?.image ? (
                 <img
                   src={session.user.image}
@@ -120,7 +141,10 @@ export default function DashboardLayout({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="text-xs font-bold" style={{ color: "var(--color-smurf-600)" }}>
+                <span
+                  className="text-xs font-bold"
+                  style={{ color: "var(--color-smurf-600)" }}
+                >
                   {session?.user?.name?.[0]?.toUpperCase() ?? "U"}
                 </span>
               )}
@@ -133,10 +157,16 @@ export default function DashboardLayout({
               }}
               className="flex-1 overflow-hidden"
             >
-              <p className="text-xs font-bold truncate" style={{ color: "var(--text-primary)" }}>
+              <p
+                className="text-xs font-bold truncate"
+                style={{ color: "var(--text-primary)" }}
+              >
                 {session?.user?.name ?? "User"}
               </p>
-              <p className="text-[10px] truncate" style={{ color: "var(--text-secondary)" }}>
+              <p
+                className="text-[10px] truncate"
+                style={{ color: "var(--text-secondary)" }}
+              >
                 {session?.user?.email ?? ""}
               </p>
             </motion.div>
@@ -164,7 +194,11 @@ export default function DashboardLayout({
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           className="absolute top-[72px] -right-3 w-6 h-6 border rounded-full flex items-center justify-center transition-colors z-50 shadow-sm"
-          style={{ background: "var(--bg-elevated)", borderColor: "var(--border-default)", color: "var(--text-secondary)" }}
+          style={{
+            background: "var(--bg-elevated)",
+            borderColor: "var(--border-default)",
+            color: "var(--text-secondary)",
+          }}
         >
           {sidebarCollapsed ? (
             <ChevronRight className="w-3 h-3" />
@@ -174,10 +208,18 @@ export default function DashboardLayout({
         </button>
       </motion.aside>
 
-
       {/* MOBILE BOTTOM NAV */}
       <div className="md:hidden fixed bottom-6 left-4 right-4 z-50 flex justify-center">
-        <nav className="border px-4 py-3 rounded-full flex items-center justify-around gap-2 w-full max-w-sm" style={{ background: "var(--bg-card-glass)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderColor: "var(--border-default)", boxShadow: "var(--shadow-lg)" }}>
+        <nav
+          className="border px-4 py-3 rounded-full flex items-center justify-around gap-2 w-full max-w-sm"
+          style={{
+            background: "var(--bg-card-glass)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            borderColor: "var(--border-default)",
+            boxShadow: "var(--shadow-lg)",
+          }}
+        >
           {navItems.map(({ href, label, icon: Icon }) => {
             const isActive =
               href === "/dashboard"
@@ -189,7 +231,11 @@ export default function DashboardLayout({
                 key={href}
                 href={href}
                 className="relative flex flex-col items-center justify-center w-14 h-12 rounded-2xl transition-all"
-                style={{ color: isActive ? "var(--color-smurf-600)" : "var(--text-secondary)" }}
+                style={{
+                  color: isActive
+                    ? "var(--color-smurf-600)"
+                    : "var(--text-secondary)",
+                }}
               >
                 {isActive && (
                   <motion.div
@@ -199,14 +245,22 @@ export default function DashboardLayout({
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
-                <Icon className={cn("w-5 h-5 mb-1 z-10 transition-transform", isActive && "scale-110")} />
+                <Icon
+                  className={cn(
+                    "w-5 h-5 mb-1 z-10 transition-transform",
+                    isActive && "scale-110",
+                  )}
+                />
                 <span className="text-[10px] font-semibold z-10">{label}</span>
               </Link>
             );
           })}
-          
-          <div className="w-[1px] h-8 mx-1" style={{ background: "var(--border-default)" }} />
-          
+
+          <div
+            className="w-[1px] h-8 mx-1"
+            style={{ background: "var(--border-default)" }}
+          />
+
           {/* Mobile Profile Sign Out */}
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
@@ -219,12 +273,11 @@ export default function DashboardLayout({
         </nav>
       </div>
 
-
       {/* MAIN CONTENT AREA */}
       <main
         className={cn(
           "flex-1 min-h-screen pt-10 px-4 sm:px-8 pb-32 md:pb-16 transition-all duration-300 ease-in-out w-full max-w-[100vw]",
-          sidebarCollapsed ? "md:ml-[72px]" : "md:ml-[240px]"
+          sidebarCollapsed ? "md:ml-[72px]" : "md:ml-[240px]",
         )}
       >
         {/* Mobile Header */}
@@ -234,7 +287,6 @@ export default function DashboardLayout({
 
         {children}
       </main>
-
     </div>
   );
 }

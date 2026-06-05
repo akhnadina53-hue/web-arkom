@@ -22,18 +22,26 @@ export function DangerZone({
     <motion.section
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, ease: "easeOut" }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { duration: 0.4, ease: "easeOut" }
+      }
       className="mb-8"
     >
       <div className="mb-3 px-1">
-        <h3 className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5"
+        <h3
+          className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5"
           style={{ color: "var(--error)" }}
         >
           <AlertTriangle className="w-3.5 h-3.5" />
           {title}
         </h3>
         {description && (
-          <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
+          <p
+            className="text-xs mt-0.5"
+            style={{ color: "var(--text-secondary)" }}
+          >
             {description}
           </p>
         )}

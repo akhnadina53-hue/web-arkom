@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": [
-      "DOM",
-      "ES2020"
-    ],
+    "lib": ["DOM", "ES2020"],
     "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -13,11 +10,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "allowJs": true,
-    "types": [
-      "react",
-      "react-dom",
-      "node"
-    ],
+    "types": ["react", "react-dom", "node"],
     "noEmit": true,
     "incremental": true,
     "isolatedModules": true,
@@ -31,13 +24,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

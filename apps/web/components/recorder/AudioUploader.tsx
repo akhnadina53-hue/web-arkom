@@ -1,6 +1,12 @@
 "use client";
 
-import { useRef, useState, useCallback, type DragEvent, type ChangeEvent } from "react";
+import {
+  useRef,
+  useState,
+  useCallback,
+  type DragEvent,
+  type ChangeEvent,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Upload,
@@ -30,13 +36,29 @@ const ACCEPTED_MIME_TYPES = [
   "audio/amr",
 ];
 
-const ACCEPTED_EXTENSIONS = [".mp3", ".m4a", ".wav", ".ogg", ".webm", ".aac", ".flac", ".3gp", ".amr"];
+const ACCEPTED_EXTENSIONS = [
+  ".mp3",
+  ".m4a",
+  ".wav",
+  ".ogg",
+  ".webm",
+  ".aac",
+  ".flac",
+  ".3gp",
+  ".amr",
+];
 const MAX_FILE_SIZE_MB = 200;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 const DISPLAY_FORMATS = "MP3 · M4A · WAV · OGG · FLAC · AAC";
 
-type UploadStatus = "idle" | "dragging" | "validating" | "uploading" | "done" | "error";
+type UploadStatus =
+  | "idle"
+  | "dragging"
+  | "validating"
+  | "uploading"
+  | "done"
+  | "error";
 
 interface AudioUploaderProps {
   onUploadComplete?: (sessionId: string, fileName: string) => void;
@@ -67,7 +89,10 @@ function validateFileClient(file: File): string | null {
   return null;
 }
 
-export function AudioUploader({ onUploadComplete, className }: AudioUploaderProps) {
+export function AudioUploader({
+  onUploadComplete,
+  className,
+}: AudioUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [selected, setSelected] = useState<SelectedFile | null>(null);
@@ -84,52 +109,59 @@ export function AudioUploader({ onUploadComplete, className }: AudioUploaderProp
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const processFile = useCallback(async (file: File) => {
-    setStatus("validating");
-    const clientError = validateFileClient(file);
-    if (clientError) {
-      setErrorMsg(clientError);
-      setStatus("error");
-      return;
-    }
-
-    setSelected({ file, sizeLabel: formatFileSize(file.size) });
-
-    setStatus("uploading");
-    setProgress(0);
-
-    const formData = new FormData();
-    formData.append("audio", file);
-
-    const progressInterval = setInterval(() => {
-      setProgress((p) => Math.min(p + Math.random() * 8 + 2, 90));
-    }, 300);
-
-    try {
-      const res = await fetch("/api/upload/audio", {
-        method: "POST",
-        body: formData,
-      });
-
-      clearInterval(progressInterval);
-      const body = await res.json();
-
-      if (!res.ok) {
-        setErrorMsg(body?.error?.message ?? "Upload failed. Please try again.");
+  const processFile = useCallback(
+    async (file: File) => {
+      setStatus("validating");
+      const clientError = validateFileClient(file);
+      if (clientError) {
+        setErrorMsg(clientError);
         setStatus("error");
         return;
       }
 
-      setProgress(100);
-      setUploadedSession(body.data.sessionId);
-      setStatus("done");
-      onUploadComplete?.(body.data.sessionId, file.name);
-    } catch {
-      clearInterval(progressInterval);
-      setErrorMsg("Network error. Please check your connection and try again.");
-      setStatus("error");
-    }
-  }, [onUploadComplete]);
+      setSelected({ file, sizeLabel: formatFileSize(file.size) });
+
+      setStatus("uploading");
+      setProgress(0);
+
+      const formData = new FormData();
+      formData.append("audio", file);
+
+      const progressInterval = setInterval(() => {
+        setProgress((p) => Math.min(p + Math.random() * 8 + 2, 90));
+      }, 300);
+
+      try {
+        const res = await fetch("/api/upload/audio", {
+          method: "POST",
+          body: formData,
+        });
+
+        clearInterval(progressInterval);
+        const body = await res.json();
+
+        if (!res.ok) {
+          setErrorMsg(
+            body?.error?.message ?? "Upload failed. Please try again.",
+          );
+          setStatus("error");
+          return;
+        }
+
+        setProgress(100);
+        setUploadedSession(body.data.sessionId);
+        setStatus("done");
+        onUploadComplete?.(body.data.sessionId, file.name);
+      } catch {
+        clearInterval(progressInterval);
+        setErrorMsg(
+          "Network error. Please check your connection and try again.",
+        );
+        setStatus("error");
+      }
+    },
+    [onUploadComplete],
+  );
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
@@ -170,11 +202,16 @@ export function AudioUploader({ onUploadComplete, className }: AudioUploaderProp
             </div>
             <div>
               <p className="font-bold text-white text-lg">Upload Complete!</p>
-              <p className="text-slate-400 text-sm mt-1">{selected?.file.name}</p>
-              <p className="text-emerald-400/70 text-xs mt-2 font-mono">{uploadedSession}</p>
+              <p className="text-slate-400 text-sm mt-1">
+                {selected?.file.name}
+              </p>
+              <p className="text-emerald-400/70 text-xs mt-2 font-mono">
+                {uploadedSession}
+              </p>
             </div>
             <p className="text-slate-500 text-sm">
-              Your audio is queued for transcription. We&apos;ll notify you when it&apos;s ready.
+              Your audio is queued for transcription. We&apos;ll notify you when
+              it&apos;s ready.
             </p>
             <button
               onClick={resetState}
@@ -229,7 +266,9 @@ export function AudioUploader({ onUploadComplete, className }: AudioUploaderProp
             </div>
             <div>
               <p className="font-bold text-white">Upload Rejected</p>
-              <p className="text-red-400/80 text-sm mt-2 leading-relaxed max-w-sm">{errorMsg}</p>
+              <p className="text-red-400/80 text-sm mt-2 leading-relaxed max-w-sm">
+                {errorMsg}
+              </p>
             </div>
             <button
               onClick={resetState}
@@ -257,7 +296,7 @@ export function AudioUploader({ onUploadComplete, className }: AudioUploaderProp
                 "relative rounded-[28px] border-2 border-dashed p-10 flex flex-col items-center gap-5 cursor-pointer transition-all group",
                 isDragging
                   ? "border-teal-400 bg-teal-500/10 scale-[1.01]"
-                  : "border-slate-700 bg-slate-900/30 hover:border-teal-500/50 hover:bg-teal-500/5"
+                  : "border-slate-700 bg-slate-900/30 hover:border-teal-500/50 hover:bg-teal-500/5",
               )}
             >
               {/* Icon */}
@@ -266,7 +305,9 @@ export function AudioUploader({ onUploadComplete, className }: AudioUploaderProp
                 transition={{ type: "spring", stiffness: 400 }}
                 className={cn(
                   "w-16 h-16 rounded-2xl flex items-center justify-center transition-colors",
-                  isDragging ? "bg-teal-500/20" : "bg-slate-800 group-hover:bg-teal-500/10"
+                  isDragging
+                    ? "bg-teal-500/20"
+                    : "bg-slate-800 group-hover:bg-teal-500/10",
                 )}
               >
                 {isDragging ? (
@@ -319,7 +360,11 @@ export function AudioUploader({ onUploadComplete, className }: AudioUploaderProp
             <input
               ref={fileInputRef}
               type="file"
-              accept={ACCEPTED_MIME_TYPES.join(",") + "," + ACCEPTED_EXTENSIONS.join(",")}
+              accept={
+                ACCEPTED_MIME_TYPES.join(",") +
+                "," +
+                ACCEPTED_EXTENSIONS.join(",")
+              }
               className="hidden"
               onChange={handleFileChange}
             />

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface UIStore {
   sidebarCollapsed: boolean;
@@ -13,11 +13,11 @@ export const useUIStore = create<UIStore>()(
     (set) => ({
       sidebarCollapsed: false,
       setSidebarCollapsed: (collapsed) => set({ sidebarCollapsed: collapsed }),
-      activeTab: 'transcript',
+      activeTab: "transcript",
       setActiveTab: (tab) => set({ activeTab: tab }),
     }),
     {
-      name: 'frenedu-ui-store',
-    }
-  )
+      name: "frenedu-ui-store",
+    },
+  ),
 );

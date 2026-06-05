@@ -14,23 +14,36 @@ interface AvatarUploaderProps {
   name?: string;
 }
 
-export function AvatarUploader({ currentUrl, onUpload, onRemove, size = 96, name = "User" }: AvatarUploaderProps) {
+export function AvatarUploader({
+  currentUrl,
+  onUpload,
+  onRemove,
+  size = 96,
+  name = "User",
+}: AvatarUploaderProps) {
   const shouldReduceMotion = useAppReducedMotion();
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setPreview(reader.result as string);
-    reader.readAsDataURL(file);
-    if (onUpload) {
-      setIsUploading(true);
-      try { await onUpload(file); } finally { setIsUploading(false); }
-    }
-  }, [onUpload]);
+  const handleFileSelect = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => setPreview(reader.result as string);
+      reader.readAsDataURL(file);
+      if (onUpload) {
+        setIsUploading(true);
+        try {
+          await onUpload(file);
+        } finally {
+          setIsUploading(false);
+        }
+      }
+    },
+    [onUpload],
+  );
 
   const displayUrl = preview || currentUrl;
 
@@ -39,14 +52,29 @@ export function AvatarUploader({ currentUrl, onUpload, onRemove, size = 96, name
       <motion.div
         whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
         className="relative rounded-full overflow-hidden cursor-pointer group"
-        style={{ width: size, height: size, border: "3px solid var(--border-brand)", boxShadow: "var(--shadow-md)" }}
+        style={{
+          width: size,
+          height: size,
+          border: "3px solid var(--border-brand)",
+          boxShadow: "var(--shadow-md)",
+        }}
         onClick={() => inputRef.current?.click()}
       >
         {displayUrl ? (
-          <img src={displayUrl} alt={name} className="w-full h-full object-cover" />
+          <img
+            src={displayUrl}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
         ) : (
-          <div className="w-full h-full flex items-center justify-center font-display font-bold text-xl"
-            style={{ background: "linear-gradient(135deg, var(--color-smurf-300), var(--color-smurf-400))", color: "white" }}>
+          <div
+            className="w-full h-full flex items-center justify-center font-display font-bold text-xl"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-smurf-300), var(--color-smurf-400))",
+              color: "white",
+            }}
+          >
             {name[0]?.toUpperCase() ?? "U"}
           </div>
         )}
@@ -60,15 +88,33 @@ export function AvatarUploader({ currentUrl, onUpload, onRemove, size = 96, name
         )}
       </motion.div>
       <div className="flex flex-col gap-2">
-        <Button variant="secondary" className="text-xs px-3 py-1.5" onClick={() => inputRef.current?.click()}>
+        <Button
+          variant="secondary"
+          className="text-xs px-3 py-1.5"
+          onClick={() => inputRef.current?.click()}
+        >
           <Upload className="w-3.5 h-3.5" /> Upload Photo
         </Button>
         {(currentUrl || preview) && onRemove && (
-          <button onClick={() => { setPreview(null); onRemove(); }}
-            className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Remove</button>
+          <button
+            onClick={() => {
+              setPreview(null);
+              onRemove();
+            }}
+            className="text-xs font-medium"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            Remove
+          </button>
         )}
       </div>
-      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileSelect}
+      />
     </div>
   );
 }

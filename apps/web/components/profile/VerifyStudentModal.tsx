@@ -32,7 +32,9 @@ export function VerifyStudentModal({
   const [step, setStep] = useState<Step>(1);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [otpStatus, setOtpStatus] = useState<"idle" | "error" | "success">("idle");
+  const [otpStatus, setOtpStatus] = useState<"idle" | "error" | "success">(
+    "idle",
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -158,10 +160,16 @@ export function VerifyStudentModal({
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <h2 className="font-display font-bold text-lg" style={{ color: "var(--text-primary)" }}>
+                      <h2
+                        className="font-display font-bold text-lg"
+                        style={{ color: "var(--text-primary)" }}
+                      >
                         Verify Student Email
                       </h2>
-                      <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                      <p
+                        className="text-xs"
+                        style={{ color: "var(--text-secondary)" }}
+                      >
                         Enter your university email address
                       </p>
                     </div>
@@ -172,7 +180,10 @@ export function VerifyStudentModal({
                     label="University Email"
                     placeholder="you@university.ac.id"
                     value={email}
-                    onChange={(e) => { setEmail(e.target.value); setError(""); }}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError("");
+                    }}
                     error={error}
                   />
 
@@ -202,10 +213,16 @@ export function VerifyStudentModal({
                       <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                      <h2 className="font-display font-bold text-lg" style={{ color: "var(--text-primary)" }}>
+                      <h2
+                        className="font-display font-bold text-lg"
+                        style={{ color: "var(--text-primary)" }}
+                      >
                         Enter Verification Code
                       </h2>
-                      <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                      <p
+                        className="text-xs"
+                        style={{ color: "var(--text-secondary)" }}
+                      >
                         We sent a 6-digit code to {email}
                       </p>
                     </div>
@@ -213,13 +230,20 @@ export function VerifyStudentModal({
 
                   <OTPInput
                     value={otp}
-                    onChange={(v) => { setOtp(v); setError(""); setOtpStatus("idle"); }}
+                    onChange={(v) => {
+                      setOtp(v);
+                      setError("");
+                      setOtpStatus("idle");
+                    }}
                     status={otpStatus}
                     disabled={isLoading}
                   />
 
                   {error && (
-                    <p className="text-xs text-center font-medium" style={{ color: "var(--error)" }}>
+                    <p
+                      className="text-xs text-center font-medium"
+                      style={{ color: "var(--error)" }}
+                    >
                       {error}
                     </p>
                   )}
@@ -235,7 +259,11 @@ export function VerifyStudentModal({
                   </Button>
 
                   <button
-                    onClick={() => { setStep(1); setOtp(""); setError(""); }}
+                    onClick={() => {
+                      setStep(1);
+                      setOtp("");
+                      setError("");
+                    }}
                     className="w-full text-center text-sm font-medium transition-colors"
                     style={{ color: "var(--text-secondary)" }}
                   >
@@ -256,7 +284,8 @@ export function VerifyStudentModal({
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center"
                       style={{
-                        background: "linear-gradient(135deg, var(--color-smurf-300), var(--color-smurf-400))",
+                        background:
+                          "linear-gradient(135deg, var(--color-smurf-300), var(--color-smurf-400))",
                         boxShadow: "var(--shadow-glow-lg)",
                       }}
                     >
@@ -265,15 +294,25 @@ export function VerifyStudentModal({
                   </motion.div>
 
                   <div>
-                    <h2 className="font-display font-bold text-xl mb-1" style={{ color: "var(--text-primary)" }}>
+                    <h2
+                      className="font-display font-bold text-xl mb-1"
+                      style={{ color: "var(--text-primary)" }}
+                    >
                       Verified! 🎉
                     </h2>
-                    <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                    <p
+                      className="text-sm"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
                       Your student status has been confirmed
                     </p>
                   </div>
 
-                  <Badge variant="success" animated icon={<ShieldCheck className="w-3 h-3" />}>
+                  <Badge
+                    variant="success"
+                    animated
+                    icon={<ShieldCheck className="w-3 h-3" />}
+                  >
                     VERIFIED STUDENT
                   </Badge>
 

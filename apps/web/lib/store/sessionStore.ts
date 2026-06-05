@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import type { RecordingSession } from '@/types';
+import { create } from "zustand";
+import type { RecordingSession } from "@/types";
 
 interface SessionStore {
   sessions: RecordingSession[];
@@ -16,7 +16,7 @@ export const useSessionStore = create<SessionStore>((set) => ({
   currentSession: null,
 
   setSessions: (sessions) => set({ sessions }),
-  
+
   setCurrentSession: (session) => set({ currentSession: session }),
 
   addSession: (session) =>
@@ -27,7 +27,7 @@ export const useSessionStore = create<SessionStore>((set) => ({
   updateSession: (id, updates) =>
     set((state) => ({
       sessions: state.sessions.map((s) =>
-        s.id === id ? { ...s, ...updates } : s
+        s.id === id ? { ...s, ...updates } : s,
       ),
       currentSession:
         state.currentSession?.id === id

@@ -4,14 +4,14 @@ export function triggerParticleBurst(originElement?: HTMLElement) {
   const y = origin ? origin.top + origin.height / 2 : window.innerHeight / 2;
 
   const colors = [
-    'var(--color-smurf-300)',
-    'var(--color-smurf-400)',
-    'var(--color-snitch-400)',
-    'var(--color-smurf-300)',
+    "var(--color-smurf-300)",
+    "var(--color-smurf-400)",
+    "var(--color-snitch-400)",
+    "var(--color-smurf-300)",
   ];
 
   Array.from({ length: 8 }).forEach((_, i) => {
-    const particle = document.createElement('div');
+    const particle = document.createElement("div");
     const angle = (i / 8) * Math.PI * 2;
     const distance = 24 + Math.random() * 16;
 
@@ -28,16 +28,19 @@ export function triggerParticleBurst(originElement?: HTMLElement) {
 
     document.body.appendChild(particle);
 
-    particle.animate([
-      { transform: `translate(-50%, -50%) scale(1)`, opacity: 1 },
+    particle.animate(
+      [
+        { transform: `translate(-50%, -50%) scale(1)`, opacity: 1 },
+        {
+          transform: `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance}px)) scale(0)`,
+          opacity: 0,
+        },
+      ],
       {
-        transform: `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance}px)) scale(0)`,
-        opacity: 0,
+        duration: 400,
+        easing: "cubic-bezier(0, 0.9, 0.57, 1)",
+        fill: "forwards",
       },
-    ], {
-      duration: 400,
-      easing: 'cubic-bezier(0, 0.9, 0.57, 1)',
-      fill: 'forwards',
-    }).onfinish = () => particle.remove();
+    ).onfinish = () => particle.remove();
   });
 }

@@ -18,11 +18,11 @@ interface ProfileBadgesProps {
 }
 
 const BADGE_ICONS: Record<string, React.ReactNode> = {
-  verified:    <Shield className="w-3 h-3" />,
-  student:     <GraduationCap className="w-3 h-3" />,
-  award:       <Award className="w-3 h-3" />,
-  star:        <Star className="w-3 h-3" />,
-  power:       <Zap className="w-3 h-3" />,
+  verified: <Shield className="w-3 h-3" />,
+  student: <GraduationCap className="w-3 h-3" />,
+  award: <Award className="w-3 h-3" />,
+  star: <Star className="w-3 h-3" />,
+  power: <Zap className="w-3 h-3" />,
 };
 
 export function ProfileBadges({ badges }: ProfileBadgesProps) {

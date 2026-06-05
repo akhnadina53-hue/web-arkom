@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import type { RecordingState } from '@/types';
+import { create } from "zustand";
+import type { RecordingState } from "@/types";
 
 interface RecordingStore extends RecordingState {
   setIsRecording: (isRecording: boolean) => void;
@@ -12,7 +12,7 @@ interface RecordingStore extends RecordingState {
 const initialState: RecordingState = {
   isRecording: false,
   duration: 0,
-  transcript: '',
+  transcript: "",
   chunks: [],
 };
 
@@ -22,7 +22,7 @@ export const useRecordingStore = create<RecordingStore>((set) => ({
   setIsRecording: (isRecording) => set({ isRecording }),
   setDuration: (duration) => set({ duration }),
   setTranscript: (transcript) => set({ transcript }),
-  
+
   addChunk: (chunk) =>
     set((state) => ({
       chunks: [...state.chunks, chunk],

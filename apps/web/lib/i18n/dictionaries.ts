@@ -27,7 +27,8 @@ export const translations = {
       title: "Perpustakaan Kamu",
       subtitle: "Kelola dan tinjau sesi belajar bertenaga AI kamu",
       no_recordings: "Belum ada rekaman",
-      no_recordings_desc: "Perpustakaanmu kosong. Mulai rekam sesi pertamamu untuk membuka wawasan bertenaga AI.",
+      no_recordings_desc:
+        "Perpustakaanmu kosong. Mulai rekam sesi pertamamu untuk membuka wawasan bertenaga AI.",
       start_recording: "Mulai Rekam Sekarang",
       total_sessions: "Total Sesi",
       study_hours: "Jam Belajar",
@@ -49,22 +50,27 @@ export const translations = {
 
     ai: {
       title: "AI & Rekaman",
-      subtitle: "Sesuaikan cara Fren-Edu merekam, mentranskripsi, dan meringkas sesimu.",
+      subtitle:
+        "Sesuaikan cara Fren-Edu merekam, mentranskripsi, dan meringkas sesimu.",
       transcription: "Transkripsi",
       language_label: "Bahasa Transkripsi",
-      language_desc: "Pilih bahasa rekaman kamu, atau biarkan AI mendeteksi secara otomatis.",
+      language_desc:
+        "Pilih bahasa rekaman kamu, atau biarkan AI mendeteksi secara otomatis.",
       quality_label: "Kualitas Transkripsi",
       quality_desc: "Pilih model Whisper yang sesuai dengan kebutuhanmu.",
       recording: "Rekaman",
       audio_quality: "Kualitas Audio",
-      audio_quality_desc: "Kualitas tinggi menghasilkan transkripsi lebih akurat.",
+      audio_quality_desc:
+        "Kualitas tinggi menghasilkan transkripsi lebih akurat.",
       chunk_interval: "Interval Pemrosesan",
-      chunk_interval_desc: "Seberapa sering audio dikirim ke server untuk ditranskripsi.",
+      chunk_interval_desc:
+        "Seberapa sering audio dikirim ke server untuk ditranskripsi.",
       noise_cancel: "Peredam Kebisingan",
       noise_cancel_desc: "Kurangi suara latar sebelum transkripsi.",
       summary: "Ringkasan AI",
       auto_summarize: "Ringkasan Otomatis",
-      auto_summarize_desc: "Buat ringkasan secara otomatis saat rekaman selesai.",
+      auto_summarize_desc:
+        "Buat ringkasan secara otomatis saat rekaman selesai.",
       summary_length: "Panjang Ringkasan",
       summary_length_desc: "Seberapa detail ringkasan yang dihasilkan.",
       summary_format: "Format Ringkasan",
@@ -76,39 +82,50 @@ export const translations = {
       subtitle: "Personalisasi tampilan dan nuansa ruang kerja Fren-Edu kamu.",
       theme: "Tema",
       accent: "Aksen Warna",
-      accent_note: "Warna aksen mempengaruhi tombol, indikator aktif, dan elemen interaktif.",
+      accent_note:
+        "Warna aksen mempengaruhi tombol, indikator aktif, dan elemen interaktif.",
       font_size: "Ukuran Teks",
-      font_preview: "Ini contoh teks transkrip dengan ukuran ini. AI akan menghasilkan ringkasan yang mudah dibaca.",
+      font_preview:
+        "Ini contoh teks transkrip dengan ukuran ini. AI akan menghasilkan ringkasan yang mudah dibaca.",
       interface: "Antarmuka",
       interface_lang: "Bahasa Antarmuka",
       interface_lang_desc: "Bahasa tampilan Fren-Edu.",
       sidebar_collapsed: "Sidebar Dikecilkan",
-      sidebar_collapsed_desc: "Tampilkan sidebar dalam mode ikon kecil secara default.",
+      sidebar_collapsed_desc:
+        "Tampilkan sidebar dalam mode ikon kecil secara default.",
       reduced_motion: "Kurangi Animasi",
-      reduced_motion_desc: "Nonaktifkan animasi dan transisi untuk kenyamanan visual.",
+      reduced_motion_desc:
+        "Nonaktifkan animasi dan transisi untuk kenyamanan visual.",
     },
 
     privacy: {
       title: "Privasi & Data",
-      subtitle: "Kontrol visibilitas, retensi data, dan izin penggunaan AI kamu.",
+      subtitle:
+        "Kontrol visibilitas, retensi data, dan izin penggunaan AI kamu.",
       profile_visibility: "Visibilitas Profil",
       profile_public: "Profil Publik",
-      profile_public_desc: "Izinkan siapa saja melihat profil kamu, termasuk pengguna yang belum login.",
+      profile_public_desc:
+        "Izinkan siapa saja melihat profil kamu, termasuk pengguna yang belum login.",
       show_institution: "Tampilkan Institusi",
-      show_institution_desc: "Tampilkan nama universitas dan jurusan di profil publik.",
+      show_institution_desc:
+        "Tampilkan nama universitas dan jurusan di profil publik.",
       show_interests: "Tampilkan Minat",
       show_interests_desc: "Tampilkan tag minat di profil publik.",
       retention: "Retensi Data Rekaman",
       retention_label: "Hapus Audio Otomatis",
-      retention_desc: "File audio dikompresi dan dihapus setelah periode ini. Transkrip dan ringkasan tetap tersimpan.",
+      retention_desc:
+        "File audio dikompresi dan dihapus setelah periode ini. Transkrip dan ringkasan tetap tersimpan.",
       ai_data: "AI & Data",
       ai_consent: "Izinkan Data untuk Pelatihan AI",
-      ai_consent_desc: "Rekaman dan transkrip anonim kamu mungkin digunakan untuk meningkatkan model AI Fren-Edu. Data pribadimu tidak akan pernah dijual atau dibagikan ke pihak ketiga.",
+      ai_consent_desc:
+        "Rekaman dan transkrip anonim kamu mungkin digunakan untuk meningkatkan model AI Fren-Edu. Data pribadimu tidak akan pernah dijual atau dibagikan ke pihak ketiga.",
       danger_zone: "Zona Berbahaya",
       clear_data: "Hapus Semua Data",
-      clear_data_desc: "Hapus semua sesi, transkrip, dan audio. Akun kamu tetap aktif.",
+      clear_data_desc:
+        "Hapus semua sesi, transkrip, dan audio. Akun kamu tetap aktif.",
       delete_account: "Hapus Akun",
-      delete_account_desc: "Akun kamu akan dijadwalkan untuk dihapus permanen dalam 30 hari.",
+      delete_account_desc:
+        "Akun kamu akan dijadwalkan untuk dihapus permanen dalam 30 hari.",
     },
 
     common: {
@@ -146,7 +163,8 @@ export const translations = {
       title: "Your Library",
       subtitle: "Manage and review your AI-powered study sessions",
       no_recordings: "No recordings found",
-      no_recordings_desc: "Your library is empty. Start recording your first session to unlock AI-powered insights.",
+      no_recordings_desc:
+        "Your library is empty. Start recording your first session to unlock AI-powered insights.",
       start_recording: "Start Recording Now",
       total_sessions: "Total Sessions",
       study_hours: "Study Hours",
@@ -168,22 +186,27 @@ export const translations = {
 
     ai: {
       title: "AI & Recording",
-      subtitle: "Customize how Fren-Edu records, transcribes, and summarizes your sessions.",
+      subtitle:
+        "Customize how Fren-Edu records, transcribes, and summarizes your sessions.",
       transcription: "Transcription",
       language_label: "Transcription Language",
-      language_desc: "Choose your recording language, or let AI detect it automatically.",
+      language_desc:
+        "Choose your recording language, or let AI detect it automatically.",
       quality_label: "Transcription Quality",
       quality_desc: "Choose the Whisper model that fits your needs.",
       recording: "Recording",
       audio_quality: "Audio Quality",
-      audio_quality_desc: "Higher quality produces more accurate transcriptions.",
+      audio_quality_desc:
+        "Higher quality produces more accurate transcriptions.",
       chunk_interval: "Processing Interval",
-      chunk_interval_desc: "How often audio is sent to the server for transcription.",
+      chunk_interval_desc:
+        "How often audio is sent to the server for transcription.",
       noise_cancel: "Noise Cancellation",
       noise_cancel_desc: "Reduce background noise before transcription.",
       summary: "AI Summary",
       auto_summarize: "Auto Summarize",
-      auto_summarize_desc: "Generate a summary automatically when recording stops.",
+      auto_summarize_desc:
+        "Generate a summary automatically when recording stops.",
       summary_length: "Summary Length",
       summary_length_desc: "How detailed the generated summary should be.",
       summary_format: "Summary Format",
@@ -195,39 +218,50 @@ export const translations = {
       subtitle: "Personalize the look and feel of your Fren-Edu workspace.",
       theme: "Theme",
       accent: "Accent Color",
-      accent_note: "Accent color affects buttons, active indicators, and interactive elements.",
+      accent_note:
+        "Accent color affects buttons, active indicators, and interactive elements.",
       font_size: "Font Size",
-      font_preview: "This is sample transcript text at this size. AI will generate summaries that are easy to read.",
+      font_preview:
+        "This is sample transcript text at this size. AI will generate summaries that are easy to read.",
       interface: "Interface",
       interface_lang: "Interface Language",
       interface_lang_desc: "Display language for Fren-Edu.",
       sidebar_collapsed: "Collapsed Sidebar",
-      sidebar_collapsed_desc: "Show the sidebar in compact icon mode by default.",
+      sidebar_collapsed_desc:
+        "Show the sidebar in compact icon mode by default.",
       reduced_motion: "Reduce Motion",
-      reduced_motion_desc: "Disable animations and transitions for visual comfort.",
+      reduced_motion_desc:
+        "Disable animations and transitions for visual comfort.",
     },
 
     privacy: {
       title: "Privacy & Data",
-      subtitle: "Control your visibility, data retention, and AI usage consent.",
+      subtitle:
+        "Control your visibility, data retention, and AI usage consent.",
       profile_visibility: "Profile Visibility",
       profile_public: "Public Profile",
-      profile_public_desc: "Allow anyone to view your profile, including non-logged-in users.",
+      profile_public_desc:
+        "Allow anyone to view your profile, including non-logged-in users.",
       show_institution: "Show Institution",
-      show_institution_desc: "Display your university and major on your public profile.",
+      show_institution_desc:
+        "Display your university and major on your public profile.",
       show_interests: "Show Interests",
       show_interests_desc: "Display interest tags on your public profile.",
       retention: "Recording Data Retention",
       retention_label: "Auto-Delete Audio",
-      retention_desc: "Audio files are compressed and deleted after this period. Transcripts and summaries are kept.",
+      retention_desc:
+        "Audio files are compressed and deleted after this period. Transcripts and summaries are kept.",
       ai_data: "AI & Data",
       ai_consent: "Allow Data for AI Training",
-      ai_consent_desc: "Your anonymous recordings and transcripts may be used to improve Fren-Edu's AI models. Your personal data will never be sold or shared with third parties.",
+      ai_consent_desc:
+        "Your anonymous recordings and transcripts may be used to improve Fren-Edu's AI models. Your personal data will never be sold or shared with third parties.",
       danger_zone: "Danger Zone",
       clear_data: "Clear All Data",
-      clear_data_desc: "Delete all sessions, transcripts, and audio. Your account remains active.",
+      clear_data_desc:
+        "Delete all sessions, transcripts, and audio. Your account remains active.",
       delete_account: "Delete Account",
-      delete_account_desc: "Your account will be scheduled for permanent deletion in 30 days.",
+      delete_account_desc:
+        "Your account will be scheduled for permanent deletion in 30 days.",
     },
 
     common: {

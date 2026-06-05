@@ -27,9 +27,15 @@ export function SaveBar({
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={shouldReduceMotion ? false : { y: 32, opacity: 0, scale: 0.95 }}
+          initial={
+            shouldReduceMotion ? false : { y: 32, opacity: 0, scale: 0.95 }
+          }
           animate={{ y: 0, opacity: 1, scale: 1 }}
-          exit={shouldReduceMotion ? { opacity: 0 } : { y: 32, opacity: 0, scale: 0.95 }}
+          exit={
+            shouldReduceMotion
+              ? { opacity: 0 }
+              : { y: 32, opacity: 0, scale: 0.95 }
+          }
           transition={
             shouldReduceMotion
               ? { duration: 0 }
@@ -44,8 +50,14 @@ export function SaveBar({
             boxShadow: "var(--shadow-glow-lg), 0 2px 8px rgba(0,0,0,0.06)",
           }}
         >
-          <span className="w-2 h-2 rounded-full animate-pulse shrink-0" style={{ background: "var(--color-snitch-400)" }} />
-          <p className="text-sm font-medium whitespace-nowrap" style={{ color: "var(--text-primary)" }}>
+          <span
+            className="w-2 h-2 rounded-full animate-pulse shrink-0"
+            style={{ background: "var(--color-snitch-400)" }}
+          />
+          <p
+            className="text-sm font-medium whitespace-nowrap"
+            style={{ color: "var(--text-primary)" }}
+          >
             {message}
           </p>
           <button

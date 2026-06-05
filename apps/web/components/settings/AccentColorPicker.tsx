@@ -5,12 +5,12 @@ import { Check } from "lucide-react";
 import { useAppReducedMotion } from "@/lib/hooks/useAppReducedMotion";
 
 export const ACCENT_PRESETS = [
-  { id: "smurf",    hex: "#A7D7C5", label: "Smurf Green" },
-  { id: "moss",     hex: "#74B49B", label: "Deep Moss" },
-  { id: "snitch",   hex: "#F4A261", label: "Golden Snitch" },
-  { id: "sky",      hex: "#5B9BD5", label: "Sky Blue" },
+  { id: "smurf", hex: "#A7D7C5", label: "Smurf Green" },
+  { id: "moss", hex: "#74B49B", label: "Deep Moss" },
+  { id: "snitch", hex: "#F4A261", label: "Golden Snitch" },
+  { id: "sky", hex: "#5B9BD5", label: "Sky Blue" },
   { id: "lavender", hex: "#A89BD9", label: "Lavender" },
-  { id: "coral",    hex: "#E07B7B", label: "Coral Rose" },
+  { id: "coral", hex: "#E07B7B", label: "Coral Rose" },
 ] as const;
 
 interface AccentColorPickerProps {
@@ -51,7 +51,10 @@ export function AccentColorPicker({ value, onChange }: AccentColorPickerProps) {
                 }
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <Check className="w-4 h-4 text-white drop-shadow-md" strokeWidth={3} />
+                <Check
+                  className="w-4 h-4 text-white drop-shadow-md"
+                  strokeWidth={3}
+                />
               </motion.div>
             )}
           </button>

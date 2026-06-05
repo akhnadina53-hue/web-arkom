@@ -10,7 +10,7 @@ interface SettingsGroupProps {
   description?: string;
   children: React.ReactNode;
   className?: string;
-  staggerOffset?: number; 
+  staggerOffset?: number;
   glass?: boolean;
 }
 
@@ -28,15 +28,18 @@ export function SettingsGroup({
 
   const entryAnimation = shouldReduceMotion
     ? {
-      opacity: 1, y: 0
-    }
+        opacity: 1,
+        y: 0,
+      }
     : isInView
       ? {
-        opacity: 1, y: 0
-      }
+          opacity: 1,
+          y: 0,
+        }
       : {
-        opacity: 0, y: 18
-      };
+          opacity: 0,
+          y: 18,
+        };
 
   return (
     <motion.section

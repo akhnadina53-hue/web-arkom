@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
-    res.json({ answer: "Ini jawaban contoh dari AI" });
-  }
-  const tanyaBtn = document.getElementById("tanyaBtn");
+  res.json({ answer: "Ini jawaban contoh dari AI" });
+}
+const tanyaBtn = document.getElementById("tanyaBtn");
 const questionInput = document.getElementById("question");
 
 tanyaBtn.onclick = async () => {

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import type { QAItem } from '@/types';
+import { create } from "zustand";
+import type { QAItem } from "@/types";
 
 interface QAStore {
   qaItems: QAItem[];
@@ -20,7 +20,7 @@ export const useQAStore = create<QAStore>((set, get) => ({
   score: 0,
 
   setQAItems: (items) => set({ qaItems: items }),
-  
+
   setCurrentQuestion: (item) => set({ currentQuestion: item }),
 
   addQAItem: (item) =>
@@ -31,7 +31,7 @@ export const useQAStore = create<QAStore>((set, get) => ({
   updateQAItem: (id, updates) =>
     set((state) => ({
       qaItems: state.qaItems.map((item) =>
-        item.id === id ? { ...item, ...updates } : item
+        item.id === id ? { ...item, ...updates } : item,
       ),
     })),
 
@@ -39,7 +39,8 @@ export const useQAStore = create<QAStore>((set, get) => ({
     set((state) => {
       const answered = state.qaItems.filter((item) => item.score !== undefined);
       const total = answered.reduce((sum, item) => sum + (item.score || 0), 0);
-      const average = answered.length > 0 ? Math.round(total / answered.length) : 0;
+      const average =
+        answered.length > 0 ? Math.round(total / answered.length) : 0;
       return { score: average };
     });
   },

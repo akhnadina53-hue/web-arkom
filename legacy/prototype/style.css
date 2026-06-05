@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@500&family=Be+Vietnam+Pro:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@500&family=Be+Vietnam+Pro:wght@400&display=swap");
 
 :root {
   --surface: #f7f9fb;
@@ -20,8 +20,13 @@
 
 body {
   margin: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f7f9fb 60%, #e0e3e5 100%);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: radial-gradient(
+    circle at 50% 0%,
+    #ffffff 0%,
+    #f7f9fb 60%,
+    #e0e3e5 100%
+  );
   color: var(--on-surface);
   line-height: 1.6;
   min-height: 100vh;
@@ -70,15 +75,15 @@ body {
 }
 
 @keyframes pulse {
-  0% { 
+  0% {
     transform: scale(1);
     filter: brightness(1);
   }
-  50% { 
+  50% {
     transform: scale(1.05);
     filter: brightness(1.1);
   }
-  100% { 
+  100% {
     transform: scale(1);
     filter: brightness(1);
   }
@@ -168,7 +173,7 @@ body {
 }
 
 .rate-label {
-  font-family: 'Space Grotesk', monospace;
+  font-family: "Space Grotesk", monospace;
   font-size: 0.9rem;
   color: var(--primary);
   margin-left: 8px;
@@ -186,7 +191,9 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--glass-shadow);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
 }
 
 .card:hover {

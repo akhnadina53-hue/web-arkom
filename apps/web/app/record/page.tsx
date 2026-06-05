@@ -2,10 +2,21 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, Square, Save, Trash2, Languages, Settings2, Upload } from "lucide-react";
+import {
+  Mic,
+  Square,
+  Save,
+  Trash2,
+  Languages,
+  Settings2,
+  Upload,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RecordingTimer } from "@/components/recorder/RecordingTimer";
-import { StatusIndicator, type PipelineStep } from "@/components/recorder/StatusIndicator";
+import {
+  StatusIndicator,
+  type PipelineStep,
+} from "@/components/recorder/StatusIndicator";
 import { ChunkUploader } from "@/components/recorder/ChunkUploader";
 import { AudioUploader } from "@/components/recorder/AudioUploader";
 import { useRecordingStore } from "@/lib/store/recordingStore";
@@ -13,10 +24,14 @@ import { useRecordingStore } from "@/lib/store/recordingStore";
 type InputMode = "record" | "upload";
 
 const BAR_HEIGHTS = Array.from({ length: 40 }, () => Math.random() * 80 + 20);
-const BAR_DURATIONS = Array.from({ length: 40 }, () => 0.5 + Math.random() * 0.5);
+const BAR_DURATIONS = Array.from(
+  { length: 40 },
+  () => 0.5 + Math.random() * 0.5,
+);
 
 export default function RecordPage() {
-  const { isRecording, duration, setIsRecording, setDuration, reset } = useRecordingStore();
+  const { isRecording, duration, setIsRecording, setDuration, reset } =
+    useRecordingStore();
   const [pipelineStep, setPipelineStep] = useState<PipelineStep>("IDLE");
   const [sessionId] = useState<string | null>(null);
   const [inputMode, setInputMode] = useState<InputMode>("record");
@@ -63,8 +78,8 @@ export default function RecordPage() {
             isRecording
               ? "bg-red-500/6 scale-110"
               : inputMode === "upload"
-              ? "bg-violet-500/6"
-              : "bg-teal-500/6"
+                ? "bg-violet-500/6"
+                : "bg-teal-500/6",
           )}
         />
       </div>
@@ -83,7 +98,7 @@ export default function RecordPage() {
             "flex-1 flex justify-center items-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all",
             inputMode === "record"
               ? "bg-teal-500 text-slate-950 shadow-lg shadow-teal-500/20"
-              : "text-slate-500 hover:text-white"
+              : "text-slate-500 hover:text-white",
           )}
         >
           <Mic className="w-4 h-4" />
@@ -96,7 +111,7 @@ export default function RecordPage() {
             "flex-1 flex justify-center items-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all",
             inputMode === "upload"
               ? "bg-violet-500 text-white shadow-lg shadow-violet-500/20"
-              : "text-slate-500 hover:text-white"
+              : "text-slate-500 hover:text-white",
           )}
         >
           <Upload className="w-4 h-4" />
@@ -106,7 +121,6 @@ export default function RecordPage() {
 
       {/* Panel Content */}
       <AnimatePresence mode="wait">
-
         {/* UPLOAD PANEL */}
         {inputMode === "upload" && (
           <motion.div
@@ -118,15 +132,21 @@ export default function RecordPage() {
             className="w-full max-w-xl z-10"
           >
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-white">Upload Voice Recording</h1>
+              <h1 className="text-2xl font-bold text-white">
+                Upload Voice Recording
+              </h1>
               <p className="text-slate-500 text-sm mt-2 leading-relaxed">
-                Recorded on your phone? Upload it here and our AI will<br />transcribe and summarize it for you.
+                Recorded on your phone? Upload it here and our AI will
+                <br />
+                transcribe and summarize it for you.
               </p>
             </div>
             <AudioUploader
               onUploadComplete={(uploadedSessionId, fileName) => {
                 setPipelineStep("TRANSCRIBING");
-                console.info(`Upload complete: ${fileName} → session ${uploadedSessionId}`);
+                console.info(
+                  `Upload complete: ${fileName} → session ${uploadedSessionId}`,
+                );
               }}
             />
           </motion.div>
@@ -150,16 +170,16 @@ export default function RecordPage() {
                   isRecording
                     ? "bg-red-500 animate-pulse"
                     : pipelineStep !== "IDLE"
-                    ? "bg-teal-500 animate-pulse"
-                    : "bg-slate-700"
+                      ? "bg-teal-500 animate-pulse"
+                      : "bg-slate-700",
                 )}
               />
               <span className="text-xs font-bold tracking-[0.2em] uppercase text-slate-500">
                 {isRecording
                   ? "Recording Active"
                   : pipelineStep !== "IDLE"
-                  ? "Processing…"
-                  : "Studio Standby"}
+                    ? "Processing…"
+                    : "Studio Standby"}
               </span>
             </div>
 
@@ -177,10 +197,18 @@ export default function RecordPage() {
                     height: isRecording ? [10, maxH, 10] : 8,
                     opacity: isRecording ? [0.3, 0.8, 0.3] : 0.2,
                   }}
-                  transition={{ repeat: Infinity, duration: BAR_DURATIONS[i], ease: "easeInOut" }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: BAR_DURATIONS[i],
+                    ease: "easeInOut",
+                  }}
                   className={cn(
                     "w-1.5 rounded-full",
-                    i % 3 === 0 ? "bg-teal-500" : i % 3 === 1 ? "bg-emerald-500" : "bg-teal-400"
+                    i % 3 === 0
+                      ? "bg-teal-500"
+                      : i % 3 === 1
+                        ? "bg-emerald-500"
+                        : "bg-teal-400",
                   )}
                   style={{ height: 8 }}
                 />
@@ -197,7 +225,7 @@ export default function RecordPage() {
                   "w-24 h-24 rounded-full flex items-center justify-center transition-colors shadow-2xl relative group",
                   isRecording
                     ? "bg-slate-900 border-2 border-red-500 text-red-500"
-                    : "bg-teal-500 text-slate-950 hover:bg-teal-400"
+                    : "bg-teal-500 text-slate-950 hover:bg-teal-400",
                 )}
               >
                 {isRecording ? (
@@ -208,7 +236,7 @@ export default function RecordPage() {
                 <span
                   className={cn(
                     "absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity",
-                    isRecording ? "bg-red-500" : "bg-teal-500"
+                    isRecording ? "bg-red-500" : "bg-teal-500",
                   )}
                 />
               </motion.button>
@@ -255,7 +283,9 @@ export default function RecordPage() {
             {/* Invisible background uploader */}
             <ChunkUploader
               sessionId={sessionId}
-              onChunkUploaded={(idx, total) => console.info(`Chunk ${idx + 1}/${total} uploaded`)}
+              onChunkUploaded={(idx, total) =>
+                console.info(`Chunk ${idx + 1}/${total} uploaded`)
+              }
               onError={(err) => console.error("Chunk upload error:", err)}
             />
           </motion.div>

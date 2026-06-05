@@ -14,11 +14,13 @@ Ini adalah **standalone web app** yang berjalan 100% di browser **tanpa server b
 ## 🚀 Quick Start
 
 ### Option 1: Double-click
+
 ```
 Cukup double-click file index.html
 ```
 
 ### Option 2: Open dengan browser
+
 ```bash
 # macOS
 open index.html
@@ -31,6 +33,7 @@ xdg-open index.html
 ```
 
 ### Option 3: Gunakan simple HTTP server
+
 ```bash
 # Punya Python?
 python -m http.server 8000
@@ -43,18 +46,19 @@ npx http-server
 
 ## 🌐 Browser Compatibility
 
-| Browser | Support | Notes |
-|---------|---------|-------|
-| Chrome 90+ | ✅ Full | Recommended |
-| Edge 90+ | ✅ Full | Works well |
-| Firefox 88+ | ✅ Full | Works well |
-| Safari 14+ | ⚠️ Limited | SpeechRecognition limited |
-| Mobile Chrome | ✅ Full | Good experience |
-| Mobile Safari | ⚠️ Limited | Requires iOS 14.5+ |
+| Browser       | Support    | Notes                     |
+| ------------- | ---------- | ------------------------- |
+| Chrome 90+    | ✅ Full    | Recommended               |
+| Edge 90+      | ✅ Full    | Works well                |
+| Firefox 88+   | ✅ Full    | Works well                |
+| Safari 14+    | ⚠️ Limited | SpeechRecognition limited |
+| Mobile Chrome | ✅ Full    | Good experience           |
+| Mobile Safari | ⚠️ Limited | Requires iOS 14.5+        |
 
 ## 📋 How to Use
 
 ### 1️⃣ Record
+
 - Klik **"🎤 Mulai Rekam"**
 - Bicara ke microphone
 - Transkrip akan muncul real-time (jika browser support SpeechRecognition)
@@ -62,21 +66,26 @@ npx http-server
 - Audio player akan muncul, bisa diputar ulang
 
 ### 2️⃣ Summarize
+
 - Klik **"🧠 Ringkas"**
 - Sistem akan menganalisis transkrip
 - Ringkasan + poin penting akan muncul
 
 ### 3️⃣ Q&A
+
 **Tanya manual:**
+
 - Ketik pertanyaan di input field
 - Klik **"💬 Tanya"**
 - Jawaban otomatis dicari dari transkrip
 
 **Generate pertanyaan:**
+
 - Klik **"❓ Buat Pertanyaan"**
 - Pertanyaan akan di-generate dari poin penting
 
 ### 4️⃣ Text-to-Speech
+
 - Pilih suara dari dropdown
 - Atur kecepatan (0.5x - 1.8x)
 - Klik **"🔊 Dengarkan Ringkasan"**
@@ -85,6 +94,7 @@ npx http-server
 ## 🔧 Technical Details
 
 ### Technologies Used (Client-side only)
+
 ```javascript
 - Web Audio API + MediaRecorder API
 
@@ -152,6 +162,7 @@ prototype/
 ## 🚀 Next Steps
 
 For **production use** with **real AI models**, see parent `README.md`:
+
 - Use Next.js + FastAPI backend
 - Integrate OpenAI Whisper (better STT)
 - Integrate Anthropic Claude (better summarization)
@@ -161,21 +172,25 @@ For **production use** with **real AI models**, see parent `README.md`:
 ## 🐛 Troubleshooting
 
 ### "Microphone not working"
+
 - Check browser permissions: Settings → Privacy → Microphone
 - Try different browser (Chrome recommended)
 - Refresh page and try again
 
 ### "No text appearing during recording"
+
 - Browser may not support SpeechRecognition
 - Try Chrome or Edge
 - Text will still be available after stop (from audio playback)
 
 ### "SpeechSynthesis not working"
+
 - Check if browser supports Web Speech API
 - Try different voice from dropdown
 - Some voices require internet connection
 
 ### "Slow on old devices?"
+
 - Try shorter recordings (<5 minutes)
 - Close other tabs/apps
 - Clear browser cache

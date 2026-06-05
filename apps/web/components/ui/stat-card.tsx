@@ -10,10 +10,12 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon, className }: StatCardProps) {
   return (
-    <div className={cn(
-      "bg-white border border-slate-200 p-5 rounded-[24px] flex items-center justify-between group hover:border-teal-400/60 hover:shadow-md transition-all duration-300 shadow-sm",
-      className
-    )}>
+    <div
+      className={cn(
+        "bg-white border border-slate-200 p-5 rounded-[24px] flex items-center justify-between group hover:border-teal-400/60 hover:shadow-md transition-all duration-300 shadow-sm",
+        className,
+      )}
+    >
       <div>
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
           {label}

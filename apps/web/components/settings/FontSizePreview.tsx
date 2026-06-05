@@ -6,7 +6,7 @@ interface FontSizePreviewProps {
 }
 
 const FONT_SIZES = [
-  { value: 85,  label: "Small" },
+  { value: 85, label: "Small" },
   { value: 100, label: "Default" },
   { value: 115, label: "Large" },
   { value: 130, label: "Extra Large" },
@@ -17,7 +17,12 @@ export function FontSizePreview({ value, onChange }: FontSizePreviewProps) {
     <div className="space-y-4">
       {/* Slider */}
       <div className="flex items-center gap-3">
-        <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>A</span>
+        <span
+          className="text-xs font-medium"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          A
+        </span>
         <input
           type="range"
           min={85}
@@ -31,7 +36,12 @@ export function FontSizePreview({ value, onChange }: FontSizePreviewProps) {
           }}
           aria-label="Font size"
         />
-        <span className="text-base font-medium" style={{ color: "var(--text-secondary)" }}>A</span>
+        <span
+          className="text-base font-medium"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          A
+        </span>
       </div>
 
       {/* Preset buttons */}
@@ -42,11 +52,16 @@ export function FontSizePreview({ value, onChange }: FontSizePreviewProps) {
             onClick={() => onChange(size.value)}
             className="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
             style={{
-              background: value === size.value ? "var(--color-smurf-100)" : "transparent",
-              color: value === size.value ? "var(--color-smurf-700)" : "var(--text-secondary)",
-              border: value === size.value
-                ? "1px solid var(--border-brand)"
-                : "1px solid transparent",
+              background:
+                value === size.value ? "var(--color-smurf-100)" : "transparent",
+              color:
+                value === size.value
+                  ? "var(--color-smurf-700)"
+                  : "var(--text-secondary)",
+              border:
+                value === size.value
+                  ? "1px solid var(--border-brand)"
+                  : "1px solid transparent",
             }}
           >
             {size.label}

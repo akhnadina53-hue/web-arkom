@@ -25,12 +25,12 @@ export interface RecordingSession {
 }
 
 export enum SessionStatus {
-  RECORDING = 'RECORDING',
-  PROCESSING = 'PROCESSING',
-  TRANSCRIBING = 'TRANSCRIBING',
-  SUMMARIZING = 'SUMMARIZING',
-  DONE = 'DONE',
-  ERROR = 'ERROR',
+  RECORDING = "RECORDING",
+  PROCESSING = "PROCESSING",
+  TRANSCRIBING = "TRANSCRIBING",
+  SUMMARIZING = "SUMMARIZING",
+  DONE = "DONE",
+  ERROR = "ERROR",
 }
 
 export interface SummaryData {

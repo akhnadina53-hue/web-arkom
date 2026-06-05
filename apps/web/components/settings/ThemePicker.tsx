@@ -12,8 +12,8 @@ interface ThemePickerProps {
 }
 
 const themes: { id: ThemeOption; label: string; icon: typeof Sun }[] = [
-  { id: "light",  label: "Light",  icon: Sun },
-  { id: "dark",   label: "Dark",   icon: Moon },
+  { id: "light", label: "Light", icon: Sun },
+  { id: "dark", label: "Dark", icon: Moon },
   { id: "system", label: "System", icon: Monitor },
 ];
 
@@ -30,7 +30,9 @@ export function ThemePicker({ value, onChange }: ThemePickerProps) {
             onClick={() => onChange(id)}
             className="relative flex flex-col items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-medium transition-colors"
             style={{
-              color: isActive ? "var(--color-smurf-700)" : "var(--text-secondary)",
+              color: isActive
+                ? "var(--color-smurf-700)"
+                : "var(--text-secondary)",
               background: isActive ? "var(--color-smurf-100)" : "transparent",
               border: isActive
                 ? "1.5px solid var(--border-brand)"

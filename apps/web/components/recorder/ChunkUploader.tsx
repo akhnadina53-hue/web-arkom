@@ -9,7 +9,11 @@ interface ChunkUploaderProps {
   onError?: (error: Error) => void;
 }
 
-export function ChunkUploader({ sessionId, onChunkUploaded, onError }: ChunkUploaderProps) {
+export function ChunkUploader({
+  sessionId,
+  onChunkUploaded,
+  onError,
+}: ChunkUploaderProps) {
   const chunks = useRecordingStore((s) => s.chunks);
   const uploadedIndexRef = useRef<Set<number>>(new Set());
 
@@ -34,16 +38,20 @@ export function ChunkUploader({ sessionId, onChunkUploaded, onError }: ChunkUplo
 
         if (!res.ok) {
           const body = await res.json().catch(() => ({}));
-          throw new Error(body?.error?.message ?? `Upload failed (${res.status})`);
+          throw new Error(
+            body?.error?.message ?? `Upload failed (${res.status})`,
+          );
         }
 
         onChunkUploaded?.(index, chunks.length);
       } catch (err) {
         uploadedIndexRef.current.delete(index);
-        onError?.(err instanceof Error ? err : new Error("Unknown upload error"));
+        onError?.(
+          err instanceof Error ? err : new Error("Unknown upload error"),
+        );
       }
     },
-    [sessionId, chunks.length, onChunkUploaded, onError]
+    [sessionId, chunks.length, onChunkUploaded, onError],
   );
 
   useEffect(() => {

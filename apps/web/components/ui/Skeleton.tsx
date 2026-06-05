@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-type SkeletonVariant = 'text' | 'avatar' | 'card' | 'input' | 'custom';
+type SkeletonVariant = "text" | "avatar" | "card" | "input" | "custom";
 
 interface SkeletonProps {
   variant?: SkeletonVariant;
@@ -11,15 +11,15 @@ interface SkeletonProps {
 }
 
 const variantDefaults: Record<SkeletonVariant, string> = {
-  text:   'h-4 w-full',
-  avatar: 'w-10 h-10 rounded-full',
-  card:   'h-32 w-full rounded-2xl',
-  input:  'h-10 w-full rounded-[10px]',
-  custom: '',
+  text: "h-4 w-full",
+  avatar: "w-10 h-10 rounded-full",
+  card: "h-32 w-full rounded-2xl",
+  input: "h-10 w-full rounded-[10px]",
+  custom: "",
 };
 
 export function Skeleton({
-  variant = 'text',
+  variant = "text",
   className,
   width,
   height,
@@ -28,14 +28,18 @@ export function Skeleton({
   return (
     <div
       className={cn(
-        'skeleton',
+        "skeleton",
         variantDefaults[variant],
-        rounded && 'rounded-full',
+        rounded && "rounded-full",
         className,
       )}
       style={{
-        ...(width ? { width: typeof width === 'number' ? `${width}px` : width } : {}),
-        ...(height ? { height: typeof height === 'number' ? `${height}px` : height } : {}),
+        ...(width
+          ? { width: typeof width === "number" ? `${width}px` : width }
+          : {}),
+        ...(height
+          ? { height: typeof height === "number" ? `${height}px` : height }
+          : {}),
       }}
       aria-hidden="true"
     />

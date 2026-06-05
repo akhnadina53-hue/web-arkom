@@ -13,12 +13,13 @@ export const useLanguage = create<LanguageState>()(
     (set) => ({
       locale: "id",
       setLocale: (locale) => set({ locale }),
-      toggleLocale: () => set((state) => ({ 
-        locale: state.locale === "id" ? "en" : "id" 
-      })),
+      toggleLocale: () =>
+        set((state) => ({
+          locale: state.locale === "id" ? "en" : "id",
+        })),
     }),
     {
       name: "arkom-language-storage",
-    }
-  )
+    },
+  ),
 );

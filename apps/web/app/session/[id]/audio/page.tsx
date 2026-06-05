@@ -1,14 +1,22 @@
-export default async function AudioPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function AudioPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   return (
     <div className="min-h-screen bg-slate-900 p-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-6">🔊 Regenerate Audio: {id}</h1>
+        <h1 className="text-3xl font-bold text-white mb-6">
+          🔊 Regenerate Audio: {id}
+        </h1>
 
         <div className="space-y-6">
           <div className="p-6 rounded-lg border border-slate-700 bg-slate-800/50">
-            <h2 className="text-xl font-semibold text-white mb-4">Voice Settings</h2>
-            
+            <h2 className="text-xl font-semibold text-white mb-4">
+              Voice Settings
+            </h2>
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-200 mb-2">
@@ -40,7 +48,9 @@ export default async function AudioPage({ params }: { params: Promise<{ id: stri
 
           <div className="p-6 rounded-lg border border-slate-700 bg-slate-800/50">
             <h2 className="text-xl font-semibold text-white mb-4">Preview</h2>
-            <p className="text-slate-400">Generated audio will appear here...</p>
+            <p className="text-slate-400">
+              Generated audio will appear here...
+            </p>
           </div>
         </div>
       </div>

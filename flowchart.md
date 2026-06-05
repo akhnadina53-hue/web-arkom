@@ -24,14 +24,14 @@ graph LR
 ```mermaid
 flowchart TD
   A["🎤 User Starts Recording"] --> B["Browser captures audio<br/>MediaRecorder API"]
-  
+
   B --> C["Parallel: Live Transcription<br/>SpeechRecognition API"]
-  
+
   C --> D["Real-time Display<br/>in Transcript Box"]
-  
+
   E["⛔ User Stops Recording"] --> F["Audio Chunks Combined<br/>→ Audio Player"]
   E --> G["Final Transcript Saved<br/>→ Ready for Processing"]
-  
+
   F --> H["Display Recording Results"]
   G --> H
 ```
@@ -41,6 +41,7 @@ flowchart TD
 ## 🧠 Summarization Pipeline
 
 ### 🎯 Prototype: Heuristic (No AI)
+
 ```
 Transcript
   ↓
@@ -55,6 +56,7 @@ Display in UI (instant)
 ```
 
 ### 🚀 Production: Claude AI
+
 ```
 Transcript
   ↓
@@ -79,6 +81,7 @@ Display in UI (2-5 seconds)
 ## ❓ Q&A System
 
 ### 🎯 Prototype: Keyword Matching
+
 ```
 User Question + Transcript
   ↓
@@ -91,6 +94,7 @@ Display Sentence → Answer
 ```
 
 ### 🚀 Production: Claude Evaluation
+
 ```
 User Question + Correct Answer + User Input
   ↓
@@ -107,6 +111,7 @@ Display Score + Suggestions
 ## 🔊 Text-to-Speech (TTS)
 
 ### 🎯 Prototype: Browser Native
+
 ```
 Summary + Voice Selection + Speed
   ↓
@@ -118,6 +123,7 @@ Output to Speaker (instant)
 ```
 
 ### 🚀 Production: Coqui TTS
+
 ```
 Summary + Voice Style + Speed
   ↓
@@ -137,6 +143,7 @@ Return URL → Play in UI
 ## 🔄 Complete Session Flow
 
 ### Prototype (Single Page, Instant)
+
 ```
 1. Record → Transkrip (Live)
 2. Ringkas → Summary + Key Points (0.5s)
@@ -146,6 +153,7 @@ Return URL → Play in UI
 ```
 
 ### Production (Multi-page, Saved)
+
 ```
 1. Login (NextAuth.js)
 2. New Recording
@@ -178,17 +186,17 @@ Return URL → Play in UI
 
 ## 🎯 Key Differences at a Glance
 
-| Feature | Prototype | Production |
-|---------|-----------|------------|
-| **Setup** | None! Just open HTML | Docker + API keys |
-| **STT** | Browser SpeechRecognition | Whisper (OpenAI) |
-| **Summarization** | Heuristic | Claude (AI) |
-| **Q&A** | Keyword matching | Claude (AI) |
-| **TTS** | SpeechSynthesis | Coqui TTS |
-| **Storage** | Temp (RAM) | Persistent (Cloud) |
-| **Database** | None | PostgreSQL + Supabase |
-| **Quality** | 70% | 99% |
-| **Cost** | $0 | Pay per API call |
+| Feature           | Prototype                 | Production            |
+| ----------------- | ------------------------- | --------------------- |
+| **Setup**         | None! Just open HTML      | Docker + API keys     |
+| **STT**           | Browser SpeechRecognition | Whisper (OpenAI)      |
+| **Summarization** | Heuristic                 | Claude (AI)           |
+| **Q&A**           | Keyword matching          | Claude (AI)           |
+| **TTS**           | SpeechSynthesis           | Coqui TTS             |
+| **Storage**       | Temp (RAM)                | Persistent (Cloud)    |
+| **Database**      | None                      | PostgreSQL + Supabase |
+| **Quality**       | 70%                       | 99%                   |
+| **Cost**          | $0                        | Pay per API call      |
 
 ---
 

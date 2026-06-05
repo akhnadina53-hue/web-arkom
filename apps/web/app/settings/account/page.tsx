@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Lock, Globe, GraduationCap, CheckCircle2, XCircle } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  Globe,
+  GraduationCap,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
 import { SettingsGroup } from "@/components/ui/settings-group";
 import { SettingsRow } from "@/components/ui/settings-row";
 import { Toggle } from "@/components/ui/toggle";
@@ -20,8 +27,19 @@ export default function SettingsAccountPage() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="mb-8">
-        <h2 className="text-2xl font-extrabold tracking-tight" style={{background:"linear-gradient(135deg,#74B49B,#A7D7C5)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>Account & Security</h2>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Manage your login credentials and account security.</p>
+        <h2
+          className="text-2xl font-extrabold tracking-tight"
+          style={{
+            background: "linear-gradient(135deg,#74B49B,#A7D7C5)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Account & Security
+        </h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+          Manage your login credentials and account security.
+        </p>
       </div>
 
       {/* Informasi Akun */}
@@ -46,7 +64,10 @@ export default function SettingsAccountPage() {
             id="display_name"
             type="text"
             value={displayName}
-            onChange={(e) => { setDisplayName(e.target.value); markDirty(); }}
+            onChange={(e) => {
+              setDisplayName(e.target.value);
+              markDirty();
+            }}
             className="bg-[var(--bg-elevated)] border border-[var(--border-default)] hover:border-[#A7D7C5] focus:border-[#74B49B] focus:ring-2 focus:ring-[rgba(167,215,197,0.25)] rounded-xl px-3 py-2 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all w-48"
           />
         </SettingsRow>
@@ -68,7 +89,10 @@ export default function SettingsAccountPage() {
           label="Google Account"
           description="Connected for sign-in via Google OAuth."
         >
-          <div className="flex items-center gap-2 text-sm font-semibold" style={{color:"#74B49B"}}>
+          <div
+            className="flex items-center gap-2 text-sm font-semibold"
+            style={{ color: "#74B49B" }}
+          >
             <Globe className="w-4 h-4" />
             Connected
           </div>
@@ -82,7 +106,10 @@ export default function SettingsAccountPage() {
           <Toggle
             id="two-factor"
             checked={twoFactor}
-            onChange={(v) => { setTwoFactor(v); markDirty(); }}
+            onChange={(v) => {
+              setTwoFactor(v);
+              markDirty();
+            }}
             aria-label="Two-factor authentication"
           />
         </SettingsRow>
@@ -95,11 +122,18 @@ export default function SettingsAccountPage() {
       >
         <SettingsRow
           label="Status Verifikasi"
-          description={studentVerified ? "Email pelajar kamu sudah terverifikasi." : "Belum diverifikasi. Gunakan email .ac.id atau .edu."}
+          description={
+            studentVerified
+              ? "Email pelajar kamu sudah terverifikasi."
+              : "Belum diverifikasi. Gunakan email .ac.id atau .edu."
+          }
         >
           <div className="flex items-center gap-3">
             {studentVerified ? (
-              <span className="flex items-center gap-1.5 text-sm font-semibold" style={{color:"#74B49B"}}>
+              <span
+                className="flex items-center gap-1.5 text-sm font-semibold"
+                style={{ color: "#74B49B" }}
+              >
                 <CheckCircle2 className="w-4 h-4" />
                 Terverifikasi
               </span>

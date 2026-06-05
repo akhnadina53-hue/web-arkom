@@ -37,21 +37,36 @@ const navItems = [
   },
 ];
 
-export default function SettingsLayout({ children }: { children: React.ReactNode }) {
+export default function SettingsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen font-sans" style={{ background: "var(--bg-page)", color: "var(--text-primary)" }}>
+    <div
+      className="min-h-screen font-sans"
+      style={{ background: "var(--bg-page)", color: "var(--text-primary)" }}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12">
-
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-display font-extrabold tracking-tight" style={{ color: "var(--text-primary)" }}>Settings</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>Manage your account preferences and personalization.</p>
+          <h1
+            className="text-3xl font-display font-extrabold tracking-tight"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Settings
+          </h1>
+          <p
+            className="text-sm mt-1"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            Manage your account preferences and personalization.
+          </p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 lg:gap-8">
-
           {/* DESKTOP SIDEBAR */}
           <aside className="hidden md:block w-56 lg:w-64 shrink-0">
             <nav
@@ -66,30 +81,52 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                     key={href}
                     href={href}
                     aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-150",
+                      isActive
+                        ? "font-semibold"
+                        : "hover:bg-[var(--color-smurf-100)] border border-transparent",
+                    )}
+                    style={
+                      isActive
+                        ? {
+                            background: "var(--color-smurf-100)",
+                            color: "var(--color-smurf-700)",
+                            border: "1px solid var(--border-brand)",
+                          }
+                        : {
+                            color: "var(--text-secondary)",
+                          }
+                    }
+                  >
+                    <Icon
                       className={cn(
-                        "group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-150",
+                        "w-4 h-4 shrink-0 transition-colors",
                         isActive
-                          ? "font-semibold"
-                          : "hover:bg-[var(--color-smurf-100)] border border-transparent"
+                          ? ""
+                          : "group-hover:text-[var(--text-primary)]",
                       )}
-                      style={isActive ? {
-                        background: "var(--color-smurf-100)",
-                        color: "var(--color-smurf-700)",
-                        border: "1px solid var(--border-brand)"
-                      } : {
-                        color: "var(--text-secondary)"
-                      }}
-                    >
-                      <Icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "" : "group-hover:text-[var(--text-primary)]")} style={isActive ? { color: "var(--color-smurf-600)" } : {}} />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold truncate">{name}</p>
-                      </div>
-                      {isActive && <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-smurf-500)" }} />}
-                    </Link>
+                      style={
+                        isActive ? { color: "var(--color-smurf-600)" } : {}
+                      }
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold truncate">{name}</p>
+                    </div>
+                    {isActive && (
+                      <div
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ background: "var(--color-smurf-500)" }}
+                      />
+                    )}
+                  </Link>
                 );
               })}
 
-              <div className="h-px my-3" style={{ background: "var(--border-default)" }} />
+              <div
+                className="h-px my-3"
+                style={{ background: "var(--border-default)" }}
+              />
 
               <Link
                 href="/profile/edit"
@@ -97,7 +134,9 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                 style={{ color: "var(--text-secondary)" }}
               >
                 <User className="w-4 h-4 shrink-0 transition-colors group-hover:text-[var(--text-primary)]" />
-                <span className="text-sm font-semibold group-hover:text-[var(--text-primary)]">Edit Profile</span>
+                <span className="text-sm font-semibold group-hover:text-[var(--text-primary)]">
+                  Edit Profile
+                </span>
               </Link>
             </nav>
           </aside>
@@ -115,17 +154,21 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                       "flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap",
                       isActive
                         ? "border"
-                        : "border hover:text-[var(--text-primary)]"
+                        : "border hover:text-[var(--text-primary)]",
                     )}
-                    style={isActive ? {
-                      background: "var(--color-smurf-100)",
-                      color: "var(--color-smurf-700)",
-                      borderColor: "var(--border-brand)"
-                    } : {
-                      background: "var(--bg-card)",
-                      color: "var(--text-secondary)",
-                      borderColor: "var(--border-default)"
-                    }}
+                    style={
+                      isActive
+                        ? {
+                            background: "var(--color-smurf-100)",
+                            color: "var(--color-smurf-700)",
+                            borderColor: "var(--border-brand)",
+                          }
+                        : {
+                            background: "var(--bg-card)",
+                            color: "var(--text-secondary)",
+                            borderColor: "var(--border-default)",
+                          }
+                    }
                   >
                     <Icon className="w-3.5 h-3.5" />
                     {nameShort}
@@ -137,11 +180,16 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
 
           {/* MAIN CONTENT */}
           <main className="flex-1 min-w-0">
-            <div className="border rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 min-h-[600px] shadow-sm" style={{ background: "var(--bg-card)", borderColor: "var(--border-default)" }}>
+            <div
+              className="border rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 min-h-[600px] shadow-sm"
+              style={{
+                background: "var(--bg-card)",
+                borderColor: "var(--border-default)",
+              }}
+            >
               {children}
             </div>
           </main>
-
         </div>
       </div>
     </div>

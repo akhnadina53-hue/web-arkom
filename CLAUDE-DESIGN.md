@@ -1,4 +1,5 @@
 # CLAUDE-DESIGN.md — Fren-Edu
+
 > Design System & Interaction Language — Phase 1 MVP
 > Read alongside CLAUDE.md + CLAUDE-MVP-SETTINGS.md before touching any UI code.
 > This file is the single source of truth for all visual and motion decisions.
@@ -26,11 +27,13 @@
 ## 1. DESIGN PHILOSOPHY
 
 ### Three core words
+
 ```
 INTERAKTIF · SOLID · ELEGAN
 ```
 
 Every design decision must pass this filter:
+
 - **Interaktif** — the UI responds, breathes, and gives feedback. Nothing feels static or dead.
 - **Solid** — animations never compromise usability. Structure is always clear.
 - **Elegan** — restraint over excess. One perfect animation beats five competing ones.
@@ -102,86 +105,86 @@ INSPIRATION
 
 :root {
   /* ── PRIMARY GREENS ─────────────────────────────────────── */
-  --color-smurf-100: #E8F5F0;   /* Mist — lightest tint, backgrounds */
-  --color-smurf-200: #C8E8DC;   /* Soft Moss — hover states, subtle fills */
-  --color-smurf-300: #A7D7C5;   /* Smurf Green — PRIMARY brand color */
-  --color-smurf-400: #74B49B;   /* Deep Moss — secondary actions, icons */
-  --color-smurf-500: #52967E;   /* Forest — pressed states, dark accents */
-  --color-smurf-600: #3A6E5C;   /* Deep Forest — text on light backgrounds */
-  --color-smurf-700: #264D40;   /* Dark Canopy — headings, high contrast */
+  --color-smurf-100: #e8f5f0; /* Mist — lightest tint, backgrounds */
+  --color-smurf-200: #c8e8dc; /* Soft Moss — hover states, subtle fills */
+  --color-smurf-300: #a7d7c5; /* Smurf Green — PRIMARY brand color */
+  --color-smurf-400: #74b49b; /* Deep Moss — secondary actions, icons */
+  --color-smurf-500: #52967e; /* Forest — pressed states, dark accents */
+  --color-smurf-600: #3a6e5c; /* Deep Forest — text on light backgrounds */
+  --color-smurf-700: #264d40; /* Dark Canopy — headings, high contrast */
 
   /* ── ACCENT — "The Snitch" ──────────────────────────────── */
-  --color-snitch-300: #FBD5A8;  /* Light golden — hover tint */
-  --color-snitch-400: #F4A261;  /* Golden Snitch — CTA highlights, badges */
-  --color-snitch-500: #E07B3A;  /* Deep gold — pressed state */
+  --color-snitch-300: #fbd5a8; /* Light golden — hover tint */
+  --color-snitch-400: #f4a261; /* Golden Snitch — CTA highlights, badges */
+  --color-snitch-500: #e07b3a; /* Deep gold — pressed state */
 
   /* ── NEUTRALS ───────────────────────────────────────────── */
-  --color-white:      #FFFFFF;
-  --color-mist:       #F6FBF9;  /* Page background (light mode) */
-  --color-fog:        #EDF5F1;  /* Card background (light mode) */
-  --color-stone-100:  #D4E5DF;  /* Borders, dividers */
-  --color-stone-200:  #B0CEC5;  /* Disabled states */
-  --color-stone-500:  #607C75;  /* Body text (light mode) */
-  --color-stone-700:  #2E4A43;  /* Headings (light mode) */
+  --color-white: #ffffff;
+  --color-mist: #f6fbf9; /* Page background (light mode) */
+  --color-fog: #edf5f1; /* Card background (light mode) */
+  --color-stone-100: #d4e5df; /* Borders, dividers */
+  --color-stone-200: #b0cec5; /* Disabled states */
+  --color-stone-500: #607c75; /* Body text (light mode) */
+  --color-stone-700: #2e4a43; /* Headings (light mode) */
 
   /* ── SEMANTIC ALIASES (use these in components, not raw values) ── */
-  --bg-page:          var(--color-mist);
-  --bg-card:          var(--color-fog);
-  --bg-card-glass:    rgba(246, 251, 249, 0.72);  /* glassmorphism */
-  --bg-elevated:      #FFFFFF;
-  --bg-overlay:       rgba(38, 77, 64, 0.45);     /* modal backdrop */
+  --bg-page: var(--color-mist);
+  --bg-card: var(--color-fog);
+  --bg-card-glass: rgba(246, 251, 249, 0.72); /* glassmorphism */
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(38, 77, 64, 0.45); /* modal backdrop */
 
-  --text-primary:     var(--color-stone-700);
-  --text-secondary:   var(--color-stone-500);
-  --text-tertiary:    var(--color-stone-200);
-  --text-on-brand:    #FFFFFF;
-  --text-brand:       var(--color-smurf-600);
-  --text-accent:      var(--color-snitch-500);
+  --text-primary: var(--color-stone-700);
+  --text-secondary: var(--color-stone-500);
+  --text-tertiary: var(--color-stone-200);
+  --text-on-brand: #ffffff;
+  --text-brand: var(--color-smurf-600);
+  --text-accent: var(--color-snitch-500);
 
-  --border-default:   var(--color-stone-100);
-  --border-brand:     var(--color-smurf-300);
-  --border-focus:     var(--color-smurf-400);
+  --border-default: var(--color-stone-100);
+  --border-brand: var(--color-smurf-300);
+  --border-focus: var(--color-smurf-400);
 
-  --brand-primary:    var(--color-smurf-300);
-  --brand-secondary:  var(--color-smurf-400);
-  --brand-dark:       var(--color-smurf-700);
+  --brand-primary: var(--color-smurf-300);
+  --brand-secondary: var(--color-smurf-400);
+  --brand-dark: var(--color-smurf-700);
 
-  --success:          #52B788;
-  --warning:          #F4A261;
-  --error:            #E05C5C;
-  --info:             #5B9BD5;
+  --success: #52b788;
+  --warning: #f4a261;
+  --error: #e05c5c;
+  --info: #5b9bd5;
 
   /* ── SHADOWS ────────────────────────────────────────────── */
-  --shadow-sm:        0 1px 3px rgba(38, 77, 64, 0.08);
-  --shadow-md:        0 4px 12px rgba(38, 77, 64, 0.10);
-  --shadow-lg:        0 8px 24px rgba(38, 77, 64, 0.12);
-  --shadow-glow-sm:   0 0 12px rgba(167, 215, 197, 0.35);
-  --shadow-glow-md:   0 0 24px rgba(167, 215, 197, 0.45);
-  --shadow-glow-lg:   0 8px 32px rgba(167, 215, 197, 0.40);
-  --shadow-snitch:    0 0 16px rgba(244, 162, 97, 0.40);
+  --shadow-sm: 0 1px 3px rgba(38, 77, 64, 0.08);
+  --shadow-md: 0 4px 12px rgba(38, 77, 64, 0.1);
+  --shadow-lg: 0 8px 24px rgba(38, 77, 64, 0.12);
+  --shadow-glow-sm: 0 0 12px rgba(167, 215, 197, 0.35);
+  --shadow-glow-md: 0 0 24px rgba(167, 215, 197, 0.45);
+  --shadow-glow-lg: 0 8px 32px rgba(167, 215, 197, 0.4);
+  --shadow-snitch: 0 0 16px rgba(244, 162, 97, 0.4);
 }
 
 /* ── DARK MODE ──────────────────────────────────────────────────── */
 .dark {
-  --bg-page:          #0D1F1A;   /* Deep forest night */
-  --bg-card:          #132920;   /* Slightly lighter */
-  --bg-card-glass:    rgba(19, 41, 32, 0.75);
-  --bg-elevated:      #1A3529;
-  --bg-overlay:       rgba(0, 0, 0, 0.60);
+  --bg-page: #0d1f1a; /* Deep forest night */
+  --bg-card: #132920; /* Slightly lighter */
+  --bg-card-glass: rgba(19, 41, 32, 0.75);
+  --bg-elevated: #1a3529;
+  --bg-overlay: rgba(0, 0, 0, 0.6);
 
-  --text-primary:     #E8F5F0;
-  --text-secondary:   #A7C4BB;
-  --text-tertiary:    #5A7A70;
-  --text-brand:       var(--color-smurf-300);
+  --text-primary: #e8f5f0;
+  --text-secondary: #a7c4bb;
+  --text-tertiary: #5a7a70;
+  --text-brand: var(--color-smurf-300);
 
-  --border-default:   rgba(167, 215, 197, 0.12);
-  --border-brand:     rgba(167, 215, 197, 0.30);
-  --border-focus:     var(--color-smurf-300);
+  --border-default: rgba(167, 215, 197, 0.12);
+  --border-brand: rgba(167, 215, 197, 0.3);
+  --border-focus: var(--color-smurf-300);
 
-  --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.30);
-  --shadow-md:        0 4px 12px rgba(0, 0, 0, 0.40);
-  --shadow-glow-sm:   0 0 12px rgba(167, 215, 197, 0.20);
-  --shadow-glow-md:   0 0 24px rgba(167, 215, 197, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-glow-sm: 0 0 12px rgba(167, 215, 197, 0.2);
+  --shadow-glow-md: 0 0 24px rgba(167, 215, 197, 0.25);
 }
 ```
 
@@ -192,12 +195,12 @@ INSPIRATION
 // stored as hex in UserSettings.accent_color
 
 export const ACCENT_PRESETS = [
-  { id: 'smurf',    hex: '#A7D7C5', label: 'Smurf Green',    default: true },
-  { id: 'moss',     hex: '#74B49B', label: 'Deep Moss'  },
-  { id: 'snitch',   hex: '#F4A261', label: 'Golden Snitch'   },
-  { id: 'sky',      hex: '#5B9BD5', label: 'Sky Blue'        },
-  { id: 'lavender', hex: '#A89BD9', label: 'Lavender'        },
-  { id: 'coral',    hex: '#E07B7B', label: 'Coral Rose'      },
+  { id: "smurf", hex: "#A7D7C5", label: "Smurf Green", default: true },
+  { id: "moss", hex: "#74B49B", label: "Deep Moss" },
+  { id: "snitch", hex: "#F4A261", label: "Golden Snitch" },
+  { id: "sky", hex: "#5B9BD5", label: "Sky Blue" },
+  { id: "lavender", hex: "#A89BD9", label: "Lavender" },
+  { id: "coral", hex: "#E07B7B", label: "Coral Rose" },
 ] as const;
 
 // Apply selected accent as CSS variable override on <html>
@@ -210,9 +213,12 @@ export const ACCENT_PRESETS = [
 
 ```css
 /* Font stack */
---font-display:  'Sora', var(--font-noto), sans-serif;     /* headings, logo, badges */
---font-body:     'Plus Jakarta Sans', var(--font-noto), sans-serif; /* body, settings copy */
---font-mono:     'JetBrains Mono', 'Fira Code', monospace; /* transcript, OTP, code */
+--font-display:
+  "Sora", var(--font-noto), sans-serif; /* headings, logo, badges */
+--font-body:
+  "Plus Jakarta Sans", var(--font-noto), sans-serif; /* body, settings copy */
+--font-mono:
+  "JetBrains Mono", "Fira Code", monospace; /* transcript, OTP, code */
 
 /* Why these fonts:
    Sora          → rounded, modern, energetic — matches "interaktif" personality
@@ -223,27 +229,32 @@ export const ACCENT_PRESETS = [
 
 ```typescript
 // next.config.ts — Google Fonts import
-import { Sora, Plus_Jakarta_Sans, JetBrains_Mono, Noto_Sans } from 'next/font/google';
+import {
+  Sora,
+  Plus_Jakarta_Sans,
+  JetBrains_Mono,
+  Noto_Sans,
+} from "next/font/google";
 
 export const fontSora = Sora({
-  subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
-  variable: '--font-sora',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-sora",
+  display: "swap",
 });
 
 export const fontJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-jakarta',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jakarta",
+  display: "swap",
 });
 
 export const fontMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
 });
 ```
 
@@ -296,7 +307,11 @@ Border radius:
 ```css
 /* PRIMARY BUTTON — main actions (Save, Verify, etc.) */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-smurf-300) 0%, var(--color-smurf-400) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-smurf-300) 0%,
+    var(--color-smurf-400) 100%
+  );
   color: var(--color-smurf-700);
   font-weight: 600;
   font-size: 14px;
@@ -308,7 +323,11 @@ Border radius:
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--color-smurf-200) 0%, var(--color-smurf-300) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-smurf-200) 0%,
+    var(--color-smurf-300) 100%
+  );
   box-shadow: var(--shadow-lg), var(--shadow-glow-md);
   transform: translateY(-1px);
 }
@@ -329,7 +348,10 @@ Border radius:
     var(--color-smurf-300) 100%
   );
   animation: none;
-  transition: background-position 400ms ease, box-shadow 200ms ease, transform 150ms ease;
+  transition:
+    background-position 400ms ease,
+    box-shadow 200ms ease,
+    transform 150ms ease;
 }
 
 .btn-save:hover {
@@ -338,9 +360,15 @@ Border radius:
 }
 
 @keyframes gradient-shift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* SECONDARY BUTTON */
@@ -362,7 +390,7 @@ Border radius:
 .btn-danger {
   background: transparent;
   color: var(--error);
-  border: 1.5px solid rgba(224, 92, 92, 0.30);
+  border: 1.5px solid rgba(224, 92, 92, 0.3);
   padding: 9px 20px;
   border-radius: 10px;
   transition: all 150ms ease;
@@ -389,7 +417,11 @@ Border radius:
 }
 
 .toggle-track[data-checked="true"] {
-  background: linear-gradient(90deg, var(--color-smurf-300), var(--color-smurf-400));
+  background: linear-gradient(
+    90deg,
+    var(--color-smurf-300),
+    var(--color-smurf-400)
+  );
   box-shadow: var(--shadow-glow-sm);
 }
 
@@ -401,7 +433,7 @@ Border radius:
   height: 18px;
   border-radius: 9999px;
   background: white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -420,14 +452,16 @@ Border radius:
   padding: 10px 14px;
   font-size: 14px;
   color: var(--text-primary);
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
   outline: none;
   width: 100%;
 }
 
 .input-field:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(167, 215, 197, 0.20);
+  box-shadow: 0 0 0 3px rgba(167, 215, 197, 0.2);
 }
 
 .input-field::placeholder {
@@ -456,29 +490,29 @@ Border radius:
 // lib/motion/constants.ts
 
 export const DURATION = {
-  instant:  100,   // state changes that should feel immediate
-  fast:     150,   // micro-interactions (button press, toggle)
-  default:  250,   // most transitions
-  medium:   350,   // card hover, page section reveal
-  slow:     500,   // page enter, modal open
-  crawl:    800,   // logo pulse, skeleton shimmer (looping)
+  instant: 100, // state changes that should feel immediate
+  fast: 150, // micro-interactions (button press, toggle)
+  default: 250, // most transitions
+  medium: 350, // card hover, page section reveal
+  slow: 500, // page enter, modal open
+  crawl: 800, // logo pulse, skeleton shimmer (looping)
 } as const;
 
 export const EASING = {
   // Standard transitions
-  ease:       [0.4, 0, 0.2, 1],       // Material Design standard
-  easeIn:     [0.4, 0, 1, 1],
-  easeOut:    [0, 0, 0.2, 1],
+  ease: [0.4, 0, 0.2, 1], // Material Design standard
+  easeIn: [0.4, 0, 1, 1],
+  easeOut: [0, 0, 0.2, 1],
 
   // Spring-based (for interactions with physical feel)
-  spring:     { type: 'spring', stiffness: 320, damping: 28 },
-  springBounce: { type: 'spring', stiffness: 400, damping: 20 },
-  springSnap:   { type: 'spring', stiffness: 500, damping: 35 },
+  spring: { type: "spring", stiffness: 320, damping: 28 },
+  springBounce: { type: "spring", stiffness: 400, damping: 20 },
+  springSnap: { type: "spring", stiffness: 500, damping: 35 },
 } as const;
 
 export const STAGGER = {
-  children: 0.06,   // delay between each child in a staggered list
-  fast:     0.04,   // for longer lists (5+ items)
+  children: 0.06, // delay between each child in a staggered list
+  fast: 0.04, // for longer lists (5+ items)
 } as const;
 ```
 
@@ -486,81 +520,89 @@ export const STAGGER = {
 
 ```typescript
 // lib/motion/variants.ts
-import { Variants } from 'framer-motion';
-import { DURATION, EASING, STAGGER } from './constants';
+import { Variants } from "framer-motion";
+import { DURATION, EASING, STAGGER } from "./constants";
 
 // ── PAGE / SECTION ENTRY ─────────────────────────────────────────
 export const fadeInUp: Variants = {
-  hidden:  { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: DURATION.medium / 1000, ease: EASING.easeOut }
+    transition: { duration: DURATION.medium / 1000, ease: EASING.easeOut },
   },
 };
 
 export const staggerContainer: Variants = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: STAGGER.children, delayChildren: 0.05 } },
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: STAGGER.children, delayChildren: 0.05 },
+  },
 };
 
 // ── CARD INTERACTIONS ────────────────────────────────────────────
 export const cardHover: Variants = {
-  rest:  { scale: 1,     y: 0,  boxShadow: 'var(--shadow-sm)' },
+  rest: { scale: 1, y: 0, boxShadow: "var(--shadow-sm)" },
   hover: {
-    scale: 1.015,          // NOT 1.02 — subtler, more elegant
-    y: -3,                 // NOT -5 — keeps element grounded
-    boxShadow: 'var(--shadow-lg), var(--shadow-glow-sm)',
+    scale: 1.015, // NOT 1.02 — subtler, more elegant
+    y: -3, // NOT -5 — keeps element grounded
+    boxShadow: "var(--shadow-lg), var(--shadow-glow-sm)",
     transition: EASING.spring,
   },
 };
 
 // ── MODAL ────────────────────────────────────────────────────────
 export const modalBackdrop: Variants = {
-  hidden:  { opacity: 0 },
+  hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: DURATION.default / 1000 } },
-  exit:    { opacity: 0, transition: { duration: DURATION.fast / 1000 } },
+  exit: { opacity: 0, transition: { duration: DURATION.fast / 1000 } },
 };
 
 export const modalPanel: Variants = {
-  hidden:  { opacity: 0, scale: 0.95, y: 12 },
+  hidden: { opacity: 0, scale: 0.95, y: 12 },
   visible: {
-    opacity: 1, scale: 1, y: 0,
-    transition: { ...EASING.spring, delay: 0.03 }
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { ...EASING.spring, delay: 0.03 },
   },
-  exit:    {
-    opacity: 0, scale: 0.97, y: 8,
-    transition: { duration: DURATION.fast / 1000, ease: EASING.easeIn }
+  exit: {
+    opacity: 0,
+    scale: 0.97,
+    y: 8,
+    transition: { duration: DURATION.fast / 1000, ease: EASING.easeIn },
   },
 };
 
 // ── OTP INPUT ────────────────────────────────────────────────────
 export const otpBoxEntry: Variants = {
-  idle:    { scale: 1,    borderColor: 'var(--border-default)' },
-  filled:  {
-    scale: [1, 1.08, 1],   // spring bounce on input
-    borderColor: 'var(--border-focus)',
+  idle: { scale: 1, borderColor: "var(--border-default)" },
+  filled: {
+    scale: [1, 1.08, 1], // spring bounce on input
+    borderColor: "var(--border-focus)",
     transition: EASING.springBounce,
   },
-  error:   {
-    x: [0, -4, 4, -4, 4, 0],   // shake on wrong OTP
-    borderColor: 'var(--error)',
+  error: {
+    x: [0, -4, 4, -4, 4, 0], // shake on wrong OTP
+    borderColor: "var(--error)",
     transition: { duration: DURATION.medium / 1000, ease: EASING.ease },
   },
   success: {
     scale: 1,
-    borderColor: 'var(--success)',
-    backgroundColor: 'rgba(82, 183, 136, 0.08)',
+    borderColor: "var(--success)",
+    backgroundColor: "rgba(82, 183, 136, 0.08)",
     transition: EASING.spring,
   },
 };
 
 // ── BADGE AWARD ──────────────────────────────────────────────────
 export const badgeReveal: Variants = {
-  hidden:  { scale: 0, opacity: 0, rotate: -12 },
+  hidden: { scale: 0, opacity: 0, rotate: -12 },
   visible: {
-    scale: 1, opacity: 1, rotate: 0,
-    transition: { ...EASING.springBounce, delay: 0.2 }
+    scale: 1,
+    opacity: 1,
+    rotate: 0,
+    transition: { ...EASING.springBounce, delay: 0.2 },
   },
 };
 
@@ -574,8 +616,12 @@ export const badgeReveal: Variants = {
 ```css
 /* globals.css */
 @keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position:  200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .skeleton {
@@ -822,7 +868,7 @@ export function triggerParticleBurst(originElement?: HTMLElement) {
 
   // Create 8 particles
   Array.from({ length: 8 }).forEach((_, i) => {
-    const particle = document.createElement('div');
+    const particle = document.createElement("div");
     const angle = (i / 8) * Math.PI * 2;
     const distance = 24 + Math.random() * 16;
 
@@ -840,17 +886,20 @@ export function triggerParticleBurst(originElement?: HTMLElement) {
     document.body.appendChild(particle);
 
     // Animate outward then fade
-    particle.animate([
-      { transform: `translate(-50%, -50%) scale(1)`, opacity: 1 },
+    particle.animate(
+      [
+        { transform: `translate(-50%, -50%) scale(1)`, opacity: 1 },
+        {
+          transform: `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance}px)) scale(0)`,
+          opacity: 0,
+        },
+      ],
       {
-        transform: `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance}px)) scale(0)`,
-        opacity: 0
-      }
-    ], {
-      duration: 400,
-      easing: 'cubic-bezier(0, 0.9, 0.57, 1)',
-      fill: 'forwards',
-    }).onfinish = () => particle.remove();
+        duration: 400,
+        easing: "cubic-bezier(0, 0.9, 0.57, 1)",
+        fill: "forwards",
+      },
+    ).onfinish = () => particle.remove();
   });
 }
 ```
@@ -1031,70 +1080,70 @@ const shouldReduce = useAppReducedMotion();
 
 ```typescript
 // apps/web/tailwind.config.ts
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
-  darkMode: 'class',            // toggled by adding .dark to <html>
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  darkMode: "class", // toggled by adding .dark to <html>
   theme: {
     extend: {
       colors: {
         smurf: {
-          100: '#E8F5F0',
-          200: '#C8E8DC',
-          300: '#A7D7C5',       // primary brand
-          400: '#74B49B',
-          500: '#52967E',
-          600: '#3A6E5C',
-          700: '#264D40',
+          100: "#E8F5F0",
+          200: "#C8E8DC",
+          300: "#A7D7C5", // primary brand
+          400: "#74B49B",
+          500: "#52967E",
+          600: "#3A6E5C",
+          700: "#264D40",
         },
         snitch: {
-          300: '#FBD5A8',
-          400: '#F4A261',       // accent
-          500: '#E07B3A',
+          300: "#FBD5A8",
+          400: "#F4A261", // accent
+          500: "#E07B3A",
         },
-        mist: '#F6FBF9',
-        fog:  '#EDF5F1',
+        mist: "#F6FBF9",
+        fog: "#EDF5F1",
       },
       fontFamily: {
-        display: ['var(--font-sora)', 'var(--font-noto)', 'sans-serif'],
-        body:    ['var(--font-jakarta)', 'var(--font-noto)', 'sans-serif'],
-        mono:    ['var(--font-mono)', 'monospace'],
+        display: ["var(--font-sora)", "var(--font-noto)", "sans-serif"],
+        body: ["var(--font-jakarta)", "var(--font-noto)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       borderRadius: {
-        'sm':   '6px',
-        'md':   '10px',
-        'lg':   '16px',
-        'xl':   '24px',
+        sm: "6px",
+        md: "10px",
+        lg: "16px",
+        xl: "24px",
       },
       boxShadow: {
-        'glow-sm': '0 0 12px rgba(167, 215, 197, 0.35)',
-        'glow-md': '0 0 24px rgba(167, 215, 197, 0.45)',
-        'glow-lg': '0 8px 32px rgba(167, 215, 197, 0.40)',
-        'snitch':  '0 0 16px rgba(244, 162, 97, 0.40)',
+        "glow-sm": "0 0 12px rgba(167, 215, 197, 0.35)",
+        "glow-md": "0 0 24px rgba(167, 215, 197, 0.45)",
+        "glow-lg": "0 8px 32px rgba(167, 215, 197, 0.40)",
+        snitch: "0 0 16px rgba(244, 162, 97, 0.40)",
       },
       animation: {
-        'gradient-shift': 'gradient-shift 2s linear infinite',
-        'shimmer':        'shimmer 1.6s ease infinite',
-        'float':          'float 3s ease-in-out infinite',
-        'pulse-glow':     'pulse-glow 1.2s ease-in-out infinite',
+        "gradient-shift": "gradient-shift 2s linear infinite",
+        shimmer: "shimmer 1.6s ease infinite",
+        float: "float 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 1.2s ease-in-out infinite",
       },
       keyframes: {
-        'gradient-shift': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%':      { backgroundPosition: '100% 50%' },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
         },
-        'shimmer': {
-          '0%':   { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
         },
-        'float': {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%':      { transform: 'translateY(-4px)' },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-4px)" },
         },
-        'pulse-glow': {
-          '0%, 100%': { boxShadow: 'var(--shadow-glow-sm)' },
-          '50%':      { boxShadow: 'var(--shadow-glow-md)' },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "var(--shadow-glow-sm)" },
+          "50%": { boxShadow: "var(--shadow-glow-md)" },
         },
       },
     },
@@ -1238,6 +1287,6 @@ Particle burst: triggerParticleBurst() once on verification success.
 
 ---
 
-*CLAUDE-DESIGN.md — Fren-Edu · Design System v1.0*
-*Read alongside CLAUDE.md + CLAUDE-MVP-SETTINGS.md*
-*This file governs ALL visual and motion decisions. No exceptions.*
+_CLAUDE-DESIGN.md — Fren-Edu · Design System v1.0_
+_Read alongside CLAUDE.md + CLAUDE-MVP-SETTINGS.md_
+_This file governs ALL visual and motion decisions. No exceptions._

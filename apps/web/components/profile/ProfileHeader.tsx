@@ -62,12 +62,17 @@ export function ProfileHeader({
           onClick={isEditable ? onAvatarClick : undefined}
         >
           {avatarUrl ? (
-            <img src={avatarUrl} alt={name} className="w-full h-full object-cover" />
+            <img
+              src={avatarUrl}
+              alt={name}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <div
               className="w-full h-full flex items-center justify-center font-display font-bold text-2xl"
               style={{
-                background: "linear-gradient(135deg, var(--color-smurf-300), var(--color-smurf-400))",
+                background:
+                  "linear-gradient(135deg, var(--color-smurf-300), var(--color-smurf-400))",
                 color: "white",
               }}
             >

@@ -37,7 +37,7 @@ export function OTPInput({
         refs.current[index + 1]?.focus();
       }
     },
-    [value, onChange, length]
+    [value, onChange, length],
   );
 
   const handleKeyDown = useCallback(
@@ -55,18 +55,21 @@ export function OTPInput({
         refs.current[index + 1]?.focus();
       }
     },
-    [value, onChange, length]
+    [value, onChange, length],
   );
 
   const handlePaste = useCallback(
     (e: React.ClipboardEvent) => {
       e.preventDefault();
-      const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, length);
+      const pasted = e.clipboardData
+        .getData("text")
+        .replace(/\D/g, "")
+        .slice(0, length);
       onChange(pasted);
       const focusIndex = Math.min(pasted.length, length - 1);
       refs.current[focusIndex]?.focus();
     },
-    [onChange, length]
+    [onChange, length],
   );
 
   const getBoxState = (index: number) => {
@@ -97,31 +100,22 @@ export function OTPInput({
           style={{
             background: "var(--bg-elevated)",
             color: "var(--text-primary)",
-            borderColor: status === "error"
-              ? "var(--error)"
-              : status === "success"
-                ? "var(--success)"
-                : value[i]
-                  ? "var(--border-focus)"
-                  : "var(--border-default)",
+            borderColor:
+              status === "error"
+                ? "var(--error)"
+                : status === "success"
+                  ? "var(--success)"
+                  : value[i]
+                    ? "var(--border-focus)"
+                    : "var(--border-default)",
           }}
-          onChange={
-            (e) => handleInput(e, i)
-          }
-          onKeyDown={
-            (e) => handleKeyDown(e, i)
-          }
-          onPaste={
-            i === 0 ? handlePaste : undefined
-          }
-          ref={
-            (el) => { 
-              refs.current[i] = el; 
-            }
-          }
-          aria-label={
-            `Digit ${i + 1} of ${length}`
-          }
+          onChange={(e) => handleInput(e, i)}
+          onKeyDown={(e) => handleKeyDown(e, i)}
+          onPaste={i === 0 ? handlePaste : undefined}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          aria-label={`Digit ${i + 1} of ${length}`}
         />
       ))}
     </div>
