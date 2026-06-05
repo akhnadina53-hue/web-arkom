@@ -29,6 +29,5 @@ uploads/
 
 .vercel/
 
-# Rahasia Dokumen / Desain (Jangan sampai idenya dicolong)
 *.md
 !README.md
