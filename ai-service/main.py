@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import transcribe, summarize, qa, tts
+from routers import transcribe, summarize, qa, tts, roadmap
 
 app = FastAPI(title="Fren-Edu AI Service")
 
@@ -17,6 +17,7 @@ app.include_router(transcribe.router, prefix="/transcribe")
 app.include_router(summarize.router, prefix="/summarize")
 app.include_router(qa.router, prefix="/qa")
 app.include_router(tts.router, prefix="/tts")
+app.include_router(roadmap.router, prefix="/roadmap")
 
 
 @app.get("/")

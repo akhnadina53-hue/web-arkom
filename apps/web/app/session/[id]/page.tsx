@@ -11,6 +11,7 @@ import {
   Download,
   Share2,
   Clock,
+  Map,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -126,6 +127,13 @@ export default function SessionPage({
               color="teal"
             />
             <SectionButton
+              title="Learning Roadmap"
+              desc="Follow a structured learning path."
+              icon={<Map className="w-5 h-5" />}
+              href={`/session/${id}/roadmap`}
+              color="amber"
+            />
+            <SectionButton
               title="Regenerate Voice"
               desc="Listen to a clean AI voiceover."
               icon={<AudioLines className="w-5 h-5" />}
@@ -151,6 +159,7 @@ function SectionButton({ title, desc, icon, href, color }: any) {
   const colorMap: any = {
     teal: "text-teal-400 bg-teal-400/5 group-hover:bg-teal-400/10",
     emerald: "text-emerald-400 bg-emerald-400/5 group-hover:bg-emerald-400/10",
+    amber: "text-amber-400 bg-amber-400/5 group-hover:bg-amber-400/10",
   };
 
   return (

@@ -126,3 +126,93 @@ async def generate_qa(transcript: str, summary_text: str, count: int = 5):
     except Exception as e:
         print(f"Error generating QA: {str(e)}")
         raise e
+
+async def generate_roadmap(transcript: str, language: str = "id", content_type: str = "auto"):
+    """
+    Generate structured learning roadmap from the transcript.
+    """
+    if not OPENROUTER_API_KEY:
+        raise ValueError("OPENROUTER_API_KEY is missing.")
+
+    prompt = f"""
+    Anda adalah 'Fren-Edu Roadmap AI', ahli dalam menyusun peta pembelajaran (learning roadmap) 
+    dari transkripsi audio. Transkripsi ini bisa berupa materi kuliah akademis, seminar, motivasi, atau penjelasan umum.
+
+    TUGAS ANDA:
+    Analisis transkrip berikut dan susun menjadi LEARNING ROADMAP yang terstruktur, logis, 
+    dan memiliki ALUR SIRKULAR (misalnya ada tahapan pengenalan, pemahaman inti, praktik/penerapan, 
+    dan diakhiri dengan refleksi/review yang menyambungkan kembali ke awal atau topik lanjutan).
+    
+    Tipe Konten: {content_type}
+    Bahasa: {language}
+
+    ATURAN PENYUSUNAN:
+    1. Identifikasi SEMUA topik & konsep dari transkrip.
+    2. Tambahkan prerequisite (pengetahuan dasar) jika diperlukan.
+    3. Susun dalam urutan belajar yang beralur sirkular (berkesinambungan).
+    4. Setiap section harus punya 2-5 node/topik.
+    5. Berikan rekomendasi resource belajar per topik.
+
+    FORMAT OUTPUT HARUS JSON MURNI:
+    {{
+        "title": "Judul Roadmap yang Deskriptif",
+        "estimatedTotalTime": "X-Y jam",
+        "sections": [
+            {{
+                "number": 1,
+                "title": "Nama Section (Misal: Fondasi / Refleksi)",
+                "emoji": "1️⃣",
+                "description": "Penjelasan singkat section ini",
+                "nodes": [
+                    {{
+                        "id": "node_1_1",
+                        "label": "Nama Topik",
+                        "type": "prerequisite|core|practice|advanced|optional|reflection",
+                        "source": "from_audio|ai_recommended",
+                        "description": "Penjelasan 1-2 kalimat",
+                        "difficulty": "beginner|intermediate|advanced",
+                        "estimatedTime": "X jam/menit",
+                        "order": 1,
+                        "resources": [
+                            {{
+                                "title": "Nama Resource",
+                                "url": "https://...",
+                                "type": "course|book|article|video|paper|tutorial",
+                                "isPaid": false,
+                                "platform": "YouTube/Coursera/dll"
+                            }}
+                        ]
+                    }}
+                ]
+            }}
+        ],
+        "topics_extracted": ["topik1", "topik2"],
+        "legend": [
+            {{"type": "core", "emoji": "📗", "label": "Dari Materi", "color": "#52B788"}},
+            {{"type": "prerequisite", "emoji": "📘", "label": "Wajib Dipahami", "color": "#5B9BD5"}},
+            {{"type": "practice", "emoji": "📕", "label": "Latihan/Aplikasi", "color": "#E05C5C"}},
+            {{"type": "reflection", "emoji": "🔄", "label": "Refleksi", "color": "#F4A261"}},
+            {{"type": "advanced", "emoji": "🔗", "label": "Lanjutan", "color": "#A89BD9"}}
+        ]
+    }}
+
+    Transkrip:
+    {transcript}
+    """
+
+    try:
+        response = await client.chat.completions.create(
+            model=OPENROUTER_MODEL,
+            messages=[
+                {"role": "system", "content": "Hanya kembalikan output JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        
+        raw_text = response.choices[0].message.content
+        cleaned_text = clean_json_string(raw_text)
+        return json.loads(cleaned_text)
+    except Exception as e:
+        print(f"Error generating roadmap: {str(e)}")
+        raise e

@@ -56,3 +56,41 @@ class ErrorResponse(BaseModel):
     error: str
     detail: Optional[str] = None
     code: Optional[str] = None
+
+class RoadmapResource(BaseModel):
+    title: str
+    url: str
+    type: str
+    isPaid: bool
+    platform: Optional[str] = None
+
+class RoadmapNode(BaseModel):
+    id: str
+    label: str
+    type: str
+    source: str
+    description: str
+    difficulty: str
+    estimatedTime: Optional[str] = None
+    resources: Optional[List[RoadmapResource]] = []
+    order: int
+
+class RoadmapSection(BaseModel):
+    number: int
+    title: str
+    emoji: str
+    description: str
+    nodes: List[RoadmapNode]
+
+class RoadmapLegend(BaseModel):
+    type: str
+    emoji: str
+    label: str
+    color: str
+
+class RoadmapResponse(BaseModel):
+    title: str
+    estimatedTotalTime: str
+    sections: List[RoadmapSection]
+    topics_extracted: List[str]
+    legend: List[RoadmapLegend]

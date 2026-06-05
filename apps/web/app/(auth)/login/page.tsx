@@ -1,40 +1,44 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { Mic, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { AuthCard } from "@/components/auth/AuthCard";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
     <AuthCard
-      title="Welcome back"
-      description="Sign in to access your transcriptions and mind maps."
+      title="Welcome back 👋"
+      description="Sign in to access your transcriptions, roadmaps, and mind maps."
     >
-      <div className="flex flex-col items-center mb-6">
-        <motion.div
-          whileHover={{ y: -4, scale: 1.08 }}
-          whileTap={{ scale: 0.94 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg cursor-pointer"
-          style={{
-            background: "linear-gradient(135deg, #5EEAD4, #14B8A6)",
-            boxShadow: "0 8px 24px rgba(20,184,166,0.35)",
-          }}
-        >
-          <Mic className="w-7 h-7 text-white" />
-        </motion.div>
-      </div>
-
-      <button
+      {/* Google Sign In Button */}
+      <motion.button
+        whileHover={{ scale: 1.02, y: -1 }}
+        whileTap={{ scale: 0.98 }}
         onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-        className="w-full py-3.5 px-6 bg-white hover:bg-[rgba(20,184,166,0.06)] border border-[rgba(20,184,166,0.40)] rounded-xl flex items-center justify-center gap-3 text-slate-700 font-semibold hover:border-[#5EEAD4] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[rgba(20,184,166,0.40)]"
+        className="w-full py-3.5 px-6 rounded-2xl flex items-center justify-center gap-3 font-semibold transition-all"
+        style={{
+          background: "#ffffff",
+          border: "1.5px solid var(--border-default)",
+          color: "var(--text-primary)",
+          boxShadow: "var(--shadow-md)",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.borderColor =
+            "var(--border-brand)";
+          (e.currentTarget as HTMLButtonElement).style.boxShadow =
+            "var(--shadow-lg), var(--shadow-glow-sm)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.borderColor =
+            "var(--border-default)";
+          (e.currentTarget as HTMLButtonElement).style.boxShadow =
+            "var(--shadow-md)";
+        }}
       >
-        <svg
-          className="w-5 h-5"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        {/* Google SVG Icon */}
+        <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
           <path
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.58c2.08-1.92 3.28-4.74 3.28-8.09z"
             fill="#4285F4"
@@ -53,11 +57,76 @@ export default function LoginPage() {
           />
         </svg>
         Continue with Google
-      </button>
+      </motion.button>
 
-      <div className="mt-8 pt-6 border-t border-slate-800/50 flex items-center justify-center gap-2 text-xs text-slate-500 font-medium">
-        <Sparkles className="w-3.5 h-3.5" style={{ color: "#14B8A6" }} />
-        <span>Fren-Edu AI Engine — Powered by Groq &amp; Whisper</span>
+      {/* Divider */}
+      <div className="my-6 flex items-center gap-3">
+        <div className="flex-1 h-px" style={{ background: "var(--border-default)" }} />
+        <span className="text-xs font-medium" style={{ color: "var(--text-tertiary)" }}>
+          or
+        </span>
+        <div className="flex-1 h-px" style={{ background: "var(--border-default)" }} />
+      </div>
+
+      {/* Email/Password placeholder — bisa diisi nanti */}
+      <div className="space-y-4">
+        <div className="relative group">
+          <input
+            type="email"
+            placeholder="Email address"
+            disabled
+            className="w-full rounded-2xl py-3 px-4 text-sm transition-all"
+            style={{
+              background: "var(--color-fog)",
+              border: "1.5px solid var(--border-default)",
+              color: "var(--text-secondary)",
+              cursor: "not-allowed",
+              opacity: 0.6,
+            }}
+          />
+        </div>
+        <div className="relative group">
+          <input
+            type="password"
+            placeholder="Password"
+            disabled
+            className="w-full rounded-2xl py-3 px-4 text-sm transition-all"
+            style={{
+              background: "var(--color-fog)",
+              border: "1.5px solid var(--border-default)",
+              color: "var(--text-secondary)",
+              cursor: "not-allowed",
+              opacity: 0.6,
+            }}
+          />
+        </div>
+        <p className="text-xs text-center" style={{ color: "var(--text-tertiary)" }}>
+          Email login coming soon — gunakan Google untuk sementara
+        </p>
+      </div>
+
+      {/* Footer Links */}
+      <div
+        className="mt-8 pt-6 flex flex-col items-center gap-4"
+        style={{ borderTop: "1px solid var(--border-default)" }}
+      >
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          Belum punya akun?{" "}
+          <Link
+            href="/register"
+            className="font-semibold transition-colors"
+            style={{ color: "var(--text-brand)" }}
+          >
+            Daftar sekarang
+          </Link>
+        </p>
+        <div
+          className="flex items-center gap-1.5 text-xs"
+          style={{ color: "var(--text-tertiary)" }}
+        >
+          <Sparkles className="w-3.5 h-3.5" style={{ color: "var(--brand-primary)" }} />
+          <span>Fren-Edu AI — Powered by Groq &amp; Whisper</span>
+        </div>
       </div>
     </AuthCard>
   );

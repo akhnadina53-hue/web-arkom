@@ -28,3 +28,8 @@ class TTSRequest(BaseModel):
     language_style: Optional[str] = Field("formal", description="Language style")
     speed: Optional[float] = Field(1.0, description="Speech speed (0.5 - 2.0)")
     language: Optional[str] = Field("id", description="Language code")
+
+class RoadmapRequest(BaseModel):
+    transcript: str = Field(..., description="Full transcript text to generate roadmap from")
+    language: Optional[str] = Field("id", description="Language of transcript")
+    content_type: Optional[str] = Field("auto", description="Type of content (academic, seminar, motivation, etc)")
