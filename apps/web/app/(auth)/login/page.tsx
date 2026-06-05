@@ -101,7 +101,7 @@ export default function LoginPage() {
           />
         </div>
         <p className="text-xs text-center" style={{ color: "var(--text-tertiary)" }}>
-          Email login coming soon — gunakan Google untuk sementara
+          Email login coming soon, gunakan Google untuk sementara
         </p>
       </div>
 
