@@ -8,23 +8,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-
-    const applyDark = () => root.classList.add("dark");
-    const applyLight = () => root.classList.remove("dark");
-
-    if (settings.theme === "dark") {
-      applyDark();
-    } else if (settings.theme === "light") {
-      applyLight();
-    } else {
-      const mq = window.matchMedia("(prefers-color-scheme: dark)");
-      mq.matches ? applyDark() : applyLight();
-
-      const handler = (e: MediaQueryListEvent) =>
-        e.matches ? applyDark() : applyLight();
-      mq.addEventListener("change", handler);
-      return () => mq.removeEventListener("change", handler);
-    }
+    root.classList.remove("dark");
   }, [settings.theme]);
 
   useEffect(() => {

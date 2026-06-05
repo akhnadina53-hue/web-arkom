@@ -30,8 +30,8 @@ export function AuthCard({
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-teal-500/10 blur-3xl rounded-full group-hover:bg-teal-500/20 transition-colors" />
 
       <div className="relative z-10">
-        <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
-        {description && <p className="text-slate-400 mb-8">{description}</p>}
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">{title}</h2>
+        {description && <p className="text-slate-600 mb-8">{description}</p>}
         {children}
       </div>
     </motion.div>

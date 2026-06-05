@@ -7,7 +7,7 @@ export default async function AudioPage({
   return (
     <div className="min-h-screen bg-slate-900 p-6">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-6">
+        <h1 className="text-3xl font-bold text-slate-900 mb-6">
           🔊 Regenerate Audio: {id}
         </h1>
 

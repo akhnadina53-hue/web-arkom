@@ -31,14 +31,30 @@ const SF = {
 function GradientOrb({
   className,
   color,
+  duration = 25,
+  xOffset = 50,
+  yOffset = 50,
 }: {
   className: string;
   color: string;
+  duration?: number;
+  xOffset?: number;
+  yOffset?: number;
 }) {
   return (
-    <div
+    <motion.div
       className={`absolute rounded-full pointer-events-none ${className}`}
-      style={{ background: color, filter: "blur(90px)", opacity: 0.08 }}
+      style={{ background: color, filter: "blur(100px)", opacity: 0.15 }}
+      animate={{
+        x: [0, xOffset, -xOffset, 0],
+        y: [0, -yOffset, yOffset, 0],
+        scale: [1, 1.1, 0.95, 1],
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "linear",
+      }}
     />
   );
 }
@@ -291,7 +307,7 @@ function InteractiveDemo() {
                 className="w-16 h-16 rounded-full flex items-center justify-center relative transition-all duration-500"
                 style={{
                   background: recording
-                    ? "linear-gradient(135deg, #14B8A6, #0D9488)"
+                    ? SF.secondary
                     : "linear-gradient(135deg, #E5E7EB, #D1D5DB)",
                   boxShadow: recording
                     ? "0 8px 24px rgba(13,148,136,0.30)"
@@ -573,14 +589,37 @@ export default function HomePage() {
         <GradientOrb
           className="w-[600px] h-[500px] -top-32 -left-40"
           color={SF.primary}
+          duration={28}
+          xOffset={60}
+          yOffset={40}
         />
         <GradientOrb
           className="w-[500px] h-[400px] top-20 -right-32"
           color={SF.secondary}
+          duration={22}
+          xOffset={-50}
+          yOffset={60}
         />
         <GradientOrb
-          className="w-[300px] h-[300px] bottom-0 left-1/3"
+          className="w-[400px] h-[400px] top-1/2 left-2/3 -translate-x-1/2 -translate-y-1/2"
+          color={SF.primary}
+          duration={35}
+          xOffset={-80}
+          yOffset={80}
+        />
+        <GradientOrb
+          className="w-[250px] h-[250px] top-1/3 left-1/4"
+          color={SF.secondary}
+          duration={20}
+          xOffset={50}
+          yOffset={-50}
+        />
+        <GradientOrb
+          className="w-[300px] h-[300px] -bottom-20 left-1/3"
           color={SF.accent}
+          duration={18}
+          xOffset={60}
+          yOffset={-30}
         />
 
         <div className="max-w-6xl mx-auto relative z-10">
@@ -605,26 +644,17 @@ export default function HomePage() {
 
             <motion.h1
               variants={fadeUp}
-              className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.05] text-slate-800 dark:text-white"
+              className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.05] text-slate-800 dark:text-black/70"
             >
               Transform Your{" "}
               <span className="relative inline-block min-w-[200px] text-left md:min-w-[290px]">
-                <span
-                  style={{
-                    background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
+                <span style={{ color: SF.secondary }}>
                   {currentText || "\u00A0"}
                 </span>
                 <span className="inline-block w-[3px] h-[0.8em] bg-[var(--color-smurf-400)] ml-1 align-middle animate-pulse" />
                 <span
                   className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
-                  style={{
-                    background: `linear-gradient(90deg, ${SF.secondary}, ${SF.primary})`,
-                    opacity: 0.5,
-                  }}
+                  style={{ background: SF.secondary, opacity: 0.5 }}
                 />
               </span>{" "}
               into Knowledge
@@ -654,7 +684,7 @@ export default function HomePage() {
                     href="/login"
                     className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg"
                     style={{
-                      background: `linear-gradient(135deg, ${SF.secondary}, #0F766E)`,
+                      background: SF.secondary,
                       boxShadow: `0 8px 24px rgba(13,148,136,0.30)`,
                     }}
                   >
@@ -679,7 +709,7 @@ export default function HomePage() {
                     href="/dashboard"
                     className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg"
                     style={{
-                      background: `linear-gradient(135deg, ${SF.secondary}, #0F766E)`,
+                      background: SF.secondary,
                       boxShadow: `0 8px 24px rgba(13,148,136,0.30)`,
                     }}
                   >
@@ -718,9 +748,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3 mb-4">
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{
-                  background: `linear-gradient(135deg, ${SF.primary}, ${SF.secondary})`,
-                }}
+                style={{ background: SF.secondary }}
               >
                 <Mic className="w-4 h-4 text-white animate-pulse" />
               </div>
@@ -837,11 +865,7 @@ export default function HomePage() {
               >
                 <p
                   className="text-3xl font-extrabold mb-1"
-                  style={{
-                    background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
+                  style={{ color: SF.secondary }}
                 >
                   {value}
                 </p>
@@ -868,7 +892,7 @@ export default function HomePage() {
             >
               Everything You Need
             </p>
-            <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-black/70 mb-4">
               Built for serious learners
             </h2>
             <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
@@ -925,7 +949,7 @@ export default function HomePage() {
             >
               Simple Process
             </p>
-            <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-black/70 mb-4">
               From recording to insight in 3 steps
             </h2>
           </div>
@@ -951,9 +975,7 @@ export default function HomePage() {
                 </span>
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm mb-5"
-                  style={{
-                    background: `linear-gradient(135deg, ${SF.secondary}, ${SF.primary})`,
-                  }}
+                  style={{ background: SF.secondary }}
                 >
                   {i + 1}
                 </div>
@@ -1092,7 +1114,7 @@ export default function HomePage() {
             >
               Simple Pricing
             </p>
-            <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-800 dark:text-black/70 mb-4">
               Start free, upgrade when ready
             </h2>
             <p className="text-slate-500 dark:text-slate-400">
@@ -1118,9 +1140,7 @@ export default function HomePage() {
                     <div className="text-center mb-4">
                       <span
                         className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-white"
-                        style={{
-                          background: `linear-gradient(135deg,${SF.secondary},${SF.primary})`,
-                        }}
+                        style={{ background: SF.secondary }}
                       >
                         Most Popular
                       </span>
@@ -1155,7 +1175,7 @@ export default function HomePage() {
                     style={
                       highlight
                         ? {
-                            background: `linear-gradient(135deg,${SF.secondary},${SF.primary})`,
+                            background: SF.secondary,
                             color: "white",
                             boxShadow: `0 8px 24px rgba(13,148,136,0.25)`,
                           }
@@ -1197,7 +1217,7 @@ export default function HomePage() {
               className="w-12 h-12 mx-auto mb-6"
               style={{ color: SF.secondary }}
             />
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-black/70 mb-6 leading-tight">
               Learn smarter,
               <br />
               not harder.
@@ -1210,7 +1230,7 @@ export default function HomePage() {
               href="/register"
               className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-extrabold text-white transition-all"
               style={{
-                background: `linear-gradient(135deg,${SF.secondary},#0F766E)`,
+                background: SF.secondary,
                 boxShadow: `0 12px 36px rgba(13,148,136,0.30)`,
               }}
             >
@@ -1231,9 +1251,7 @@ export default function HomePage() {
               <div className="flex items-center gap-2 mb-4">
                 <div
                   className="w-7 h-7 rounded-lg flex items-center justify-center"
-                  style={{
-                    background: `linear-gradient(135deg,${SF.primary},${SF.secondary})`,
-                  }}
+                  style={{ background: SF.secondary }}
                 >
                   <Mic className="w-3.5 h-3.5 text-white" />
                 </div>

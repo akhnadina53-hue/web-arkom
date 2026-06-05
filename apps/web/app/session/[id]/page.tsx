@@ -21,7 +21,7 @@ export default function SessionPage({
 }) {
   const { id } = use(params);
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen text-slate-800">
       <Navbar />
 
       <main className="max-w-5xl mx-auto pt-32 pb-20 px-6">
@@ -29,20 +29,20 @@ export default function SessionPage({
         <div className="flex items-center justify-between mb-12">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors group"
+            className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors group"
           >
-            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10">
+            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-slate-200">
               <ChevronLeft className="w-4 h-4" />
             </div>
             <span className="text-sm font-bold">Back to Library</span>
           </Link>
 
           <div className="flex gap-3">
-            <button className="p-3 glass rounded-xl hover:bg-white/5 transition-colors">
-              <Share2 className="w-4 h-4 text-slate-400" />
+            <button className="p-3 glass rounded-xl hover:bg-slate-100 transition-colors">
+              <Share2 className="w-4 h-4 text-slate-600" />
             </button>
-            <button className="p-3 glass rounded-xl hover:bg-white/5 transition-colors">
-              <Download className="w-4 h-4 text-slate-400" />
+            <button className="p-3 glass rounded-xl hover:bg-slate-100 transition-colors">
+              <Download className="w-4 h-4 text-slate-600" />
             </button>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function SessionPage({
                 </div>
                 <h2 className="text-2xl font-bold">AI Summary</h2>
               </div>
-              <div className="prose prose-invert max-w-none prose-p:text-slate-400 prose-p:leading-relaxed">
+              <div className="prose  max-w-none prose-p:text-slate-600 prose-p:leading-relaxed">
                 <p>
                   This lecture covers the fundamental aspects of General
                   Relativity, focusing on how mass warps spacetime and the
@@ -101,7 +101,7 @@ export default function SessionPage({
                 </div>
                 <h2 className="text-2xl font-bold">Full Transcript</h2>
               </div>
-              <div className="space-y-6 text-slate-400 font-mono text-sm leading-relaxed">
+              <div className="space-y-6 text-slate-600 font-mono text-sm leading-relaxed">
                 <p>
                   <span className="text-slate-600 mr-4">00:00</span> Good
                   morning everyone, today we will dive into the fascinating
@@ -155,13 +155,13 @@ function SectionButton({ title, desc, icon, href, color }: any) {
 
   return (
     <Link href={href} className="block group">
-      <div className="glass p-6 rounded-[28px] group-hover:-translate-y-1 transition-all border-white/5 group-hover:border-white/10">
+      <div className="glass p-6 rounded-[28px] group-hover:-translate-y-1 transition-all border-slate-200 group-hover:border-slate-300">
         <div
           className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-colors ${colorMap[color]}`}
         >
           {icon}
         </div>
-        <h3 className="font-bold text-white mb-1">{title}</h3>
+        <h3 className="font-bold text-slate-900 mb-1">{title}</h3>
         <p className="text-xs text-slate-500">{desc}</p>
       </div>
     </Link>

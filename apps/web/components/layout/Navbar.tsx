@@ -34,13 +34,13 @@ export function Navbar() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-6"
       >
-        <div className="glass px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-8 shadow-xl w-full max-w-2xl">
+        <div className="glass px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-8 shadow-xl w-auto">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <motion.div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{
-                background: "linear-gradient(135deg, #5EEAD4, #14B8A6)",
+                background: "var(--color-smurf-400)",
               }}
               whileHover={{ rotate: 12, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -49,18 +49,14 @@ export function Navbar() {
             </motion.div>
             <span
               className="font-extrabold tracking-tight text-sm md:text-base"
-              style={{
-                background: "linear-gradient(135deg,#14B8A6,#5EEAD4)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
+              style={{ color: "var(--color-smurf-400)" }}
             >
               Fren-Edu
             </span>
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500 flex-1">
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
             <a
               href="#features"
               onClick={(e) => handleAnchorClick(e, "features")}
@@ -212,7 +208,7 @@ export function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-2 px-4 py-3 text-white font-bold rounded-2xl transition-colors shadow-lg"
                   style={{
-                    background: "linear-gradient(135deg,#14B8A6,#5EEAD4)",
+                    background: "var(--color-smurf-400)",
                     boxShadow: "0 6px 20px rgba(13,148,136,0.25)",
                   }}
                 >

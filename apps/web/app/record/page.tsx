@@ -69,7 +69,7 @@ export default function RecordPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-slate-950 text-white pt-12 pb-24 px-6">
+    <div className="min-h-screen flex flex-col items-center text-slate-900 pt-12 pb-24 px-6">
       {/* Ambient background glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
@@ -98,7 +98,7 @@ export default function RecordPage() {
             "flex-1 flex justify-center items-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all",
             inputMode === "record"
               ? "bg-teal-500 text-slate-950 shadow-lg shadow-teal-500/20"
-              : "text-slate-500 hover:text-white",
+              : "text-slate-500 hover:text-slate-900",
           )}
         >
           <Mic className="w-4 h-4" />
@@ -110,8 +110,8 @@ export default function RecordPage() {
           className={cn(
             "flex-1 flex justify-center items-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all",
             inputMode === "upload"
-              ? "bg-violet-500 text-white shadow-lg shadow-violet-500/20"
-              : "text-slate-500 hover:text-white",
+              ? "bg-violet-500 text-slate-900 shadow-lg shadow-violet-500/20"
+              : "text-slate-500 hover:text-slate-900",
           )}
         >
           <Upload className="w-4 h-4" />
@@ -132,7 +132,7 @@ export default function RecordPage() {
             className="w-full max-w-xl z-10"
           >
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-white">
+              <h1 className="text-2xl font-bold text-slate-900">
                 Upload Voice Recording
               </h1>
               <p className="text-slate-500 text-sm mt-2 leading-relaxed">
