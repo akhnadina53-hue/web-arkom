@@ -24,7 +24,12 @@
   --color-stone-500: #6b7280;
   --color-stone-700: #1f2937;
 
-  --bg-page: radial-gradient(circle at 50% 0%, #ffffff 0%, #f7f9fb 60%, #e0e3e5 100%);
+  --bg-page: radial-gradient(
+    circle at 50% 0%,
+    #ffffff 0%,
+    #f7f9fb 60%,
+    #e0e3e5 100%
+  );
   --bg-card: #ffffff;
   --bg-card-glass: rgba(255, 255, 255, 0.82);
   --bg-elevated: #ffffff;
@@ -68,8 +73,6 @@
   --sf-border: rgba(20, 184, 166, 0.3);
   --sf-glass: rgba(255, 255, 255, 0.82);
 }
-
-
 
 @theme {
   --color-smurf-100: #e6fffa;

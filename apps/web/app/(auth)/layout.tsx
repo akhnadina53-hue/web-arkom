@@ -7,18 +7,18 @@ import Link from "next/link";
 
 const PARTICLES = Array.from({ length: 28 }, (_, i) => ({
   id: i,
-  size: Math.random() * 3 + 1.5,            
-  x: Math.random() * 100,                   
+  size: Math.random() * 3 + 1.5,
+  x: Math.random() * 100,
   y: Math.random() * 100,
-  duration: Math.random() * 6 + 5,  
+  duration: Math.random() * 6 + 5,
   delay: Math.random() * 4,
-  opacity: Math.random() * 0.35 + 0.1,  
+  opacity: Math.random() * 0.35 + 0.1,
 }));
 
 const EQ_BARS = Array.from({ length: 12 }, (_, i) => ({
   id: i,
-  height: Math.random() * 28 + 10,        
-  duration: Math.random() * 0.6 + 0.5,  
+  height: Math.random() * 28 + 10,
+  duration: Math.random() * 0.6 + 0.5,
   delay: Math.random() * 0.5,
 }));
 
@@ -78,14 +78,15 @@ export default function AuthLayout({
               height: p.size,
               left: `${p.x}%`,
               top: `${p.y}%`,
-              background: p.id % 4 === 0
-                ? "rgba(245,158,11,0.55)"  
-                : "rgba(20,184,166,0.50)",   
+              background:
+                p.id % 4 === 0
+                  ? "rgba(245,158,11,0.55)"
+                  : "rgba(20,184,166,0.50)",
               opacity: p.opacity,
               boxShadow: `0 0 ${p.size * 2}px ${p.id % 4 === 0 ? "rgba(245,158,11,0.4)" : "rgba(20,184,166,0.35)"}`,
             }}
             animate={{
-              y: [0, -(8 + p.id % 10), 0],
+              y: [0, -(8 + (p.id % 10)), 0],
               opacity: [p.opacity, p.opacity * 2.2, p.opacity],
               scale: [1, 1.3, 1],
             }}
@@ -111,7 +112,8 @@ export default function AuthLayout({
             style={{
               width: 4,
               height: bar.height,
-              background: "linear-gradient(to top, var(--color-smurf-400), var(--color-smurf-300))",
+              background:
+                "linear-gradient(to top, var(--color-smurf-400), var(--color-smurf-300))",
             }}
             animate={{
               height: [
@@ -143,7 +145,8 @@ export default function AuthLayout({
             style={{
               width: 3,
               height: bar.height * 0.6,
-              background: "linear-gradient(to top, rgba(245,158,11,0.9), rgba(245,158,11,0.4))",
+              background:
+                "linear-gradient(to top, rgba(245,158,11,0.9), rgba(245,158,11,0.4))",
             }}
             animate={{
               height: [

@@ -94,3 +94,4 @@ class RoadmapResponse(BaseModel):
     sections: List[RoadmapSection]
     topics_extracted: List[str]
     legend: List[RoadmapLegend]
+    mermaid_flowchart: Optional[str] = None

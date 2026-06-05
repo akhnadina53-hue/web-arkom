@@ -152,6 +152,7 @@ async def generate_roadmap(transcript: str, language: str = "id", content_type: 
     3. Susun dalam urutan belajar yang beralur sirkular (berkesinambungan).
     4. Setiap section harus punya 2-5 node/topik.
     5. Berikan rekomendasi resource belajar per topik.
+    6. Buat juga `mermaid_flowchart` berupa sintaks Mermaid.js tipe `graph TD` atau `mindmap` yang memvisualisasikan prioritas belajar, relasi konsep, dan alur belajarnya. Pastikan sintaks Mermaid-nya valid.
 
     FORMAT OUTPUT HARUS JSON MURNI:
     {{
@@ -193,7 +194,8 @@ async def generate_roadmap(transcript: str, language: str = "id", content_type: 
             {{"type": "practice", "emoji": "📕", "label": "Latihan/Aplikasi", "color": "#E05C5C"}},
             {{"type": "reflection", "emoji": "🔄", "label": "Refleksi", "color": "#F4A261"}},
             {{"type": "advanced", "emoji": "🔗", "label": "Lanjutan", "color": "#A89BD9"}}
-        ]
+        ],
+        "mermaid_flowchart": "graph TD;\\n  A[Topik Dasar] --> B[Topik Lanjutan];\\n  style A fill:#5B9BD5,stroke:#fff;"
     }}
 
     Transkrip:

@@ -9,7 +9,14 @@ export interface RoadmapResource {
 export interface RoadmapNode {
   id: string;
   label: string;
-  type: "prerequisite" | "core" | "practice" | "advanced" | "optional" | "reflection" | string;
+  type:
+    | "prerequisite"
+    | "core"
+    | "practice"
+    | "advanced"
+    | "optional"
+    | "reflection"
+    | string;
   source: "from_audio" | "ai_recommended" | string;
   description: string;
   difficulty: "beginner" | "intermediate" | "advanced" | string;

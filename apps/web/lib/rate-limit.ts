@@ -21,14 +21,14 @@ export default function rateLimit(options?: Options) {
           tokenCount[0] += 1;
           tokenCache.set(token, tokenCount);
         }
-        
+
         const currentUsage = tokenCount[0];
         const isRateLimited = currentUsage >= limit;
-        
+
         if (isRateLimited) {
           return reject(new Error("Rate limit exceeded"));
         }
-        
+
         return resolve();
       }),
   };

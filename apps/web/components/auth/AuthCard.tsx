@@ -20,7 +20,7 @@ export function AuthCard({
     <div
       className={cn(
         "w-full max-w-md p-8 md:p-10 rounded-[28px] relative overflow-hidden",
-        className
+        className,
       )}
       style={{
         background: "rgba(255,255,255,0.92)",
@@ -48,7 +48,7 @@ export function AuthCard({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-2xl font-bold mb-1"
-          style={{ color: "#111827" }}  
+          style={{ color: "#111827" }}
         >
           {title}
         </motion.h2>
@@ -58,7 +58,7 @@ export function AuthCard({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
             className="mb-8 text-sm leading-relaxed"
-            style={{ color: "#374151" }}  
+            style={{ color: "#374151" }}
           >
             {description}
           </motion.p>

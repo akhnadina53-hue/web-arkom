@@ -14,8 +14,16 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Akun Dummy Pelajar",
       credentials: {
-        email: { label: "Email Kampus", type: "email", placeholder: "siswa@kampus.ac.id" },
-        password: { label: "Password", type: "password", placeholder: "bebas_apa_saja" }
+        email: {
+          label: "Email Kampus",
+          type: "email",
+          placeholder: "siswa@kampus.ac.id",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "bebas_apa_saja",
+        },
       },
       async authorize(credentials) {
         // Dummy login: bebas masuk pakai email apa saja untuk ngetes UI
@@ -24,17 +32,28 @@ export const authOptions: NextAuthOptions = {
             id: "dummy-student-123",
             name: credentials.email.split("@")[0],
             email: credentials.email,
-            image: "https://api.dicebear.com/7.x/avataaars/svg?seed=" + credentials.email,
+            image:
+              "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
+              credentials.email,
           };
         }
         return null;
-      }
-    })
+      },
+    }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
-    async session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user && token) {
+        session.user.id = token.id as string;
       }
       return session;
     },

@@ -61,11 +61,20 @@ export default function LoginPage() {
 
       {/* Divider */}
       <div className="my-6 flex items-center gap-3">
-        <div className="flex-1 h-px" style={{ background: "var(--border-default)" }} />
-        <span className="text-xs font-medium" style={{ color: "var(--text-tertiary)" }}>
+        <div
+          className="flex-1 h-px"
+          style={{ background: "var(--border-default)" }}
+        />
+        <span
+          className="text-xs font-medium"
+          style={{ color: "var(--text-tertiary)" }}
+        >
           or
         </span>
-        <div className="flex-1 h-px" style={{ background: "var(--border-default)" }} />
+        <div
+          className="flex-1 h-px"
+          style={{ background: "var(--border-default)" }}
+        />
       </div>
 
       {/* Email/Password placeholder — bisa diisi nanti */}
@@ -100,7 +109,10 @@ export default function LoginPage() {
             }}
           />
         </div>
-        <p className="text-xs text-center" style={{ color: "var(--text-tertiary)" }}>
+        <p
+          className="text-xs text-center"
+          style={{ color: "var(--text-tertiary)" }}
+        >
           Email login coming soon, gunakan Google untuk sementara
         </p>
       </div>
@@ -124,7 +136,10 @@ export default function LoginPage() {
           className="flex items-center gap-1.5 text-xs"
           style={{ color: "var(--text-tertiary)" }}
         >
-          <Sparkles className="w-3.5 h-3.5" style={{ color: "var(--brand-primary)" }} />
+          <Sparkles
+            className="w-3.5 h-3.5"
+            style={{ color: "var(--brand-primary)" }}
+          />
           <span>Fren-Edu AI — Powered by Groq &amp; Whisper</span>
         </div>
       </div>
