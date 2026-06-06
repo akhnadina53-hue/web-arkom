@@ -82,7 +82,7 @@ async def generate_summary(transcript: str, language: str = "id", style: str = "
         print(f"Error generating summary: {str(e)}")
         raise e
 
-async def generate_qa(transcript: str, summary_text: str, count: int = 5):
+async def generate_qa(transcript: str, summary_text: str, count: int = 5, style: str = "academic"):
     """
     Generate interactive and educational Q&A based on the material.
     """
@@ -91,6 +91,7 @@ async def generate_qa(transcript: str, summary_text: str, count: int = 5):
 
     prompt = f"""
     Berdasarkan materi kuliah ini, buatlah {count} pertanyaan interaktif untuk menguji pemahaman mahasiswa.
+    Gaya bahasa: {style} (gunakan gaya bahasa ini dalam memberikan 'hint' dan 'explanation').
     Pastikan pertanyaan bervariasi (konseptual dan aplikasi).
 
     FORMAT OUTPUT JSON MURNI:
@@ -127,7 +128,7 @@ async def generate_qa(transcript: str, summary_text: str, count: int = 5):
         print(f"Error generating QA: {str(e)}")
         raise e
 
-async def generate_roadmap(transcript: str, language: str = "id", content_type: str = "auto"):
+async def generate_roadmap(transcript: str, language: str = "id", content_type: str = "auto", style: str = "academic"):
     """
     Generate structured learning roadmap from the transcript.
     """
@@ -145,6 +146,7 @@ async def generate_roadmap(transcript: str, language: str = "id", content_type: 
     
     Tipe Konten: {content_type}
     Bahasa: {language}
+    Gaya Bahasa: {style} (gunakan gaya ini dalam penjelasan node dan description)
 
     ATURAN PENYUSUNAN:
     1. Identifikasi SEMUA topik & konsep dari transkrip.

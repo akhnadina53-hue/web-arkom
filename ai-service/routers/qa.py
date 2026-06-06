@@ -9,6 +9,7 @@ class QAGenerateRequest(BaseModel):
     summary: str | None = None
     difficulty: str = "medium"
     count: int = 5
+    style: str = "academic"
 
 class QuestionItem(BaseModel):
     question: str
@@ -27,7 +28,8 @@ async def generate(req: QAGenerateRequest):
         response_json = await generate_qa(
             transcript=req.transcript,
             summary_text=combined_text,
-            count=req.count
+            count=req.count,
+            style=req.style
         )
         
         # Mapping properties
