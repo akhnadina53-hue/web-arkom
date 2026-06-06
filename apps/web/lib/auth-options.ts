@@ -2,7 +2,13 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 import db from "./db";
+import {
+  checkRateLimit,
+  recordFailedAttempt,
+  resetAttempts,
+} from "./rate-limit";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db) as any,
@@ -12,32 +18,59 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      name: "Akun Dummy Pelajar",
+      name: "Email & Password",
       credentials: {
         email: {
-          label: "Email Kampus",
+          label: "Email",
           type: "email",
-          placeholder: "siswa@kampus.ac.id",
+          placeholder: "email@contoh.com",
         },
         password: {
           label: "Password",
           type: "password",
-          placeholder: "bebas_apa_saja",
+          placeholder: "••••••••",
         },
       },
-      async authorize(credentials) {
-        // Dummy login: bebas masuk pakai email apa saja untuk ngetes UI
-        if (credentials?.email) {
-          return {
-            id: "dummy-student-123",
-            name: credentials.email.split("@")[0],
-            email: credentials.email,
-            image:
-              "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
-              credentials.email,
-          };
+      async authorize(credentials, req) {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Email dan password harus diisi");
         }
-        return null;
+
+        const identifier = credentials.email.toLowerCase();
+        const rateLimit = await checkRateLimit(identifier);
+
+        if (!rateLimit.allowed) {
+          throw new Error(rateLimit.message);
+        }
+
+        const user = await db.user.findUnique({
+          where: { email: credentials.email },
+        });
+
+        if (!user || !user.password) {
+          await recordFailedAttempt(identifier);
+          throw new Error("Email atau password salah");
+        }
+
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password,
+          user.password,
+        );
+
+        if (!isPasswordValid) {
+          await recordFailedAttempt(identifier);
+          throw new Error("Email atau password salah");
+        }
+
+        // Jika berhasil login, reset attempts
+        await resetAttempts(identifier);
+
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+        };
       },
     }),
   ],

@@ -1,12 +1,44 @@
 "use client";
 
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { AuthCard } from "@/components/auth/AuthCard";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (res?.error) {
+        throw new Error("Email atau password salah");
+      }
+
+      router.push("/dashboard");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <AuthCard
       title="Welcome back 👋"
@@ -37,7 +69,6 @@ export default function LoginPage() {
             "var(--shadow-md)";
         }}
       >
-        {/* Google SVG Icon */}
         <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
           <path
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.58c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -69,7 +100,7 @@ export default function LoginPage() {
           className="text-xs font-medium"
           style={{ color: "var(--text-tertiary)" }}
         >
-          or
+          atau login dengan Student Email
         </span>
         <div
           className="flex-1 h-px"
@@ -77,45 +108,79 @@ export default function LoginPage() {
         />
       </div>
 
-      {/* Email/Password placeholder — bisa diisi nanti */}
-      <div className="space-y-4">
+      {/* Email/Password form */}
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="relative group">
           <input
             type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email address"
-            disabled
-            className="w-full rounded-2xl py-3 px-4 text-sm transition-all"
+            className="w-full rounded-2xl py-3 px-4 text-sm transition-all outline-none"
             style={{
-              background: "var(--color-fog)",
+              background: "var(--bg-elevated)",
               border: "1.5px solid var(--border-default)",
-              color: "var(--text-secondary)",
-              cursor: "not-allowed",
-              opacity: 0.6,
+              color: "var(--text-primary)",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "var(--border-focus)";
+              e.currentTarget.style.boxShadow =
+                "0 0 0 3px rgba(20,184,166,0.12)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "var(--border-default)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           />
         </div>
         <div className="relative group">
           <input
             type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            disabled
-            className="w-full rounded-2xl py-3 px-4 text-sm transition-all"
+            className="w-full rounded-2xl py-3 px-4 text-sm transition-all outline-none"
             style={{
-              background: "var(--color-fog)",
+              background: "var(--bg-elevated)",
               border: "1.5px solid var(--border-default)",
-              color: "var(--text-secondary)",
-              cursor: "not-allowed",
-              opacity: 0.6,
+              color: "var(--text-primary)",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "var(--border-focus)";
+              e.currentTarget.style.boxShadow =
+                "0 0 0 3px rgba(20,184,166,0.12)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "var(--border-default)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           />
         </div>
-        <p
-          className="text-xs text-center"
-          style={{ color: "var(--text-tertiary)" }}
+
+        {error && (
+          <p className="text-sm text-center text-red-500 font-medium">
+            {error}
+          </p>
+        )}
+
+        <motion.button
+          whileHover={{ scale: 1.01, y: -1 }}
+          whileTap={{ scale: 0.98 }}
+          type="submit"
+          disabled={isLoading}
+          className="w-full font-bold py-3.5 rounded-2xl mt-2 flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
+          style={{
+            background:
+              "linear-gradient(135deg, var(--color-smurf-300) 0%, var(--color-smurf-400) 100%)",
+            color: "var(--color-smurf-100)",
+            boxShadow: "var(--shadow-md), var(--shadow-glow-sm)",
+          }}
         >
-          Email login coming soon, gunakan Google untuk sementara
-        </p>
-      </div>
+          {isLoading ? "Signing in..." : "Continue with Student.id 🎓"}
+        </motion.button>
+      </form>
 
       {/* Footer Links */}
       <div

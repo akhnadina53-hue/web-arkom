@@ -1,3 +1,80 @@
+import db from "./db";
+
+const MAX_ATTEMPTS = 3;
+const LOCKOUT_MINUTES = 15;
+
+export async function checkRateLimit(
+  ip: string,
+): Promise<{ allowed: boolean; message?: string }> {
+  const record = await db.rateLimit.findUnique({
+    where: { ip },
+  });
+
+  if (!record) {
+    return { allowed: true };
+  }
+
+  if (record.lockUntil && new Date() < record.lockUntil) {
+    const minutesLeft = Math.ceil(
+      (record.lockUntil.getTime() - new Date().getTime()) / 60000,
+    );
+    return {
+      allowed: false,
+      message: `Terlalu banyak percobaan. Silakan coba lagi dalam ${minutesLeft} menit.`,
+    };
+  }
+
+  if (record.lockUntil && new Date() > record.lockUntil) {
+    await db.rateLimit.update({
+      where: { ip },
+      data: { attempts: 0, lockUntil: null },
+    });
+    return { allowed: true };
+  }
+
+  return { allowed: true };
+}
+
+export async function recordFailedAttempt(ip: string): Promise<void> {
+  const record = await db.rateLimit.findUnique({
+    where: { ip },
+  });
+
+  if (!record) {
+    await db.rateLimit.create({
+      data: { ip, attempts: 1 },
+    });
+    return;
+  }
+
+  const newAttempts = record.attempts + 1;
+  const lockUntil =
+    newAttempts >= MAX_ATTEMPTS
+      ? new Date(Date.now() + LOCKOUT_MINUTES * 60000)
+      : null;
+
+  await db.rateLimit.update({
+    where: { ip },
+    data: {
+      attempts: newAttempts,
+      lockUntil,
+    },
+  });
+}
+
+export async function resetAttempts(ip: string): Promise<void> {
+  const record = await db.rateLimit.findUnique({
+    where: { ip },
+  });
+
+  if (record) {
+    await db.rateLimit.update({
+      where: { ip },
+      data: { attempts: 0, lockUntil: null },
+    });
+  }
+}
+
 import { LRUCache } from "lru-cache";
 
 type Options = {
