@@ -35,6 +35,7 @@ async def transcribe(file: UploadFile = File(...)):
             language_detected="auto",
             duration=result["duration"]
         )
+        
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:

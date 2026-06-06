@@ -31,8 +31,7 @@ async def generate(req: QAGenerateRequest):
             count=req.count,
             style=req.style
         )
-        
-        # Mapping properties
+
         questions = []
         for q in response_json.get("questions", []):
              questions.append(QuestionItem(
@@ -58,8 +57,6 @@ class QAEvaluateResponse(BaseModel):
 
 @router.post("/evaluate", response_model=QAEvaluateResponse)
 async def evaluate(req: QAEvaluateRequest):
-    # Dummy evaluator logic to evaluate the correctness using simple algorithm
-    # Dalam produksi bisa memakai OpenRouter, namun untuk real-time ini sudah cepat dan gratis.
     score = 0
     if req.user_answer and req.correct_answer:
         common = set(req.user_answer.lower().split()) & set(req.correct_answer.lower().split())

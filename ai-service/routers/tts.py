@@ -8,7 +8,7 @@ router = APIRouter()
 
 class TTSRequest(BaseModel):
     text: str
-    voice_style: str = "id-ID-ArdiNeural" # Edge-TTS voice style
+    voice_style: str = "id-ID-ArdiNeural"
     language: str = "id"
     speed: float = 1.0
 
@@ -23,9 +23,7 @@ async def tts(req: TTSRequest):
             text=req.text,
             voice=req.voice_style
         )
-        
-        # Disini kita mengembalikan filenya utuh via API untuk diputar oleh Frontend
-        # Bisa juga diupload ke Supabase terlebih dahulu, namun FastAPI serving secara langsung lebih efisien untuk temporary preview
+
         return FileResponse(audio_filepath, media_type="audio/mpeg", filename="tts_output.mp3")
 
     except Exception as e:
