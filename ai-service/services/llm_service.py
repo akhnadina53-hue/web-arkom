@@ -172,17 +172,17 @@ async def generate_roadmap(transcript: str, language: str = "id", content_type: 
                         "label": "Nama Topik",
                         "type": "prerequisite|core|practice|advanced|optional|reflection",
                         "source": "from_audio|ai_recommended",
-                        "description": "Penjelasan 1-2 kalimat",
+                        "description": "Penjelasan detail dan komprehensif, minimal 3-4 kalimat.",
                         "difficulty": "beginner|intermediate|advanced",
                         "estimatedTime": "X jam/menit",
                         "order": 1,
                         "resources": [
                             {{
-                                "title": "Nama Resource",
-                                "url": "https://...",
+                                "title": "Nama Resource (Harus Spesifik)",
+                                "url": "https://www.youtube.com/results?search_query=kata+kunci+topik",
                                 "type": "course|book|article|video|paper|tutorial",
                                 "isPaid": false,
-                                "platform": "YouTube/Coursera/dll"
+                                "platform": "YouTube/Coursera/Wikipedia"
                             }}
                         ]
                     }}
@@ -199,6 +199,11 @@ async def generate_roadmap(transcript: str, language: str = "id", content_type: 
         ],
         "mermaid_flowchart": "graph TD;\\n  A[Topik Dasar] --> B[Topik Lanjutan];\\n  style A fill:#5B9BD5,stroke:#fff;"
     }}
+
+    PENTING: 
+    - Penjelasan (description) pada setiap node harus detail, informatif, dan tidak terpotong. Berikan penjelasan yang bermakna.
+    - DILARANG KERAS menggunakan URL dummy/contoh seperti `https://example.com/...`. 
+    - Untuk kolom `url`, berikan link pencarian nyata ke YouTube (misal: `https://www.youtube.com/results?search_query=konsep+ai`), Wikipedia, atau platform belajar lain yang valid.
 
     Transkrip:
     {transcript}
