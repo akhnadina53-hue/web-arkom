@@ -55,7 +55,7 @@ model RecordingSession {
   userId        String
   user          User            @relation(fields: [userId], references: [id])
   title         String          @default("Untitled Recording")
-  status        String          @default("RECORDING")
+  status        String          @default("UPLOADING")
   duration      Int?            
   language      String          @default("id") 
   audioUrl      String?         
@@ -66,8 +66,12 @@ model RecordingSession {
   roadmap       String?
   qaHistory     QAItem[]
   generatedAudios GeneratedAudio[]
+  secureAudioId String?
+  secureAudio   SecureAudio?    @relation(fields: [secureAudioId], references: [id])
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+
+  @@index([userId, status])
 }
 
 model QAItem {
@@ -183,6 +187,7 @@ model SecureAudio {
   mimeType    String
   storagePath String
   iv          String   
+  sessions    RecordingSession[]
   createdAt   DateTime @default(now())
 }
 

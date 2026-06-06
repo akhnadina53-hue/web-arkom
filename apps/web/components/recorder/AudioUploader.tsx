@@ -7,6 +7,7 @@ import {
   type DragEvent,
   type ChangeEvent,
 } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Upload,
@@ -96,6 +97,7 @@ export function AudioUploader({
   onUploadComplete,
   className,
 }: AudioUploaderProps) {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [selected, setSelected] = useState<SelectedFile | null>(null);
@@ -155,6 +157,10 @@ export function AudioUploader({
         setUploadedSession(body.data.sessionId);
         setStatus("done");
         onUploadComplete?.(body.data.sessionId, file.name);
+        // Redirect to session page after a short delay
+        setTimeout(() => {
+          router.push(`/session/${body.data.sessionId}`);
+        }, 1200);
       } catch {
         clearInterval(progressInterval);
         setErrorMsg(
