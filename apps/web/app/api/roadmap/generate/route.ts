@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     const backendSecret =
       process.env.INTERNAL_API_SECRET || "fren-edu-super-secret-key-2026";
 
-    const backendUrl = process.env.API_HOST || "http://127.0.0.1:8000";
+    const backendUrl = process.env.AI_SERVICE_URL || "http://127.0.0.1:8000";
 
     const backendResponse = await fetch(`${backendUrl}/roadmap/generate`, {
       method: "POST",

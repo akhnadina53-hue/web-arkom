@@ -211,25 +211,39 @@ export default function RoadmapPage() {
   useEffect(() => {
     const fetchRoadmap = async () => {
       try {
+        // 1. Check if roadmap already exists in DB
         const sessionRes = await fetch(`/api/session/${id}`);
-        if (sessionRes.ok) {
-          const sessionData = await sessionRes.json();
-          if (sessionData.roadmap) {
-            setData(JSON.parse(sessionData.roadmap));
-            setLoading(false);
-            return;
-          }
+        if (!sessionRes.ok) {
+          setData(null);
+          setLoading(false);
+          return;
         }
 
-        const mockTranscript =
-          "Ini adalah transkrip singkat tentang fisika relativitas khusus, bagaimana kecepatan cahaya konstan bagi semua pengamat, dan konsep dilasi waktu.";
+        const sessionData = await sessionRes.json();
+
+        // 2. If roadmap already cached in DB, use it
+        if (sessionData.roadmap) {
+          setData(JSON.parse(sessionData.roadmap));
+          setLoading(false);
+          return;
+        }
+
+        // 3. No roadmap yet - need a real transcript to generate one
+        if (!sessionData.transcript) {
+          // Transcript not ready yet, can't generate roadmap
+          setData(null);
+          setLoading(false);
+          return;
+        }
+
+        // 4. Generate roadmap using the REAL transcript from this session
         const response = await fetch("/api/roadmap/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             sessionId: id,
-            transcript: mockTranscript,
-            language: "id",
+            transcript: sessionData.transcript,
+            language: sessionData.language || "id",
             content_type: "academic",
           }),
         });
@@ -238,7 +252,8 @@ export default function RoadmapPage() {
         const jsonResponse = await response.json();
         setData(jsonResponse);
       } catch (error) {
-        setData(MOCK_ROADMAP);
+        console.error("Roadmap fetch error:", error);
+        setData(null);
       } finally {
         setLoading(false);
       }
@@ -256,13 +271,33 @@ export default function RoadmapPage() {
     });
   };
 
-  if (loading || !data) {
+  if (loading) {
     return (
       <div className="min-h-screen text-slate-800 flex items-center justify-center flex-col gap-6">
         <Map className="w-16 h-16 text-slate-300 animate-pulse" />
         <h2 className="text-xl font-bold animate-pulse text-slate-400">
           Generating Learning Roadmap...
         </h2>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="min-h-screen text-slate-800 flex items-center justify-center flex-col gap-6">
+        <Map className="w-16 h-16 text-slate-300" />
+        <h2 className="text-xl font-bold text-slate-400">
+          Roadmap belum bisa dibuat
+        </h2>
+        <p className="text-slate-500 text-sm text-center max-w-sm">
+          Transkrip audio belum tersedia atau sesi tidak ditemukan. Pastikan audio sudah berhasil ditranskripsi terlebih dahulu.
+        </p>
+        <Link
+          href={`/session/${id}`}
+          className="px-6 py-3 bg-teal-500 text-white font-bold rounded-xl text-sm hover:bg-teal-600 transition-colors"
+        >
+          Kembali ke Sesi
+        </Link>
       </div>
     );
   }

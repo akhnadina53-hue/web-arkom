@@ -134,7 +134,6 @@ export default function SessionPage({
         setSession(data);
         setLoading(false);
 
-        // Stop polling once in a terminal state
         const terminalStates: SessionStatus[] = ["TRANSCRIBED", "READY", "ERROR"];
         if (terminalStates.includes(data.status) && interval) {
           clearInterval(interval);
@@ -148,7 +147,6 @@ export default function SessionPage({
 
     fetchSession();
 
-    // Poll every 4 seconds while processing
     interval = setInterval(fetchSession, 4000);
 
     return () => {
