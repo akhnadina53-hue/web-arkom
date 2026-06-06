@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 
 const ACCEPTED_MIME_TYPES = [
   "audio/mpeg",
+  "video/mpeg",
   "audio/mp4",
   "audio/x-m4a",
   "audio/m4a",
@@ -46,6 +47,8 @@ const ACCEPTED_EXTENSIONS = [
   ".flac",
   ".3gp",
   ".amr",
+  ".mpeg",
+  ".mpg",
 ];
 const MAX_FILE_SIZE_MB = 200;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;

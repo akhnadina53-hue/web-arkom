@@ -1,6 +1,7 @@
 import os
 import asyncio
-from pydub import AudioSegment
+import subprocess
+import imageio_ffmpeg
 from groq import AsyncGroq
 from config import GROQ_API_KEY
 import tempfile
@@ -51,26 +52,31 @@ async def transcribe_audio(file_path: str):
         return await transcribe_chunk(file_path, 0)
 
     print(f"[Whisper] Audio size {file_size/1024/1024:.2f}MB exceeds 24MB limit. Starting chunking process...")
-    audio = AudioSegment.from_file(file_path)
-   
-    CHUNK_LENGTH_MS = 10 * 60 * 1000 
-    
-    chunks = []
-    for i in range(0, len(audio), CHUNK_LENGTH_MS):
-        chunk = audio[i:i + CHUNK_LENGTH_MS]
-        chunks.append(chunk)
-
-    print(f"[Whisper] Audio split into {len(chunks)} chunks.")
-
     temp_dir = tempfile.mkdtemp()
-    chunk_files = []
+    ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    
+    cmd = [
+        ffmpeg_exe, "-y",
+        "-i", file_path,
+        "-f", "segment",
+        "-segment_time", "600",
+        "-b:a", "64k",
+        "-c:a", "libmp3lame",
+        os.path.join(temp_dir, "chunk_%03d.mp3")
+    ]
+    
+    try:
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(f"FFmpeg chunking failed: {e}")
+        
+    chunk_files = sorted([
+        os.path.join(temp_dir, f) 
+        for f in os.listdir(temp_dir) 
+        if f.startswith("chunk_") and f.endswith(".mp3")
+    ])
 
-    for i, chunk in enumerate(chunks):
-        chunk_path = os.path.join(temp_dir, f"chunk_{i}.mp3")
-        chunk.export(chunk_path, format="mp3", parameters=["-b:a", "64k"])
-        chunk_files.append(chunk_path)
-
-    print(f"[Whisper] Starting concurrent transcription for {len(chunks)} chunks...")
+    print(f"[Whisper] Audio split into {len(chunk_files)} chunks. Starting concurrent transcription...")
     tasks = [transcribe_chunk(path, i) for i, path in enumerate(chunk_files)]
     results = await asyncio.gather(*tasks)
 

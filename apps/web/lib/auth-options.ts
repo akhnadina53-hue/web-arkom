@@ -62,7 +62,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email atau password salah");
         }
 
-        // Jika berhasil login, reset attempts
         await resetAttempts(identifier);
 
         return {
