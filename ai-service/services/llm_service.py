@@ -90,18 +90,25 @@ async def generate_qa(transcript: str, summary_text: str, count: int = 5, style:
           raise ValueError("OPENROUTER_API_KEY is missing.")
 
     prompt = f"""
-    Berdasarkan materi kuliah ini, buatlah {count} pertanyaan interaktif untuk menguji pemahaman mahasiswa.
+    Berdasarkan materi kuliah ini, buatlah {count} pertanyaan interaktif tingkat tinggi (HOTS - Higher Order Thinking Skills) untuk menguji pemahaman mahasiswa secara mendalam.
     Gaya bahasa: {style} (gunakan gaya bahasa ini dalam memberikan 'hint' dan 'explanation').
-    Pastikan pertanyaan bervariasi (konseptual dan aplikasi).
+
+    ATURAN PEMBUATAN SOAL:
+    1. Pertanyaan harus bervariasi: konseptual, analitis, dan aplikasi praktis dari materi.
+    2. Hindari pertanyaan yang jawabannya hanya "ya/tidak" atau hafalan mati.
+    3. Setiap pertanyaan HARUS memiliki tepat 4 opsi jawaban ("options").
+    4. Buatlah opsi pengecoh (distractors) yang sangat masuk akal dan sering menjadi miskonsepsi umum.
+    5. 'explanation' HARUS detail, menjelaskan mengapa jawaban benar dan mengapa opsi lain salah (minimal 2-3 kalimat).
+    6. 'hint' harus berupa petunjuk konseptual tanpa memberikan jawaban langsung.
 
     FORMAT OUTPUT JSON MURNI:
     {{
         "questions": [
             {{
-                "question": "Pertanyaan yang menantang...",
-                "options": ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
-                "correct_answer": "Pilihan yang benar",
-                "explanation": "Penjelasan mengapa jawaban tersebut benar.",
+                "question": "Pertanyaan yang menantang dan analitis...",
+                "options": ["Opsi A", "Opsi B", "Opsi C", "Opsi D"],
+                "correct_answer": "Pilihan yang benar persis seperti di opsi",
+                "explanation": "Penjelasan komprehensif mengapa ini benar dan lainnya salah.",
                 "hint": "Petunjuk jika mahasiswa kesulitan."
             }}
         ]
