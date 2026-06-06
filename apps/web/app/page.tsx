@@ -681,7 +681,7 @@ export default function HomePage() {
               ) : !session ? (
                 <>
                   <Link
-                    href="/login"
+                    href="/register"
                     className="group px-8 py-4 rounded-2xl font-bold text-white flex items-center gap-2 transition-all shadow-lg"
                     style={{
                       background: SF.secondary,

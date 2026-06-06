@@ -112,15 +112,22 @@ export function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="text-sm font-bold text-slate-800 flex items-center gap-1 transition-colors"
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#4895EF")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "")}
-              >
-                Sign In
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/login"
+                  className="text-sm font-bold text-slate-800 flex items-center gap-1 transition-colors hover:text-teal-600"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-sm font-bold text-white flex items-center gap-1 transition-colors px-4 py-2 rounded-xl"
+                  style={{ background: "var(--color-smurf-400)" }}
+                >
+                  Register
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              </div>
             )}
           </div>
 

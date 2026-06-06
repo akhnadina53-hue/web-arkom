@@ -1,6 +1,6 @@
 # Fren-Edu 🎓
 
-Fren-Edu adalah platform pembelajaran interaktif berbasis AI yang dirancang khusus untuk mempermudah mahasiswa dalam memahami materi kompleks. Aplikasi ini menyediakan fitur perekaman catatan, transkripsi pintar, hingga penyusunan *learning roadmap* dan peta konsep secara otomatis.
+Fren-Edu adalah platform pembelajaran interaktif berbasis AI yang dirancang khusus untuk mempermudah mahasiswa dalam memahami materi kompleks. Aplikasi ini menyediakan fitur perekaman catatan, transkripsi pintar, hingga penyusunan _learning roadmap_ dan peta konsep secara otomatis.
 
 ## 🛠️ Tech Stack
 
@@ -13,9 +13,10 @@ Fren-Edu adalah platform pembelajaran interaktif berbasis AI yang dirancang khus
 
 ## 🚀 Cara Menjalankan Aplikasi
 
-Aplikasi ini berjalan dengan dua *service* utama yang perlu diaktifkan secara bersamaan:
+Aplikasi ini berjalan dengan dua _service_ utama yang perlu diaktifkan secara bersamaan:
 
 ### 1. AI Service (Python)
+
 Buka terminal, masuk ke folder `ai-service`, lalu jalankan server FastAPI:
 
 ```bash
@@ -31,6 +32,7 @@ python -m uvicorn main:app --reload --port 8000
 ```
 
 ### 2. Frontend Web (Next.js)
+
 Buka terminal baru, masuk ke folder `apps/web`, lalu jalankan server Next.js:
 
 ```bash
@@ -58,4 +60,4 @@ NEXTAUTH_URL="http://localhost:3000"
 AI_SERVICE_URL="http://localhost:8000"
 ```
 
-*(Catatan: Jangan pernah melakukan commit kunci API sensitif ke dalam repositori).*
+_(Catatan: Jangan pernah melakukan commit kunci API sensitif ke dalam repositori)._

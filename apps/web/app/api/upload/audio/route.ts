@@ -1,22 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
+import { encryptAndSaveFile } from "@/lib/secure-storage";
+import db from "@/lib/db";
 
 const ALLOWED_MIME_TYPES = new Set([
-  "audio/mpeg", // .mp3
-  "audio/mp4", // .m4a, .mp4 audio
-  "audio/x-m4a", // .m4a (Apple variant)
-  "audio/m4a", // .m4a (some encoders)
-  "audio/wav", // .wav
-  "audio/x-wav", // .wav (variant)
-  "audio/ogg", // .ogg
-  "audio/webm", // .webm (browser recording)
-  "audio/aac", // .aac
-  "audio/flac", // .flac
-  "audio/x-flac", // .flac (variant)
-  "audio/3gpp", // .3gp (Android recorder)
-  "audio/3gpp2", // .3g2
-  "audio/amr", // .amr (old phone recordings)
+  "audio/mpeg",
+  "audio/mp4",
+  "audio/x-m4a",
+  "audio/m4a",
+  "audio/wav",
+  "audio/x-wav",
+  "audio/ogg",
+  "audio/webm",
+  "audio/aac",
+  "audio/flac",
+  "audio/x-flac",
+  "audio/3gpp",
+  "audio/3gpp2",
+  "audio/amr",
 ]);
 
 const ALLOWED_EXTENSIONS = new Set([
@@ -115,18 +117,37 @@ export async function POST(req: NextRequest) {
 
     const fakeSessionId = `session_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
+    const nodeBuffer = Buffer.from(buffer);
+
+    const { storagePath, ivHex, fileSize } = await encryptAndSaveFile(
+      nodeBuffer,
+      file.name,
+    );
+
+    await db.secureAudio.create({
+      data: {
+        userId: session.user.id,
+        fileName: file.name,
+        fileSize,
+        mimeType,
+        storagePath,
+        iv: ivHex,
+      },
+    });
+
     console.info(
-      `[Upload API] Audio upload from user ${session.user.id}: ${file.name} (${file.size} bytes, ${mimeType})`,
+      `[Upload API] Secure audio upload from user ${session.user.id}: ${file.name} encrypted and saved to ${storagePath}`,
     );
 
     return NextResponse.json({
       data: {
         sessionId: fakeSessionId,
         fileName: file.name,
-        fileSize: file.size,
+        fileSize: fileSize,
         mimeType,
-        status: "QUEUED",
-        message: "File received. Transcription will begin shortly.",
+        status: "SECURELY_STORED",
+        message:
+          "File securely encrypted and stored. Transcription will begin shortly.",
       },
     });
   } catch (err) {

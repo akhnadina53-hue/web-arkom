@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -11,11 +11,13 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
+  password      String?
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[] 
   recordings    RecordingSession[]
+  secureAudios  SecureAudio[]
   profile       UserProfile?
   settings      UserSettings?
   createdAt     DateTime  @default(now())
@@ -95,7 +97,7 @@ model UserProfile {
   user_id             String    @unique
   user                User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  username            String    @unique               
+  username            String    @unique              
   display_name        String                      
   bio                 String?   
   avatar_url          String?                         
@@ -126,7 +128,7 @@ model Badge {
   id            String        @id @default(cuid())
   profile_id    String
   profile       UserProfile   @relation(fields: [profile_id], references: [id], onDelete: Cascade)
-  type          String        // STUDENT_VERIFIED, EARLY_ADOPTER, ACCESSIBILITY
+  type          String       
   awarded_at    DateTime      @default(now())
   expires_at    DateTime?     
   metadata      String?       
@@ -163,3 +165,24 @@ model UserSettings {
 
   updated_at              DateTime  @updatedAt
 }
+
+model RateLimit {
+  id        String    @id @default(cuid())
+  ip        String    @unique
+  attempts  Int       @default(0)
+  lockUntil DateTime?
+  updatedAt DateTime  @updatedAt
+}
+
+model SecureAudio {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileName    String
+  fileSize    Int
+  mimeType    String
+  storagePath String
+  iv          String   
+  createdAt   DateTime @default(now())
+}
+
