@@ -211,7 +211,6 @@ export default function RoadmapPage() {
   useEffect(() => {
     const fetchRoadmap = async () => {
       try {
-        // 1. Check if roadmap already exists in DB
         const sessionRes = await fetch(`/api/session/${id}`);
         if (!sessionRes.ok) {
           setData(null);
@@ -221,22 +220,18 @@ export default function RoadmapPage() {
 
         const sessionData = await sessionRes.json();
 
-        // 2. If roadmap already cached in DB, use it
         if (sessionData.roadmap) {
           setData(JSON.parse(sessionData.roadmap));
           setLoading(false);
           return;
         }
 
-        // 3. No roadmap yet - need a real transcript to generate one
         if (!sessionData.transcript) {
-          // Transcript not ready yet, can't generate roadmap
           setData(null);
           setLoading(false);
           return;
         }
 
-        // 4. Generate roadmap using the REAL transcript from this session
         const response = await fetch("/api/roadmap/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

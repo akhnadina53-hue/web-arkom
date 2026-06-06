@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     const { sessionId, ...fastApiBody } = body;
-
+    
     const backendSecret =
       process.env.INTERNAL_API_SECRET || "fren-edu-super-secret-key-2026";
 
@@ -53,7 +53,6 @@ export async function POST(req: Request) {
 
     const data = await backendResponse.json();
 
-    // Save to Database if sessionId is provided
     if (sessionId) {
       try {
         await db.recordingSession.update({
@@ -62,7 +61,6 @@ export async function POST(req: Request) {
         });
       } catch (dbError) {
         console.error("Failed to save roadmap to DB:", dbError);
-        // Continue and return data even if DB save fails
       }
     }
 

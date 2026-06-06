@@ -384,7 +384,7 @@ export default function SessionPage({
               </div>
             </motion.div>
           )}
-
+          
           {/* Error Session State */}
           {!loading && session && session.status === "ERROR" && (
             <motion.div
@@ -431,7 +431,7 @@ function SectionButton({ title, desc, icon, href, color }: any) {
       <div className="glass p-6 rounded-[28px] group-hover:-translate-y-1 transition-all border-slate-200 group-hover:border-slate-300">
         <div
           className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-colors ${colorMap[color]}`}
-        >
+          >
           {icon}
         </div>
         <h3 className="font-bold text-slate-900 mb-1">{title}</h3>
